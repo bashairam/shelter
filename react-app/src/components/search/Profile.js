@@ -11,7 +11,7 @@ function Profile() {
   return (
     <div className="home">
       <div class="container">
-        <h1 className="mt-5">This is a Profilr Title</h1>
+        <h1 className="mt-5">This is a Profile Title</h1>
         <h6 className="mb-5">The profile slug is, {profileSlug}</h6>
         <p>
           Lorem Ipsum is simply dummy text of the printing and typesetting

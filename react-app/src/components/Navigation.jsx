@@ -1,6 +1,7 @@
 
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { NavDropdown } from 'react-bootstrap';
 
 function Navigation() {
   return (
@@ -8,35 +9,29 @@ function Navigation() {
       <nav className="navbar navbar-expand navbar-dark bg-dark">
         <div className="container">
           <NavLink className="navbar-brand" to="/">
-            React Multi-Page Website
+            עמוד הבית
           </NavLink>
           <div>
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
-                <NavLink className="nav-link" to="/">
-                  Home
-                  <span className="sr-only">(current)</span>
-                </NavLink>
-              </li>
-              <li className="nav-item">
                 <NavLink className="nav-link" to="/search">
-                  Search
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/user">
-                  User
+                  חיפוש
                 </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/add">
-                  Add
+                  הוספת צעיר
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/login">
-                  Log In
-                </NavLink>
+              <li className="nav-item"> 
+                <NavDropdown title="איזור אישי" id="collasible-nav-dropdown">
+                <NavDropdown.Item href="#action/3.1"><NavLink to="/user">
+                  עדכון פרטים אישיים
+                </NavLink></NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2"><NavLink to="/login">
+                  יציאה
+                </NavLink></NavDropdown.Item>
+                </NavDropdown>
               </li>
             </ul>
           </div>

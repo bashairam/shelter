@@ -9,6 +9,7 @@ import {
   Search,
   Add,
   User,
+  Login,
   Profiles,
   Profile,
 } from "./components";
@@ -20,6 +21,7 @@ ReactDOM.render(
       <Route path="/" element={<Home />} />
       <Route path="/add" element={<Add />} />
       <Route path="/user" element={<User />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/search" element={<Search />}>
         <Route path="" element={<Profiles />} />
         <Route path=":profileSlug" element={<Profile />} />

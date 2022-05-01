@@ -5,7 +5,7 @@ function Profiles() {
   return (
     <div className="home">
       <div class="container">
-        <Link to="/search/this-is-a-post-title">
+        <Link to="/search/this-is-a-profile-title">
           <div class="row align-items-center my-5">
             <div class="col-lg-7">
               <img

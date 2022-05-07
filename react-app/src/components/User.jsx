@@ -1,21 +1,24 @@
 import React from "react";
-
+import "./User.css"
 function User() {
   return (
     <div className="user">
-      <div class="container">
-        <div class="row align-items-center my-5">
-          <div class="col-lg-5">
-            <h1 class="font-weight-light">עדכון פרטים אישיים</h1>
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.
-            </p>
-          </div>
-        </div>
-      </div>
+    <form>
+       <input className="input"></input>  <a className="text">שם פרטי</a> 
+        <br></br>
+        <br></br>
+        <input className="input"></input> <a className ="text">שם משפחה </a> 
+        <br></br>
+        <br></br>
+        <input className="input"></input> <a className ="text"> כתובת </a> 
+         <br></br>
+         <br></br>
+         <input className="input"></input> <a className ="text"> נייד  </a>
+         <br></br>
+         <br></br>
+         <button>שמירה</button>
+
+    </form>
     </div>
   );
 }

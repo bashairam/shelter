@@ -1,13 +1,15 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+//import { Outlet } from "react-router-dom";
+import { FirebaseApp } from "firebase/app";
 
-function Search() {
+function Search({place, data}) {
   return (
-    <div className="home">
-      <div class="container">
-        <h1 className="text-center mt-5">Search page</h1>
-        <Outlet />
+    <div className="search">
+      <div class="searchInputs">
+        <input type="text" placeholder="...חיפוש" />
+        <div className="searchIcon"></div>
       </div>
+      <div className="dataResult"></div>
     </div>
   );
 }

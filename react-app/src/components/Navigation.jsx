@@ -1,7 +1,9 @@
 
-import React from "react";
+import logo from './logo.png';
 import { NavLink } from "react-router-dom";
 import { NavDropdown } from 'react-bootstrap';
+import { MDBCol, MDBFormInline, MDBIcon } from "mdbreact";
+
 
 function Navigation() {
   return (
@@ -9,7 +11,7 @@ function Navigation() {
       <nav className="navbar navbar-expand navbar-dark bg-dark">
         <div className="container">
           <NavLink className="navbar-brand" to="/">
-            דף הבית
+           <img src={logo} height="70" width="200" alt="logo" /> 
           </NavLink>
           <div>
             <ul className="navbar-nav ml-auto">
@@ -25,10 +27,10 @@ function Navigation() {
               </li>
               <li className="nav-item"> 
                 <NavDropdown title="איזור אישי" id="collasible-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1"><NavLink to="/user">
+                <NavDropdown.Item href="#action/2.1"><NavLink to="/user">
                   עדכון פרטים אישיים
                 </NavLink></NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2"><NavLink to="/login">
+                <NavDropdown.Item href="#action/2.2"><NavLink to="/login">
                   יציאה
                 </NavLink></NavDropdown.Item>
                 </NavDropdown>

@@ -24,9 +24,5 @@ const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
 const auth = getAuth(app);
 
-<<<<<<< HEAD
-export default {firestore,app ,auth}
-=======
-export default {firestore,app,auth};
 
->>>>>>> 30a8e3d55c01c20abe0b4a860e860058f84b18c2
+export default {firestore,app ,auth}

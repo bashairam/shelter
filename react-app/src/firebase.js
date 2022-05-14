@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+// import { getAuth } from "firebase/auth";
+import { getFirestore, collection, getDocs, setDoc, doc } from 'firebase/firestore/lite';
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -14,11 +14,31 @@ const firebaseConfig = {
   projectId: "hamakum-40448",
   storageBucket: "hamakum-40448.appspot.com",
   messagingSenderId: "667623969335",
-  appId: "1:667623969335:web:ef5fe7ebc581146940e5b2",
-  measurementId: "G-44FK0H3CZG"
+  appId: "1:667623969335:web:97e4c870aaaa59b740e5b2",
+  measurementId: "G-RC8GW42M1D"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
-const auth = getAuth(app);
+// const auth = getAuth(app);
+
+async function getDetailsUserById(userId) {
+  let userJson = {};
+  const users = collection(firestore, 'users');
+  const usersSnapshot = await getDocs(users);
+  usersSnapshot.docs.map((doc) => {
+    if (doc.id === userId) {
+      userJson = doc.data();
+    }
+  });
+
+  return userJson;
+}
+async function updateDetailsUserById(userId,userJson) {
+  await setDoc(doc(firestore, "users", userId), { "fname": userJson.fname, "lname": userJson.lname, "address": userJson.address, "phoneNumber": userJson.phoneNumber });
+
+
+}
+
+export { getDetailsUserById, updateDetailsUserById }

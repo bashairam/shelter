@@ -1,17 +1,21 @@
-import React from "react";
-//import { Outlet } from "react-router-dom";
-import { FirebaseApp } from "firebase/app";
+import React, {Component} from "react";
 
-function Search({place, data}) {
-  return (
-    <div className="search">
-      <div class="searchInputs">
-        <input type="text" placeholder="...חיפוש" />
-        <div className="searchIcon"></div>
-      </div>
-      <div className="dataResult"></div>
-    </div>
-  );
+
+class Search extends Component {
+
+    state= {
+      homeless: null
+    }
+
+    componentDidMount(){
+      console.log('akak')
+    }
+
+    render(){
+      return(
+        <div className= "Search" >
+          <h1>search</h1>
+        </div>
+      )
+    }
 }
-
-export default Search;

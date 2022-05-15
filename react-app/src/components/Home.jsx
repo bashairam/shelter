@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 import Read from './Read';
 // import {
 //   MDBTabs,
@@ -11,7 +11,7 @@ import {Container,Row,Tab,Tabs} from 'react-bootstrap';
 import './home.css'
 
 function Home() {
-  const [activeKey, setActiveKey] = useState(1)
+  // const [activeKey, setActiveKey] = useState(1)
   
   return (
     <div className="home ">

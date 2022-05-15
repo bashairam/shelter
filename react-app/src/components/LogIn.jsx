@@ -63,7 +63,7 @@ const LogIn = () => {
         </button>
       </div>
       <p className="forgot-password text-right">
-         <a href="#">? שכחת את הסיסמא</a>
+         <a href="./login">? שכחת את הסיסמא</a>
       </p>
     </form>
       </div>

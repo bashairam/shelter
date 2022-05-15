@@ -1,0 +1,15 @@
+.nav-pills .nav-link{
+      border-radius: 0;
+      color: black;
+      background-color: #dddddd;
+      
+}
+.nav.nav-pills .nav-link.active {
+    background-color: #343741
+}
+.nav-pills .nav-item:not(:nth-last-child(1)).nav-link{
+    border-right:1px solid white;
+}
+.tab-content{
+    background-color: #f9fafb;
+}

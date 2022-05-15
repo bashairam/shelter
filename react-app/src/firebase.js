@@ -15,13 +15,17 @@ const firebaseConfig = {
   storageBucket: "hamakum-40448.appspot.com",
   messagingSenderId: "667623969335",
   appId: "1:667623969335:web:ef5fe7ebc581146940e5b2",
-  measurementId: "G-44FK0H3CZG"
+  measurementId: "G-RC8GW42M1D"
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const firestore = getFirestore(app);
-const auth = getAuth(app);
+ const app = initializeApp(firebaseConfig);
+ export const firestore = getFirestore(app);
+ export const auth = getAuth(app);
 
-export default {firestore,app,auth};
+// export  {firestore,app,auth};
 
+ //export const auth = getAuth();
+//export const db = getDatabase(app);
+// const app = initializeApp(firebaseConfig);
+export default app;

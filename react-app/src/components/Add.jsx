@@ -14,22 +14,16 @@ this.state = {}
    
    const handleChange = event => {};
 
+ 
    const handleSubmit = (e) => {
 
-   };
-
+  };
+  
    return (
   <div className="Add">
     <p><h1 className="text-center mt-5"> טופס קליטת צעיר, היכרות ראשונית</h1></p>
     <div>
       <div class="col align-items-center my-5">
-        <div class="col-sm-7">
-          <img
-            class="img-fluid rounded mb-4 mb-lg-0"
-            src="http://placehold.it/900x400"
-            alt=""
-          />
-        </div>
         <div class="formAdd">
           <form onSubmit={handleSubmit}>
             <div class="form-group">

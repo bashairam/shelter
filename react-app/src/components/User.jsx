@@ -108,7 +108,7 @@ class User extends React.Component {
             <span> </span>
             :נייד
           </label>
-          <input className="btnSubmit" type="submit" value="עדכון" disabled={this.isClicked} />
+          <input style={{backgroundColor: '#343741', borderColor : '#343741', color : '#ffff' }}className="btnSubmit" type="submit" value="עדכון" disabled={this.isClicked} />
         </form>
       </div>
     );

@@ -2,10 +2,10 @@
 function Home() {
   return (
     <div className="home">
-      <div class="container">
-        <div class="row align-items-center my-5">
-          <div class="col-lg-5">
-            <h1 class="font-weight-light">Home</h1>
+      <div className="container">
+        <div className="row align-items-center my-5">
+          <div className="col-lg-5">
+            <h1 className="font-weight-light">Home</h1>
             <p>
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industry's standard dummy text

@@ -2,7 +2,6 @@
 import logo from './logo.png';
 import { NavLink } from "react-router-dom";
 import { NavDropdown } from 'react-bootstrap';
-import { MDBCol, MDBFormInline, MDBIcon } from "mdbreact";
 
 
 function Navigation() {
@@ -27,7 +26,7 @@ function Navigation() {
               </li>
               <li className="nav-item"> 
                 <NavDropdown title="איזור אישי" id="collasible-nav-dropdown">
-                <NavDropdown.Item href="#action/2.1"><NavLink to="/user">
+                <NavDropdown.Item class="text-end" href="#action/2.1"><NavLink to="/user">
                   עדכון פרטים אישיים
                 </NavLink></NavDropdown.Item>
                 <NavDropdown.Item href="#action/2.2"><NavLink to="/login">

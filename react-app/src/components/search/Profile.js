@@ -5,7 +5,7 @@ function Profile() {
   let { profileSlug } = useParams();
 
   useEffect(() => {
-    // Fetch profile using the profileSlug
+    // Fetch profile using the profileID
   }, [profileSlug]);
 
   return (

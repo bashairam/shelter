@@ -24,16 +24,14 @@ const firebaseConfig = {
  export const firestore = getFirestore(app);
  export const auth = getAuth(app);
 
-<<<<<<< HEAD
 
 export default {firestore,app ,auth}
-=======
 // export  {firestore,app,auth};
 
  //export const auth = getAuth();
 //export const db = getDatabase(app);
 // const app = initializeApp(firebaseConfig);
-export default app;
+
 // const auth = getAuth(app);
 
 async function getDetailsUserById(userId) {
@@ -55,4 +53,3 @@ async function updateDetailsUserById(userId,userJson) {
 }
 
 export { getDetailsUserById, updateDetailsUserById }
->>>>>>> 86004ccd1e80b365c95a8790faf32f7eb4eb31ad

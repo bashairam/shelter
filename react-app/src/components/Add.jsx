@@ -1,9 +1,9 @@
 
 import { async } from '@firebase/util';
-import {collection,addDoc} from 'firebase/firestore/lite';
+import {collection,addDoc} from 'firebase/firestore';
 import React, { Component } from 'react';
 import { useState , useEffect} from 'react';
-import {db} from '../firebase';
+import {firestore} from '../firebase';
 import "./Add.css";
 
 function Add (){
@@ -21,7 +21,7 @@ function Add (){
   const [NewHes, setNewHes] = useState("");
   const [checked,setChecked]=useState(false);
 
-  const usersCollectionRef = collection(db, "homelesses");
+  const usersCollectionRef  = collection(firestore, "homelesses");
 
   const createUser = async () => {
     await addDoc(usersCollectionRef, { name: newName, age: Number(newAge), date: NewDate , time: NewTime, ID: NewID, Tel: NewTel, Address: NewAddr, background: NewBack, WhereHeHasSlept: NewHow, ReasonForAsylum: NewWhy, contact: NewMas, TherapeuticHistory: NewHes  });
@@ -29,7 +29,7 @@ function Add (){
 
   return (
     <div className="Add">
-   <p><h1 className="text-center mt-5"> טופס קליטת צעיר, היכרות ראשונית</h1></p>
+   <h1 className="text-center mt-5"> טופס קליטת צעיר, היכרות ראשונית</h1>
    <br /><br />
       <h6>תאריך</h6>
       <input
@@ -106,61 +106,8 @@ function Add (){
         }}
       />
       <div className="button"><button style={{backgroundColor: '#343741', borderColor : '#343741', color : '#ffff' }}  onClick={createUser}>הוספה</button></div>
-      <br /><br />
-      <br /><br />
-      <br /><br />
-      <br /><br />
-      <table id = "Table">
-          <tr>
-            <th>שלב לדוגמא</th>
-            <th></th>
-            <th>V</th>
-          </tr>
-          <tr>
-            <td>מילוי טופס קליטה עם הצעיר, מחוץ לשלטר. בבקשה למלא את הטופס במלואו, ובמידה ואין מה למלא</td>
-            <td></td>
-            <td><input type="checkbox" onChange={(event) => {
-          setChecked(event.target.value);
-        }}  />
-            </td>
-          </tr>
-          <tr>
-            <td>לדאוג שהצעיר קורא את הנהלים וחותם עליהם</td>
-            <td></td>
-            <td><input type="checkbox" defaultChecked={checked}  />
-            </td>
-          </tr>
-          <tr>
-            <td> תזכורת לצעיר שהקבלה היא ללילה ולמחרת תתקיים שיחה עם הצוות המוביל לגבי ההמשך</td>
-            <td></td>
-            <td><input type="checkbox" defaultChecked={checked}  />
-            </td>
-          </tr>
-          <tr>
-            <td>דיווח לכונן טלפונית + שליחת הטופס</td>
-            <td></td>
-            <td><input type="checkbox" defaultChecked={checked}  />
-            </td>
-          </tr>
-          <tr>
-            <td>חיפוש בכל מה שהצעיר הביא איתו ונעילת תרופות בחדר עו"ס-רכז במידת הצורך</td>
-            <td></td>
-            <td><input type="checkbox" defaultChecked={checked} />
-            </td>
-          </tr>
-          <tr>
-            <td>צילום ת.ז. במכונת צילום</td>
-            <td></td>
-            <td><input type="checkbox" defaultChecked={checked}  />
-            </td>
-          </tr>
-          <tr>
-            <td>ללוות את הצעיר לחדר ולראות שהוא מסדר את המצעים והמיטה</td>
-            <td></td>
-            <td><input type="checkbox" defaultChecked={checked}  />
-            </td>
-          </tr>
-        </table>
+
+      
     </div>
   );
 }

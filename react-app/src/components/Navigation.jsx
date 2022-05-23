@@ -1,6 +1,6 @@
 
 import logo from './logo.png';
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { NavDropdown } from 'react-bootstrap';
 
 
@@ -13,12 +13,12 @@ function Navigation() {
             <ul className="navbar-nav">
               <li className="nav-item"> 
                   <NavDropdown title="איזור אישי" id="collasible-nav-dropdown">
-                  <NavDropdown.Item class="text-end" href="#action/2.1"><NavLink to="/user">
-                    עדכון פרטים אישיים
-                  </NavLink></NavDropdown.Item>
-                  <NavDropdown.Item href="#action/2.2"><NavLink to="/login">
-                    יציאה
-                  </NavLink></NavDropdown.Item>
+                  <NavDropdown.Item className="text-end">
+                  <Link  to="/user" >עדכון פרטים אישיים</Link>
+                  </NavDropdown.Item>
+                  <NavDropdown.Item >
+                    <Link to="/login" > יציאה</Link>
+                  </NavDropdown.Item>
                   </NavDropdown>
                 </li>
               <li className="nav-item">

@@ -48,7 +48,7 @@ const Stages = () => {
 
             {
                 Object.keys(stages).map((stage) => (
-                    <Frame i={stage}
+                    <Frame key={stage} i={stage}
                         names = {stages[stage].map(hmls=>{{return hmls.id}})}
                         hmlsLists={hmlsLists}
                         />
@@ -62,12 +62,12 @@ const Stages = () => {
 }
 
 // Define how each display entry will be structured
-const Frame = ({ i,names,hmlsLists}) => {
+const Frame = ({i,names,hmlsLists}) => {
     return (
         <center>
             <div style={{ backgroundColor:'#dddddd',float: 'right', margin: '10px', width: '30%',minHeight:'150px', border: '1px #dddddd solid'}}>
                 <h3 style={{ backgroundColor:'#343741', color : '#dddddd'}}>שלב {i}</h3>
-                {names.map(id=>{return <Link to = "/profile" >{hmlsLists.find( (homls ) => homls.id === id ).name}</Link>})}
+                {names.map(id=>{return <Link to = "/profile"  key={id}>{hmlsLists.find( (homls ) => homls.id === id ).name}</Link>})}
 
 
             </div>

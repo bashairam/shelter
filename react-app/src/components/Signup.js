@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { auth, firestore } from "../firebase";
+import { auth, db } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { ref, set } from "firebase/database";
@@ -16,7 +16,7 @@ const SignUp = () => {
     function onRegister() {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          set(ref(firestore, "users/" + userCredential.user.uid), {
+          set(ref(db, "users/" + userCredential.user.uid), {
             firstName: firstName,
             lastName: lastName,
             email: email,

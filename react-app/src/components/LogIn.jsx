@@ -52,7 +52,7 @@ const LogIn = () => {
           </label>
           <input
             type="checkbox"
-            className="custom-control-input"
+            className="custom-control-input ml-5"
             id="customCheck1"
           />
         </div>

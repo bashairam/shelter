@@ -1,5 +1,12 @@
+<<<<<<< HEAD
+import logo from './logo.svg';
+import './App.css';
+import Search from './components/search/Search';
+
+=======
 // import logo from './logo.svg';
 // import './App.css';
+>>>>>>> 86004ccd1e80b365c95a8790faf32f7eb4eb31ad
 
 // function App() {
 //   return (

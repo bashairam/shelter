@@ -1,17 +1,11 @@
-// import React, { useState } from 'react';
-import Read from './Read';
-// import {
-//   MDBTabs,
-//   MDBTabsItem,
-//   MDBTabsLink,
-//   MDBTabsContent,
-//   MDBTabsPane
-// } from 'mdb-react-ui-kit';
+import React, { useEffect,useState } from 'react';
+import Rooms from './Rooms';
 import {Container,Row,Tab,Tabs} from 'react-bootstrap';
 import './home.css'
+import Stages from './Stages';
 
 function Home() {
-  // const [activeKey, setActiveKey] = useState(1)
+  
   
   return (
     <div className="home ">
@@ -21,12 +15,12 @@ function Home() {
             <Container className = "py-4">
               <Row className='justify-content-center'>
                 <Tabs justify variant='pills' defaultActiveKey="tab-1" className='mb-1 p-0' >
-                  <Tab eventKey="tab-1" title="חדרים">
-                    <Read></Read>
-                  </Tab>
                   <Tab eventKey="tab-2" title="שלבים" >
-                    tab 2 content
+                  <Stages></Stages>
                   </Tab> 
+                  <Tab eventKey="tab-1" title="חדרים">
+                    <Rooms></Rooms>
+                  </Tab>
                 </Tabs>
               </Row>  
             </Container>

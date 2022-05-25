@@ -18,9 +18,10 @@ function Add (){
   const [NewTime, setNewtime] = useState(0);
   const [NewID, setNewID] = useState(0);
   const [NewTel, setNewTel] = useState(0);
+  //const [NewContTel, setNewContTel] = useState(0);
   const [NewAddr, setNewAddr] = useState("");
   const [NewBack, setNewBack] = useState("");
-  const [NewContTel, setNewcomtTel] = useState(0);
+ // const [NewContTel, setNewcomtTel] = useState(0);
   const [NewcriHis, setNewcriHis] =useState(false);
 
   const [NewHow, setNewHow] = useState("");
@@ -52,12 +53,13 @@ function Add (){
 
 
   return (
-    <div className="Add">
-   <p><h1 className="text-center mt-5"> טופס קליטת צעיר, היכרות ראשונית</h1></p>
+    <div  className="Add">
+   <h1 className="text-center mt-5"> טופס קליטת צעיר, היכרות ראשונית</h1>
    <br /><br />
    <form onSubmit={(e)=>e.preventDefault()}>
       <h6>תאריך</h6>
       <input
+        style={{width : '100%'}}
         type="date"
         onChange={(event) => {
           setNewDate(event.target.value);
@@ -106,6 +108,7 @@ function Add (){
       <br /><br />
       <h6>כתובת</h6>
         <input
+        style={{width : '100%'}}
         onChange={(event) => {
           setNewAddr(event.target.value);
         }}

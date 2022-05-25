@@ -1,20 +1,22 @@
 .table-t td , .table-t th{
-    background-color: #ddf7f3;
+    background-color: #343741;
+    color: white;
     margin-right: 510px;
+    border: none;
    
 }
 
 
 .table-t td ,.table-t tbody{
-    background-color:#935fa3 ;
-    color: #ffff;
+    background-color:#dddddd ;
+    color: #343741;
    
   
 }
 
 .ser-design{
-    background-color: rgb(197, 236, 248);  
-color: black;  
+    background-color: #343741;  
+color: white;  
 font-size: 20px;  
 margin: auto;  
 }

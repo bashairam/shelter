@@ -20,20 +20,20 @@ const firebaseConfig = {
 
 // Initialize Firebase
  const app = initializeApp(firebaseConfig);
- export const db = getFirestore(app);
+ export const firestore = getFirestore(app);
  export const auth = getAuth(app);
 
 // export  {firestore,app,auth};
 
  //export const auth = getAuth();
-//export const db = getDatabase(app);
+//export const firestore = getDatabase(app);
 // const app = initializeApp(firebaseConfig);
-export default {db , app, auth};
+export default {firestore , app, auth};
 // const auth = getAuth(app);
 
 async function getDetailsUserById(userId) {
   let userJson = {};
-  const users = collection(db, 'users');
+  const users = collection(firestore, 'users');
   const usersSnapshot = await getDocs(users);
   usersSnapshot.docs.map((doc) => {
     if (doc.id === userId) {
@@ -44,7 +44,7 @@ async function getDetailsUserById(userId) {
   return userJson;
 }
 async function updateDetailsUserById(userId,userJson) {
-  await setDoc(doc(db, "users", userId), { "fname": userJson.fname, "lname": userJson.lname, "address": userJson.address, "phoneNumber": userJson.phoneNumber });
+  await setDoc(doc(firestore, "users", userId), { "fname": userJson.fname, "lname": userJson.lname, "address": userJson.address, "phoneNumber": userJson.phoneNumber });
 
 
 }

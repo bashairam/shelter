@@ -1,13 +1,15 @@
-
 import { async } from '@firebase/util';
-import {collection,addDoc, getDocs, doc,setDoc, Timestamp} from 'firebase/firestore/lite';
+import {collection,addDoc, getDocs, doc,setDoc, Timestamp} from 'firebase/firestore';
 import React, { Component } from 'react';
 import { useState , useEffect} from 'react';
 import { alignPropType } from 'react-bootstrap/esm/types';
 import {firestore} from '../firebase';
+
 import "./Add.css";
 
-  function refreshPage() {
+
+
+function refreshPage() {
     window.location.reload(false);
   }
 
@@ -15,223 +17,223 @@ function Add (){
   const [newName, setNewName] = useState("");
   const [newAge, setNewAge] = useState(0);
   const [NewDate, setNewDate] = useState(0);
-  const [NewTime, setNewtime] = useState(0);
   const [NewID, setNewID] = useState(0);
-  const [NewTel, setNewTel] = useState(0);
-  //const [NewContTel, setNewContTel] = useState(0);
+  const [NewTel, setNewTel] = useState("");
+  const [NewContTel, setNewContTel] = useState("0");
   const [NewAddr, setNewAddr] = useState("");
-  const [NewBack, setNewBack] = useState("");
- // const [NewContTel, setNewcomtTel] = useState(0);
-  const [NewcriHis, setNewcriHis] =useState(false);
-
-  const [NewHow, setNewHow] = useState("");
   const [NewWhy, setNewWhy] = useState("");
-  const [NewMas, setNewMas] = useState("");
-  const [NewHes, setNewHes] = useState("");
-  const [checked,setChecked]=useState(false);
+  const[newformFiller,setNewValue]=useState("")
 
-  const usersCollectionRef = collection(firestore, "history");
+  const [NewBack, setNewBack] = useState("");
+  const [NewHis, setNewHis] = useState("");
+  const [NewcriHis, setNewcriHis] =useState("");
+  const [NewPsyHis, setNewPsyHis] =useState("");
+  const [NewaddHis, setNewaddHis] =useState("");// addiction
+  const [Newinstitutions, setNewinstitutions] = useState("");//institution
+  const [NewHow, setNewHow] = useState("");//institution
+  //const [NewTime, setNewTime] = useState(0);
+
+  const [checked,setChecked]=useState(false);
+  //const [NewcriHis, setNewcriHis] =useState(false);
+  //const usersCollectionRef = collection(firestore, "history");
 
 
   const createUser = async () => {
     await setDoc(doc(firestore, "homelesses",NewID ), {
      name: newName,
      age: Number (newAge),
-     date: Timestamp.fromDate(new Date(NewDate)),
+     date: Timestamp.fromDate(new Date() ),
      personalPhone : Number(NewTel),
-     cntactPhone : Number(NewMas),
-     formFillerId: 0,
+     cntactPhone : Number(NewContTel),
+     formFiller: newformFiller,
      parentsAssress:NewAddr,
-     referrerId:NewID
+     referrer:NewWhy,
    });
-   await addDoc(usersCollectionRef, { background: NewBack,  
-    psycoticPast: NewHes, criminalRecord:NewcriHis });
 
-   refreshPage()
+   await setDoc(doc(firestore, "history",NewID ), { 
+     background: NewBack,  
+     psycoticPast: NewPsyHis, 
+     criminalRecord:NewcriHis
+     });
 
+    refreshPage()
  };
 
-
   return (
-    <div  className="Add">
-   <h1 className="text-center mt-5"> טופס קליטת צעיר, היכרות ראשונית</h1>
-   <br /><br />
-   <form onSubmit={(e)=>e.preventDefault()}>
+  <div  className="Add">
+    <h1 className="text-center mt-5"> טופס קליטת צעיר, היכרות ראשונית</h1>
+    <br /><br />
+    <form onSubmit={(e)=>e.preventDefault()}>
+
+
+
+
+
+
+
+
+
+
+
       <h6>תאריך</h6>
       <input
         style={{width : '100%'}}
         type="date"
         onChange={(event) => {
           setNewDate(event.target.value);
-        }}
-      />
+        }} />
       <br /><br />
+
       <h6>שעת הגעה</h6>
       <input
-        type="time"
-        onChange={(event) => {
-          setNewtime(event.target.value);
-        }}
-      />
+       style={{width : '100%'}}
+       type="time" />
       <br /><br />
+
       <h6>(כולל משפחה)שם</h6>
       <input
       type="text"
-        onChange={(event) => {
+      style={{width : '100%'}}
+      onChange={(event) => {
           setNewName(event.target.value);
-        }}
-      />
+        }} />
       <br /><br />
+
       <h6>גיל</h6>
         <input
         type="number"
+        style={{width : '100%'}}
         onChange={(event) => {
           setNewAge(event.target.value);
-        }}
-      />
+        }} />
       <br /><br />
+
       <h6>ת"ז</h6>
         <input
-        type="number"
+        style={{width : '100%'}}
+        maxlength="9"
         onChange={(event) => {
           setNewID(event.target.value);
-        }}
-      />
+        }} />
       <br /><br />
+
       <h6>טלפון</h6>
         <input
-        type="tel"
+        style={{width : '100%'}}
+        maxlength="10"
         onChange={(event) => {
           setNewTel(event.target.value);
-        }}
-      />
+        }} />
       <br /><br />
+
       <h6>כתובת</h6>
         <input
         style={{width : '100%'}}
         onChange={(event) => {
           setNewAddr(event.target.value);
-        }}
-      />
+        }} />
       <br /><br />
+
       <h6>?רקע- מה הצעיר מספר על עצמו? מדוע הגיע לשלטר</h6>
       <textarea rows="5" 
-                 onChange={(event) => {
-          setNewBack(event.target.value);
-        }}> </textarea>
+                onChange={(event) => {
+                  setNewBack(event.target.value); }}> </textarea>
       <br /><br />
- <h6>?(היכן ישן בימים האחרונים) מחוסר קורת גג</h6>
+
+      <h6>?(היכן ישן בימים האחרונים) מחוסר קורת גג</h6>
         <input
+        style={{width : '100%'}}
         onChange={(event) => {
           setNewHow(event.target.value);
-        }}
-      />
+        }} />
       <br /><br />
+
        <h6>גורם מפנה / פנייה עצמאית</h6>
         <input
+        style={{width : '100%'}}
         onChange={(event) => {
           setNewWhy(event.target.value);
-        }}
-      />
+        }} />
       <br /><br />
-       <h6>(אם יש) איש קשר / גורם מלווה בקהילה</h6>
+
+       <h6>(אם יש) טלפון איש קשר / גורם מלווה בקהילה</h6>
         <input
+        style={{width : '100%'}}
+        maxlength="10"
         onChange={(event) => {
-          setNewMas(event.target.value);
-        }}
-      />
+          setNewContTel(event.target.value);
+        }} />
         <br /><br />
-       <h6>האם יש עבר פלילי:</h6>
-        <input
-        type="checkbox" onChange={(event) => {
-          setNewcriHis(event.target.value);
-        }}  
-        
-      />
-      <br /><br />
+       
        <h6>היסטוריה טיפולית</h6>
-       <textarea rows="7" 
+       <textarea rows="5" 
                  cols = "70"  
                  onChange={(event) => {
-          setNewHes(event.target.value);
-        }}> </textarea><input type="file" />
-      <br /><br />
-      <p><h4> :בדיקת כל השלבים </h4></p>
+                   setNewHis(event.target.value);}}> </textarea>
+       <br /><br /> 
 
-      <table id = "Table">
-          <tr>
-            <th>שלב לדוגמא</th>
-            <th></th>
-            <th>V</th>
-          </tr>
-          <tr>
-            <td>מילוי טופס קליטה עם הצעיר, מחוץ לשלטר. בבקשה למלא את הטופס במלואו, ובמידה ואין מה למלא</td>
-            <td></td>
-            <td><input type="checkbox" onChange={(event) => {
-          setChecked(event.target.value);
-        }}  />
-            </td>
-          </tr>
-          <tr>
-            <td>לדאוג שהצעיר קורא את הנהלים וחותם עליהם</td>
-            <td></td>
-            <td><input type="checkbox" defaultChecked={checked}  />
-            </td>
-          </tr>
-          <tr>
-            <td> תזכורת לצעיר שהקבלה היא ללילה ולמחרת תתקיים שיחה עם הצוות המוביל לגבי ההמשך</td>
-            <td></td>
-            <td><input type="checkbox" defaultChecked={checked}  />
-            </td>
-          </tr>
-          <tr>
-            <td>דיווח לכונן טלפונית + שליחת הטופס</td>
-            <td></td>
-            <td><input type="checkbox" defaultChecked={checked}  />
-            </td>
-          </tr>
-          <tr>
-            <td>חיפוש בכל מה שהצעיר הביא איתו ונעילת תרופות בחדר עו"ס-רכז במידת הצורך</td>
-            <td></td>
-            <td><input type="checkbox" defaultChecked={checked} />
-            </td>
-          </tr>
-          <tr>
-            <td>צילום ת.ז. במכונת צילום</td>
-            <td></td>
-            <td><input type="checkbox" defaultChecked={checked}  />
-            </td>
-          </tr>
-          <tr>
-            <td>ללוות את הצעיר לחדר ולראות שהוא מסדר את המצעים והמיטה</td>
-            <td></td>
-            <td><input type="checkbox" defaultChecked={checked}  />
-            </td>
-          </tr>
-        </table>
+       <h6>(אם כן פרט) :האם יש עבר פלילי              
+       <input
+        type="checkbox" 
+        onChange={(event) => {
+          setNewcriHis(event.target.value);
+        }}  /> </h6>
+       <textarea rows="5" 
+                 cols = "70"  
+                 name="locationId"
+                 onChange={(event) => {
+                   setNewcriHis(event.target.value);}}> </textarea>
+          
+      <br /><br />
+
+
+       <h6> (אם כן פרט) :האם יש אבחנה או עבר פסיכוט  
+       <input
+        type="checkbox" id='check'
+        onChange={(event) => {
+          setNewPsyHis(event.target.value);
+        }}  
+      />    
+     </h6>
+       <textarea rows="5" 
+                 cols = "70"  
+                 onChange={(event) => {
+                  setNewPsyHis(event.target.value);}}> </textarea>
         <br /><br />
+
+       <h6>      האם יש התמכרות פעילה או עבר של התמכרות
+       <input
+        type="checkbox" name="IsSeries" id="IsSeries"  onclick="checkMe()"
+        onChange={(event) => {
+          setNewaddHis(event.target.value);
+        }}  
+      />   
+  </h6>
+       <textarea rows="5" 
+                 cols = "70"  
+                 onChange={(event) => {
+                  setNewaddHis(event.target.value); }}> </textarea>
+        <br /><br />
+
+        <h6> מוסדות בולטים בעבר</h6> 
+         <input
+            style={{width : '100%'}}
+            onChange={(event) => {
+              setNewinstitutions(event.target.value); }} />
+        <br /><br />
+
+      
         <br /><br />
 
         <h6>ממלא הטופס</h6>
-        <select className="select" >
-          <option >1</option>
-          <option >2</option>
-          <option >3</option>
-          <option >4</option>
-          <option >5</option>
-          <option >6</option>
-          <option >7</option>
-          <option >8</option>
-          <option >9</option>
-          <option >10</option>
-          <option >11</option>
-          <option >12</option>
-</select> 
-
+        <input className="select" 
+                onChange={(event) => {
+                  setNewValue(event.target.value); }}/>
+        
 
         </form>
-        <button name='button' onClick={createUser}>הוספת הצעיר</button>
 
+        <button name='button' onClick={createUser}>הוספת הצעיר</button>
     </div>
   );
 }

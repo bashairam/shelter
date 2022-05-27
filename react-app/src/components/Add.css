@@ -4,10 +4,13 @@
     border-collapse: collapse;
     width: 100%;
   }
-  #Table td, #Table th {
+  #Table td{
     text-align: right;
     border: 1px solid #ddd;
-    padding: 8px;
+  } 
+  #Table th {
+    text-align: right;
+    border: 1px solid #ddd;
   }
   
   #Table tr:nth-child(even){background-color: #f2f2f2;     text-align: right;
@@ -29,19 +32,14 @@
 .input{
   margin: 50px;
 }
-.text{
+.Add text{
   margin-left: 30px;
 }
 
 .Add{
   text-align: right;
-  margin: 10%;
-  /* border: 1px solid red; */
+  margin: 5%;
   margin-left: 30%;
-  padding: 5vw ;
-  position:relative; 
-  text-align: center;
-  /* position:relative for .prevBtn and .nextBtn position:absolute; */
   text-align: right;
   width: 40%;
   display: inline-block;
@@ -49,21 +47,17 @@
   box-sizing: border-box;
   padding:10px;
   box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
-  justify-content: center;
 }
 
 
 .Add input{
   text-align: right;
-    width: 100%;
     margin: 8px 0;
     display: inline-block;
     border-radius: 4px;
     box-sizing: border-box;
     padding:10px;
     box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
-    justify-content: center;
-   align-items: center;
    right: 40%;
 }
 .Add textarea{
@@ -80,7 +74,7 @@
  right: 40%;
 }
 
-select{
+.Add select{
   margin: 8px 0;
   display: inline-block;
   border-radius: 4px;
@@ -90,20 +84,22 @@ select{
   text-align: right;
 }
 
-button{
+.Add button{
   font-size: 18px;
   font-weight: bold;
   margin: 50px 0 2vh 0;
   text-align: center;
   background-color: #343741;
   color: #ddd;
-    width: 100%;
+    width: 80%;
+    margin-right: 10%;
+
     border-radius: 4px;
     box-sizing: border-box;
-    padding:7px;
+    padding: 5px;
     box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
     justify-content: center;
    align-items: center;
-   padding-top: 5px;
-    padding-bottom: 5px;
+
+
 }

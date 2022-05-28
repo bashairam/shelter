@@ -11,14 +11,23 @@ import { getFirestore } from 'firebase/firestore'
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
+// const firebaseConfig = {
+//   apiKey: "AIzaSyBPybMgk157LDkM49OurqGnu8YX9-K71yk",
+//   authDomain: "hamakum-40448.firebaseapp.com",
+//   projectId: "hamakum-40448",
+//   storageBucket: "hamakum-40448.appspot.com",
+//   messagingSenderId: "667623969335",
+//   appId: "1:667623969335:web:97e4c870aaaa59b740e5b2",
+//   measurementId: "G-RC8GW42M1D"
+// };
 const firebaseConfig = {
-  apiKey: "AIzaSyBPybMgk157LDkM49OurqGnu8YX9-K71yk",
-  authDomain: "hamakum-40448.firebaseapp.com",
-  projectId: "hamakum-40448",
-  storageBucket: "hamakum-40448.appspot.com",
-  messagingSenderId: "667623969335",
-  appId: "1:667623969335:web:97e4c870aaaa59b740e5b2",
-  measurementId: "G-RC8GW42M1D"
+  apiKey: "AIzaSyAk3qjh-k4rHNr0WSQlsS1rEQcF6eINxB8",
+  authDomain: "shelter-dev-5f8d3.firebaseapp.com",
+  projectId: "shelter-dev-5f8d3",
+  storageBucket: "shelter-dev-5f8d3.appspot.com",
+  messagingSenderId: "793157305943",
+  appId: "1:793157305943:web:64e7b7a716b75fe8bec512",
+  measurementId: "G-9ECV48RWQ2"
 };
 
 

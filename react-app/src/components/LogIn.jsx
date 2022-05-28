@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
-
+import './Form.css' 
 
 const LogIn = () => {
   const [email, setEmail] = useState("");
@@ -23,13 +23,12 @@ const LogIn = () => {
   return (
 
     <div className="text-end">
-    <div className="mx-auto" style={{width: '500px'}}>
+    <div className="mx-auto">
       <div className="row align-items-center my-5">
           <h1 className="font-weight-light">כניסה לאיזור האישי</h1>
           <form  onSubmit={handleSubmit}>
       <div className="mb-3">
         <input
-        style={{textAlign: 'right'}}
           type="email"
           onChange={(e) => setEmail(e.target.value)}
           className="form-control"
@@ -38,7 +37,6 @@ const LogIn = () => {
       </div>
       <div className="mb-3">
         <input
-         style={{textAlign: 'right'}}
           type="password"
           onChange={(e) => setPassword(e.target.value)}
           className="form-control"
@@ -58,7 +56,7 @@ const LogIn = () => {
         </div>
       </div>
       <div className="d-grid">
-        <button style={{backgroundColor: '#343741', borderColor : '#343741' }} type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary">
           כניסה
         </button>
       </div>

@@ -9,3 +9,5 @@ export { default as Profile } from "./search/Profile";
 export {default as SignUp} from "./Signup";
 export {default as Rooms} from "./Rooms";
 export {default as Stages} from "./Stages";
+export {default as useFetch} from "./useFetch";
+export {default as Staff} from "./Staff"

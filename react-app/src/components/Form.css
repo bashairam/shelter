@@ -1,0 +1,19 @@
+input{
+    text-align: right;
+    
+}
+select{
+    direction : rtl;
+}
+
+.mx-auto{
+  width: 500px;
+}
+.btn {
+    background-color: #343741;
+     border-color : #343741;
+}
+label{
+    margin: 10px;
+}
+

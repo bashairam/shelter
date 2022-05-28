@@ -6,6 +6,7 @@ import { useState , useEffect} from 'react';
 import { alignPropType } from 'react-bootstrap/esm/types';
 import {firestore} from '../firebase';
 import "./Add.css";
+import { useNavigate } from 'react-router-dom';
 
 function refreshPage() {
     window.location.reload(false);
@@ -65,6 +66,7 @@ function Add (){
     refreshPage()
  };
 
+
   return (
   <div  className="Add">
     <h1 className="text-center mt-5"> טופס קליטת צעיר, היכרות ראשונית</h1>
@@ -73,7 +75,7 @@ function Add (){
 
       <h6>תאריך</h6>
       <input
-        style={{width : '100%'}}
+
         type="date"
         />
       <br /><br />
@@ -123,7 +125,6 @@ function Add (){
 
       <h6>כתובת</h6>
         <input
-        style={{width : '100%'}}
         onChange={(event) => {
           setNewAddr(event.target.value);
         }} />
@@ -137,7 +138,6 @@ function Add (){
 
       <h6>?(היכן ישן בימים האחרונים) מחוסר קורת גג</h6>
         <input
-        style={{width : '100%'}}
         onChange={(event) => {
           setNewHow(event.target.value);
         }} />

@@ -31,6 +31,11 @@ function Navigation() {
                   הוספת צעיר
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/report">
+                  הוספת דו''ח
+                </NavLink>
+              </li>              
              
             </ul>
           </div> 

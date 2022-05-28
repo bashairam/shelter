@@ -14,6 +14,7 @@ import {
   Login,
   Profile,
   SignUp,
+  Report
 } from "./components";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -24,6 +25,8 @@ root.render(
     <Navigation />
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/report" element={<Report />} />
+
       <Route path="/add" element={<Add />} />
       <Route path="/user" element={<User />} />
       <Route path="/login" element={<Login />} />

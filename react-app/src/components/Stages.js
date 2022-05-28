@@ -46,7 +46,7 @@ const Frame = ({i,names,hmlsLists}) => {
                 <div className='cardHead'><h3> {i}</h3></div>
                 <div >
                     {names.map(id=>{return <h5 className='homeles'>
-                    <Link className='homelesLink roww' to = "/profile" key={id} >
+                    <Link className='homelesLink roww' to={`/search/${id}`}  key={id} >
                         {hmlsLists.find( (homls ) => homls.id === id ).name}</Link></h5> })}
                 </div>
             </div>

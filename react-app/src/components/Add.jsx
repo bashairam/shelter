@@ -1,9 +1,7 @@
 import { async } from '@firebase/util';
-import { Alert } from 'bootstrap';
-import {collection,addDoc, getDocs, doc,setDoc, Timestamp} from 'firebase/firestore';
-import React, { Component } from 'react';
-import { useState , useEffect} from 'react';
-import { alignPropType } from 'react-bootstrap/esm/types';
+import {doc,setDoc, Timestamp} from 'firebase/firestore';
+import React from 'react';
+import { useState } from 'react';
 import {firestore} from '../firebase';
 import "./Add.css";
 
@@ -30,7 +28,7 @@ function Add (){
   const [NewHow, setNewHow] = useState("");
   const [checked,setChecked]=useState(false);
   const [NewStage, setNewStage] =useState("");
-  const [NewRoom, setNewRoom] =useState("");
+  const [NewRoom, setNewRoom] =useState(0);
 
   //const usersCollectionRef = collection(firestore, "history");
 
@@ -67,24 +65,11 @@ function Add (){
 
   return (
   <div  className="Add">
-    <h1 className="text-center mt-5"> טופס קליטת צעיר, היכרות ראשונית</h1>
+    <h1 className="text-center mt-5"> טופס קליטת צעיר - היכרות ראשונית</h1>
     <br /><br />
     <form onSubmit={(e)=>e.preventDefault()}>
 
-      <h6>תאריך</h6>
-      <input
-        style={{width : '100%'}}
-        type="date"
-        />
-      <br /><br />
-
-      <h6>שעת הגעה</h6>
-      <input
-       style={{width : '100%'}}
-       type="time" />
-      <br /><br />
-
-      <h6>(כולל משפחה)שם</h6>
+      <h6>(כולל משפחה) שם</h6>
       <input
       type="text"
       style={{width : '100%'}}
@@ -203,18 +188,18 @@ function Add (){
               setNewinstitutions(event.target.value); }} />
         <br /><br />        <br /><br />
 
-        <h6> ?האם ברצונך להכניס הצעיר לשלטר  <input
+        <h6> ?האם ברצונך להכניס את הצעיר לשלטר  <input
         type="checkbox"/></h6>
 
          <select 
                  style={{width : '100%'}}
-              onChange={(e) => setNewStage(e.target.value)}>
-              <option >בחר חדר</option>
-              <option >חדר 1</option>
-              <option >חדר 2</option>
-              <option>חדר 3 </option>
-              <option>חדר 4</option>
-              <option >חדר 5</option>
+              onChange={(e) => setNewRoom(e.target.value)}>
+              <option value= {null} >בחר חדר</option>
+              <option value= {1} >חדר 1</option>
+              <option value={2} >חדר 2</option>
+              <option value={3}>חדר 3 </option>
+              <option value={4}>חדר 4</option>
+              <option value={5} >חדר 5</option>
             </select>
             <br /><br />
 

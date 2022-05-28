@@ -37,28 +37,19 @@
 }
 
 .Add{
+  margin-top: 5%;
+  margin-right: auto;
+  margin-left: auto;
   text-align: right;
-  margin: 5%;
-  margin-left: 30%;
-  text-align: right;
-  width: 40%;
-  display: inline-block;
+  width: 50%;
+  display: block;
   border-radius: 4px;
   box-sizing: border-box;
   padding:10px;
   box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
 }
 
-.Add select{
-  text-align: right;
-  margin: 8px 0;
-  display: inline-block;
-  border-radius: 4px;
-  box-sizing: border-box;
-  padding:10px;
-  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
- right: 40%;
-}
+
 .Add input{
   text-align: right;
     margin: 8px 0;

@@ -1,0 +1,95 @@
+/* .nav-pills .nav-link{
+    border-radius: 0;
+    color: black;
+    background-color: #dddddd;
+    text-align: right;
+    width:4cm;
+    margin-right: auto;
+    float: right ;
+}
+.nav.nav-pills .nav-link.active {
+  background-color: #343741;
+  padding: 0;
+  float: right;
+  position: relative;
+
+}
+.nav-pills .nav-item:not(:nth-last-child(1)).nav-link{
+  border-right:1px solid rgb(187, 26, 26);
+}
+.tab-content{
+  background-color: #1762ad;
+  float: left;
+
+ 
+
+}
+.navbar-nav {
+    margin-right: auto;
+    
+}  */
+/* .info{
+    margin-top: 1cm;
+    float: right;
+    text-align: right;
+    background-color: blue;
+
+} */
+.home{
+    float: right;
+    text-align: right;
+    width: 100%;
+
+    
+}
+.body1{
+    width: 100%;
+}
+.info{
+    margin-top: 1cm;
+    font-family: Georgia, serif;
+}
+.subInfo{
+    font-size: 80px;
+    font-weight: bold;
+}
+.infoDetails{
+    font-size: 30px;
+    margin-left: 1.4cm;
+    float: right;
+  
+}
+.tab_4{
+    margin-top: 6cm;
+    margin-left: 28cm;
+    width: 20%;
+   
+}
+
+#dropdown1 , #dropdown2 , #dropdown3 , #dropdown4{
+    text-align: right;
+    min-width:200px;
+    font-size: 20px;
+    font-weight: bold;
+    display:inline-block;
+    width:100px;
+    position: relative;
+   
+
+  }
+.nav-item{
+    float: right;
+}
+.flex-column{
+
+    margin-top: 10cm;
+    float: right;
+    text-align: right;
+}
+.kk{
+  
+    left: 100cm;
+    width: 80%;
+    margin-top: -5cm;
+    
+}

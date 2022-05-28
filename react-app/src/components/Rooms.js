@@ -45,13 +45,14 @@ const Frame = ({i, names,hmlsLists}) => {
                 <div className='room'>
                     <div className='cardHead'><h4 >חדר {i} </h4></div>
                         <div>{names.map(id=>{return <h5 className='homeles'>
-                            <Link className='homelesLink' to = "/profile" key={id} >
+                            <Link to={`/search/${id}`} className='homelesLink'  key={id} >
                                 {hmlsLists.find( (homls ) => homls.id === id ).name}</Link>
                             </h5>})}</div>
                 </div>            
             </div>
     );
-}
+}//                    <Link to={`/search/${item.id}`}> 
+
 
 export default Rooms;
 

@@ -1,48 +1,40 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
- import { getAuth } from "firebase/auth";
-import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
-import { getFirestore } from 'firebase/firestore'
-
-
+import {  getAuth, onAuthStateChanged } from "firebase/auth";
+import { useEffect, useState } from "react";
+import { getFirestore, collection, getDocs, setDoc, doc } from 'firebase/firestore';
+// import firebase from 'firebase/app';
+// import * as firebase from './firebase';
+// import 'firebase/firestore';
+// import firebase from "firebase/compat/app";
+// import "firebase/compat/firestore";
+// import 'firebase/compat/auth';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-
-// const firebaseConfig = {
-//   apiKey: "AIzaSyBPybMgk157LDkM49OurqGnu8YX9-K71yk",
-//   authDomain: "hamakum-40448.firebaseapp.com",
-//   projectId: "hamakum-40448",
-//   storageBucket: "hamakum-40448.appspot.com",
-//   messagingSenderId: "667623969335",
-//   appId: "1:667623969335:web:97e4c870aaaa59b740e5b2",
-//   measurementId: "G-RC8GW42M1D"
-// };
 const firebaseConfig = {
-  apiKey: "AIzaSyAk3qjh-k4rHNr0WSQlsS1rEQcF6eINxB8",
-  authDomain: "shelter-dev-5f8d3.firebaseapp.com",
-  projectId: "shelter-dev-5f8d3",
-  storageBucket: "shelter-dev-5f8d3.appspot.com",
-  messagingSenderId: "793157305943",
-  appId: "1:793157305943:web:64e7b7a716b75fe8bec512",
-  measurementId: "G-9ECV48RWQ2"
+  apiKey: "AIzaSyBPybMgk157LDkM49OurqGnu8YX9-K71yk",
+  authDomain: "hamakum-40448.firebaseapp.com",
+  projectId: "hamakum-40448",
+  storageBucket: "hamakum-40448.appspot.com",
+  messagingSenderId: "667623969335",
+  appId: "1:667623969335:web:97e4c870aaaa59b740e5b2",
+  measurementId: "G-RC8GW42M1D"
 };
-
 
 // Initialize Firebase
  const app = initializeApp(firebaseConfig);
  export const firestore = getFirestore(app);
  export const auth = getAuth(app);
 
-
 // export  {firestore,app,auth};
 
  //export const auth = getAuth();
-//export const firestore = getDatabase(app);
+//export const db = getDatabase(app);
 // const app = initializeApp(firebaseConfig);
-export default {firestore , app, auth};
+export default app;
 // const auth = getAuth(app);
 
 async function getDetailsUserById(userId) {
@@ -64,3 +56,4 @@ async function updateDetailsUserById(userId,userJson) {
 }
 
 export { getDetailsUserById, updateDetailsUserById }
+

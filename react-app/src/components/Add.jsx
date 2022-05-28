@@ -1,13 +1,11 @@
 import { async } from '@firebase/util';
+import { Alert } from 'bootstrap';
 import {collection,addDoc, getDocs, doc,setDoc, Timestamp} from 'firebase/firestore';
 import React, { Component } from 'react';
 import { useState , useEffect} from 'react';
 import { alignPropType } from 'react-bootstrap/esm/types';
 import {firestore} from '../firebase';
-
 import "./Add.css";
-
-
 
 function refreshPage() {
     window.location.reload(false);
@@ -16,10 +14,9 @@ function refreshPage() {
 function Add (){
   const [newName, setNewName] = useState("");
   const [newAge, setNewAge] = useState(0);
-  const [NewDate, setNewDate] = useState(0);
   const [NewID, setNewID] = useState(0);
   const [NewTel, setNewTel] = useState("");
-  const [NewContTel, setNewContTel] = useState("0");
+  const [NewContTel, setNewContTel] = useState("");
   const [NewAddr, setNewAddr] = useState("");
   const [NewWhy, setNewWhy] = useState("");
   const[newformFiller,setNewValue]=useState("")
@@ -30,12 +27,11 @@ function Add (){
   const [NewPsyHis, setNewPsyHis] =useState("");
   const [NewaddHis, setNewaddHis] =useState("");// addiction
   const [Newinstitutions, setNewinstitutions] = useState("");//institution
-  const [NewHow, setNewHow] = useState("");//institution
-  //const [NewTime, setNewTime] = useState(0);
-
+  const [NewHow, setNewHow] = useState("");
   const [checked,setChecked]=useState(false);
   //const [NewcriHis, setNewcriHis] =useState(false);
   //const usersCollectionRef = collection(firestore, "history");
+
 
 
   const createUser = async () => {
@@ -43,8 +39,8 @@ function Add (){
      name: newName,
      age: Number (newAge),
      date: Timestamp.fromDate(new Date() ),
-     personalPhone : Number(NewTel),
-     cntactPhone : Number(NewContTel),
+     personalPhone : (NewTel),
+     cntactPhone : (NewContTel),
      formFiller: newformFiller,
      parentsAssress:NewAddr,
      referrer:NewWhy,
@@ -52,10 +48,12 @@ function Add (){
 
    await setDoc(doc(firestore, "history",NewID ), { 
      background: NewBack,  
+     Therapeutic_history: NewHis,
      psycoticPast: NewPsyHis, 
-     criminalRecord:NewcriHis
+     criminalRecord:NewcriHis,
+     addiction_History:NewaddHis,
+     Prominent_institutions:Newinstitutions
      });
-
     refreshPage()
  };
 
@@ -65,23 +63,11 @@ function Add (){
     <br /><br />
     <form onSubmit={(e)=>e.preventDefault()}>
 
-
-
-
-
-
-
-
-
-
-
       <h6>תאריך</h6>
       <input
         style={{width : '100%'}}
         type="date"
-        onChange={(event) => {
-          setNewDate(event.target.value);
-        }} />
+        />
       <br /><br />
 
       <h6>שעת הגעה</h6>
@@ -120,6 +106,7 @@ function Add (){
       <h6>טלפון</h6>
         <input
         style={{width : '100%'}}
+        type="number"
         maxlength="10"
         onChange={(event) => {
           setNewTel(event.target.value);
@@ -173,11 +160,7 @@ function Add (){
        <br /><br /> 
 
        <h6>(אם כן פרט) :האם יש עבר פלילי              
-       <input
-        type="checkbox" 
-        onChange={(event) => {
-          setNewcriHis(event.target.value);
-        }}  /> </h6>
+       </h6>
        <textarea rows="5" 
                  cols = "70"  
                  name="locationId"
@@ -188,12 +171,7 @@ function Add (){
 
 
        <h6> (אם כן פרט) :האם יש אבחנה או עבר פסיכוט  
-       <input
-        type="checkbox" id='check'
-        onChange={(event) => {
-          setNewPsyHis(event.target.value);
-        }}  
-      />    
+       
      </h6>
        <textarea rows="5" 
                  cols = "70"  
@@ -202,12 +180,7 @@ function Add (){
         <br /><br />
 
        <h6>      האם יש התמכרות פעילה או עבר של התמכרות
-       <input
-        type="checkbox" name="IsSeries" id="IsSeries"  onclick="checkMe()"
-        onChange={(event) => {
-          setNewaddHis(event.target.value);
-        }}  
-      />   
+       
   </h6>
        <textarea rows="5" 
                  cols = "70"  
@@ -233,7 +206,7 @@ function Add (){
 
         </form>
 
-        <button name='button' onClick={createUser}>הוספת הצעיר</button>
+        <button name='button' onClick={createUser}   >הוספת הצעיר</button>
     </div>
   );
 }

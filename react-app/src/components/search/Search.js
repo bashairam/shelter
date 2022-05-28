@@ -2,9 +2,13 @@ import { collection ,getDocs } from "firebase/firestore";
 import React, {useState , useEffect, useReducer} from "react";
 import {firestore} from "../../firebase"
 import "./Search.css"
+import { Link, Outlet,  useNavigate } from "react-router-dom";
+
 
 
 function Search() {
+  const navigate = useNavigate();
+
   const [homeless, setHomeless] = useState([]);
   const [search, setSearch] = useState("");
   const col = collection(firestore , "homelesses");
@@ -59,7 +63,11 @@ function Search() {
               <tbody>
                 { 
                   homeless.filter((item) => {
-                    const homelessName = item.name.includes(search)
+                    const homelessName = item.name && item.name.includes(search)
+                    const homelessAddress = item.Address && item.Address.includes(search)
+                    const homelessAge = item.age && String(item.age).includes(search)
+                    const homelessId = item.ID && String(item.ID).includes(search)
+                    const homelessMentor = item.mentor && item.mentor.includes(search)
                 
                     if(search === ""){
                       return item
@@ -69,17 +77,33 @@ function Search() {
                       return item
                     }
                 
-                }).map(result=>
-                  <tr key = {result.id}>
-                    <td>{result.status}</td>
-                    <td>{result.pastCorporation}</td>
-                    <td>{result.supportiveBackground}</td>
-                    <td>{result.psychiatricBackground}</td>
-                    <td>{result.mentor}</td>
-                    <td>{result.address}</td>
-                    <td>{result.age}</td>
-                    <td>{result.id}</td>
-                    <td>{result.name}</td>
+                }).map(item =>
+                  <tr key={item.id} >
+                    {/* { <button onClick={() => {
+                          navigate(`/search/${item.id}`)
+                     }
+                    }>
+                   gooo
+                    </button> */}
+                    <Link to={`/search/${item.id}`}> 
+                    <td>{item.status}</td>
+                    <td>{item.pastCorporation}</td>
+                    <td>{item.supportiveBackground}</td>
+                    <td>{item.psychiatricBackground}</td>
+                    <td>{item.mentor}</td>
+                    <td>{item.Address}</td>
+                    <td>{item.age}</td>
+                    <td>{item.ID}</td>
+                    <td>{item.name}</td>
+
+
+
+
+
+
+
+
+                </Link>
                   </tr>
                 )}
                 </tbody>

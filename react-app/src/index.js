@@ -1,9 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from "react";
-import ReactDOM from "react-dom/client";
-import reportWebVitals from "./reportWebVitals";
+import ReactDOM from "react-dom";
 import "./index.css";
-import { AuthProvider } from "./AuthProvider";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import {
   Navigation,
@@ -12,16 +10,14 @@ import {
   Add,
   User,
   Login,
+  Profiles,
   Profile,
   SignUp,
   Staff,
 } from "./components";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <React.StrictMode>
-    <AuthProvider>
-    <Router>
+ReactDOM.render(
+  <Router>
     <Navigation />
     <Routes>
       <Route path="/" element={<Home />} />
@@ -32,13 +28,11 @@ root.render(
       <Route path="/staff" element={<Staff />} />
       <Route path="/search" element={<Search />}>
         {/* <Route path="" element={<Profiles />} /> */}
-        <Route path=":profileSlug" element={<Profile />} />
       </Route>
+        <Route path="/search/:profileSlug" element={<Profile />} />
     </Routes>
-  </Router>
-  </AuthProvider>
-  </React.StrictMode>
 
+  </Router>,
+
+  document.getElementById("root")
 );
-
-reportWebVitals();

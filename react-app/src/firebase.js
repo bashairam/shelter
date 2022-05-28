@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
  import { getAuth } from "firebase/auth";
-import { collection, getDocs, setDoc, doc } from 'firebase/firestore/lite';
+import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
 import { getFirestore } from 'firebase/firestore'
 
 
@@ -37,13 +37,12 @@ const firebaseConfig = {
  export const auth = getAuth(app);
 
 
-export default {firestore,app ,auth}
 // export  {firestore,app,auth};
 
  //export const auth = getAuth();
-//export const db = getDatabase(app);
+//export const firestore = getDatabase(app);
 // const app = initializeApp(firebaseConfig);
-
+export default {firestore , app, auth};
 // const auth = getAuth(app);
 
 async function getDetailsUserById(userId) {

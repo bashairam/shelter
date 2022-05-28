@@ -35,7 +35,7 @@ function Navigation() {
                 <NavLink className="nav-link" to="/staff">
                   צוות השלטר
                 </NavLink>
-              </li>
+              </li>             
              
             </ul>
           </div> 

@@ -1,19 +1,22 @@
 import React from "react";
 import "./User.css"
-import { getDetailsUserById, updateDetailsUserById } from "../firebase"
+import { getDetailsUserById, updateDetailsUserById,auth } from "../firebase"
+import { onAuthStateChanged } from "firebase/auth";
 
 
 class User extends React.Component {
+  
   constructor(props) {
     super(props);
-    this.userId = "uYc231SbG8hz97z1K6pohN0ygLk1";
     this.isClicked = true;
+    
     // this.state = {
     //   fields: {},
     //   errors: {},
     // };
     // this.error ={errorFName:"",errorLName:"",errorPhone:""};
-     this.state = { fname: "", lname: "", address: "", phoneNumber: "" };
+    this.state = { fname: "", lname: "", address: "", phoneNumber: "" ,key:this.userId};
+
     this.handleFirstName = this.handleFirstName.bind(this);
     this.handleLastName = this.handleLastName.bind(this);
     this.handleAddress = this.handleAddress.bind(this);
@@ -21,6 +24,8 @@ class User extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+
 // aux. functions
    _validationName(str) {
     var hasNumber = /\d/;   
@@ -70,12 +75,24 @@ class User extends React.Component {
   }
 
   async componentDidMount() {
-    const userJson = await getDetailsUserById(this.userId);
-    // const temp = {
-    //   fields: { fname: userJson.fname, lname: userJson.lname, address: userJson.address, phoneNumber: userJson.phoneNumber },
-    //   errors: {},
-    // };
-    this.setState({ fname: userJson.fname, lname: userJson.lname, address: userJson.address, phoneNumber: userJson.phoneNumber });
+   await onAuthStateChanged(auth, async(user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+     
+         this.state = { fname: "", lname: "", address: "", phoneNumber: "" ,key:this.userId};
+
+        this.userId = user.uid;
+        const userJson = await getDetailsUserById(user.uid);
+        this.setState({key:this.userId, fname: userJson.fname, lname: userJson.lname, address: userJson.address, phoneNumber: userJson.phoneNumber });
+        console.log(this.state)
+        // ...
+      } else {
+        // User is signed out
+        // ...
+      }
+    });
+   
 
   }
 
@@ -83,28 +100,28 @@ class User extends React.Component {
     const { fname, lname, address, phoneNumber } =this.state;
     return (
       <div className="form-box">
-        <form onSubmit={this.handleSubmit}>
-          <label>
+        <form   onSubmit={this.handleSubmit} >
+          <label >
 
-            <input type="text" placeholder={fname} onChange={this.handleFirstName} />
+            <input type="text" dir="rtl" placeholder={fname} onChange={this.handleFirstName} />
             <span> </span>
             :שם פרטי
           </label>
           <label value="Ayy"></label>
           <label>
 
-            <input type="text" placeholder={lname} onChange={this.handleLastName} />
+            <input type="text" dir="rtl" placeholder={lname} onChange={this.handleLastName} />
             <span> </span>
             :שם משפחה
           </label>
           <label>
 
-            <input type="text" placeholder={address} onChange={this.handleAddress} />
+            <input type="text" dir="rtl" placeholder={address} onChange={this.handleAddress} />
             <span> </span>
             :כתובת
           </label>
           <label>
-            <input type="text" placeholder={phoneNumber} onChange={this.handlePhoneNumber} />
+            <input type="text" dir="rtl" placeholder={phoneNumber} onChange={this.handlePhoneNumber} />
             <span> </span>
             :נייד
           </label>

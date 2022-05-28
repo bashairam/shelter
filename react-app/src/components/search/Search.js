@@ -1,5 +1,5 @@
 import { collection ,getDocs } from "firebase/firestore";
-import React, {useState , useEffect, useReducer} from "react";
+import React, {useState , useEffect} from "react";
 import {firestore} from "../../firebase"
 import "./Search.css"
 import { Link, Outlet,  useNavigate } from "react-router-dom";

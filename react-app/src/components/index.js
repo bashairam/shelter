@@ -11,3 +11,4 @@ export {default as Rooms} from "./Rooms";
 export {default as Stages} from "./Stages";
 export {default as useFetch} from "./useFetch";
 export {default as Staff} from "./Staff"
+export {default as Report} from "./Report";

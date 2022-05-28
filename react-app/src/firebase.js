@@ -1,14 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {  getAuth, onAuthStateChanged } from "firebase/auth";
-import { useEffect, useState } from "react";
-import { getFirestore, collection, getDocs, setDoc, doc } from 'firebase/firestore';
-// import firebase from 'firebase/app';
-// import * as firebase from './firebase';
-// import 'firebase/firestore';
-// import firebase from "firebase/compat/app";
-// import "firebase/compat/firestore";
-// import 'firebase/compat/auth';
+ import { getAuth } from "firebase/auth";
+import { getFirestore,collection, getDocs, setDoc, doc ,addDoc} from 'firebase/firestore';
+
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -24,6 +19,16 @@ const firebaseConfig = {
   measurementId: "G-RC8GW42M1D"
 };
 
+// const firebaseConfig = {
+//   apiKey: "AIzaSyB04ei02_pRE6thYtg8jMMOVBKaOxQdllo",
+//   authDomain: "text-197b8.firebaseapp.com",
+//   projectId: "text-197b8",
+//   storageBucket: "text-197b8.appspot.com",
+//   messagingSenderId: "912021751581",
+//   appId: "1:912021751581:web:f9f4b851da5b5e797a83f4"
+// };
+
+
 // Initialize Firebase
  const app = initializeApp(firebaseConfig);
  export const firestore = getFirestore(app);
@@ -38,8 +43,11 @@ export default app;
 // const auth = getAuth(app);
 
 async function getDetailsUserById(userId) {
+  console.log("users =====")
+  console.log(userId)
   let userJson = {};
   const users = collection(firestore, 'users');
+
   const usersSnapshot = await getDocs(users);
   usersSnapshot.docs.map((doc) => {
     if (doc.id === userId) {
@@ -52,8 +60,13 @@ async function getDetailsUserById(userId) {
 async function updateDetailsUserById(userId,userJson) {
   await setDoc(doc(firestore, "users", userId), { "fname": userJson.fname, "lname": userJson.lname, "address": userJson.address, "phoneNumber": userJson.phoneNumber });
 
-
+}
+async function createNewReportByIdDoc( reportJson) {
+  await addDoc(collection(firestore, 'reports'), {
+    doc:reportJson
+  })
+  
 }
 
-export { getDetailsUserById, updateDetailsUserById }
 
+export { getDetailsUserById, updateDetailsUserById ,createNewReportByIdDoc}

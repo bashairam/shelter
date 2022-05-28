@@ -95,10 +95,15 @@ function handleClickSign(e) {
              <tr>{homeless.personalPhone}</tr> 
             {/* mentor */}
               <tr>{homeless.formFillerId}</tr> 
-           </div> 
+           </div>
+
+           <Link to="/report">
+          <button className="me-0" style = {{display : 'block'}}>הוספת דו״ח</button>
+        </Link> 
           </div>
         </div>
       </div>  
+      
  <div className="body1">       
 <div className="tab_4 ">
 

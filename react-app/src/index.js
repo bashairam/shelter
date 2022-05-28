@@ -14,6 +14,7 @@ import {
   Login,
   Profile,
   SignUp,
+  Staff,
 } from "./components";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -28,6 +29,7 @@ root.render(
       <Route path="/user" element={<User />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
+      <Route path="/staff" element={<Staff />} />
       <Route path="/search" element={<Search />}>
         {/* <Route path="" element={<Profiles />} /> */}
         <Route path=":profileSlug" element={<Profile />} />

@@ -1,4 +1,3 @@
-import React, { useEffect,useState } from 'react';
 import Rooms from './Rooms';
 import {Container,Row,Tab,Tabs} from 'react-bootstrap';
 import './home.css'

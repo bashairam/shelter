@@ -14,10 +14,10 @@ function Navigation() {
               <li className="nav-item"> 
                   <NavDropdown title="איזור אישי" id="collasible-nav-dropdown">
                   <NavDropdown.Item className="text-end">
-                  <Link  to="/user" >עדכון פרטים אישיים</Link>
+                  <Link style={{float:'right'}} to="/user" >עדכון פרטים אישיים</Link>
                   </NavDropdown.Item>
                   <NavDropdown.Item >
-                    <Link to="/login" > יציאה</Link>
+                    <Link style={{float:'right'}} to="/login" > יציאה</Link>
                   </NavDropdown.Item>
                   </NavDropdown>
                 </li>
@@ -29,6 +29,11 @@ function Navigation() {
               <li className="nav-item">
                 <NavLink className="nav-link" to="/add">
                   הוספת צעיר
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/staff">
+                  צוות השלטר
                 </NavLink>
               </li>
              

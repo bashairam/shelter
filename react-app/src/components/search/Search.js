@@ -1,14 +1,12 @@
 import { collection ,getDocs } from "firebase/firestore";
-import React, {useState , useEffect} from "react";
-import {firestore} from "../../firebase"
+import React, {useState , useEffect, useReducer } from "react";
+import { useNavigate } from "react-router-dom";
+import { firestore } from "../../firebase"
 import "./Search.css"
-import { Link, Outlet,  useNavigate } from "react-router-dom";
-
 
 
 function Search() {
   const navigate = useNavigate();
-
   const [homeless, setHomeless] = useState([]);
   const [search, setSearch] = useState("");
   const col = collection(firestore , "homelesses");
@@ -49,22 +47,18 @@ function Search() {
               <table className="table ">
                 <thead>
                   <tr >
-                    <th>סטטוס</th>
-                    <th>מסדות שהיה בהם בעבר</th>
+                    <th></th>
                     <th>עיר מגורים</th>
                     <th>גיל</th>
                     <th>ת.ז</th>
-                    <th>שם</th>          
+                    <th>שם</th>
+
                   </tr>
                 </thead>
               <tbody>
                 { 
                   homeless.filter((item) => {
-                    const homelessName = item.name && item.name.includes(search)
-                    const homelessAddress = item.Address && item.Address.includes(search)
-                    const homelessAge = item.age && String(item.age).includes(search)
-                    const homelessId = item.ID && String(item.ID).includes(search)
-                    const homelessMentor = item.mentor && item.mentor.includes(search)
+                    const homelessName = item.name.includes(search)
                 
                     if(search === ""){
                       return item
@@ -76,31 +70,14 @@ function Search() {
                 
                 }).map(item =>
                   <tr key={item.id} >
-                    {/* { <button onClick={() => {
+                     <td><button className ="view" onClick={() => {
                           navigate(`/search/${item.id}`)
-                     }
-                    }>
-                   gooo
-                    </button> */}
-                    <Link to={`/search/${item.id}`}> 
-                    <td>{item.status}</td>
-                    <td>{item.pastCorporation}</td>
-                    <td>{item.supportiveBackground}</td>
-                    <td>{item.psychiatricBackground}</td>
-                    <td>{item.mentor}</td>
-                    <td>{item.Address}</td>
+                       }}>
+                    פרטים</button></td>
+                    <td>{item.parentsAssress}</td>
                     <td>{item.age}</td>
-                    <td>{item.ID}</td>
+                    <td>{item.id}</td>
                     <td>{item.name}</td>
-
-
-
-
-
-
-
-
-                </Link>
                   </tr>
                 )}
                 </tbody>
@@ -113,4 +90,3 @@ function Search() {
 )
 }
 export default Search;
-

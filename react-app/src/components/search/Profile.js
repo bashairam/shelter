@@ -1,18 +1,14 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { firestore } from "../../firebase"
 import {  collection, getDocs ,getDoc, onSnapshot, doc } from "firebase/firestore";
-import {Container,Row,Tab,Tabs , Col , Nav } from 'react-bootstrap';
-import Add from "../Add";
 import "./Profile.css" ;
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap';
 import 'bootstrap/dist/js/bootstrap.js';
-import Popper from 'popper.js';
 import { Dropdown } from "react-bootstrap";
 import { DropdownButton } from "react-bootstrap";
-import ReactDOM from 'react-dom';
 
 
 export function Profile() {
@@ -127,12 +123,12 @@ function handleClickSign(e) {
     id="dropdown1"
     variant="secondary"
     menuVariant= "light"
-    title="רקעים"
+    title="רקע"
     className="dropdown dropleft"
    
   >
     <Dropdown.Item href="#/action-1" active>
-     <a onClick={handleClickHis}>  רקע 1 </a>
+     <a onClick={handleClickHis}>  רקע פסיכולוגי </a>
     
     </Dropdown.Item>
     {/* <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>

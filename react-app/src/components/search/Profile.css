@@ -50,20 +50,20 @@
     font-family: Georgia, serif;
 }
 .subInfo{
-    font-size: 80px;
+    font-size: 50px;
     font-weight: bold;
 }
 .infoDetails{
-    font-size: 30px;
+    font-size: 20px;
     margin-left: 1.4cm;
     float: right;
   
 }
 .tab_4{
     margin-top: 6cm;
-    margin-left: 28cm;
     width: 20%;
-   
+    float: right;
+
 }
 
 #dropdown1 , #dropdown2 , #dropdown3 , #dropdown4{
@@ -73,8 +73,8 @@
     font-weight: bold;
     display:inline-block;
     width:100px;
-    position: relative;
-   
+   background-color: white;
+   color: black;
 
   }
 .nav-item{

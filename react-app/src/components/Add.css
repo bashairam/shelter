@@ -41,7 +41,8 @@
   margin: 5%;
   margin-left: 30%;
   text-align: right;
-  width: 700px;
+  width: 40%;
+  display: inline-block;
   border-radius: 4px;
   box-sizing: border-box;
   padding:10px;

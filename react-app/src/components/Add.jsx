@@ -29,7 +29,9 @@ function Add (){
   const [Newinstitutions, setNewinstitutions] = useState("");//institution
   const [NewHow, setNewHow] = useState("");
   const [checked,setChecked]=useState(false);
-  //const [NewcriHis, setNewcriHis] =useState(false);
+  const [NewStage, setNewStage] =useState("");
+  const [NewRoom, setNewRoom] =useState("");
+
   //const usersCollectionRef = collection(firestore, "history");
 
 
@@ -54,6 +56,12 @@ function Add (){
      addiction_History:NewaddHis,
      Prominent_institutions:Newinstitutions
      });
+     await setDoc(doc(firestore, "inHomelesses",NewID ), { 
+      Stage: NewStage,
+      Room: NewRoom,
+      date: Timestamp.fromDate(new Date() ),
+
+      });
     refreshPage()
  };
 
@@ -193,17 +201,40 @@ function Add (){
             style={{width : '100%'}}
             onChange={(event) => {
               setNewinstitutions(event.target.value); }} />
-        <br /><br />
+        <br /><br />        <br /><br />
 
+        <h6> ?האם ברצונך להכניס הצעיר לשלטר  <input
+        type="checkbox"/></h6>
+
+         <select 
+                 style={{width : '100%'}}
+              onChange={(e) => setNewStage(e.target.value)}>
+              <option >בחר חדר</option>
+              <option >חדר 1</option>
+              <option >חדר 2</option>
+              <option>חדר 3 </option>
+              <option>חדר 4</option>
+              <option >חדר 5</option>
+            </select>
+            <br /><br />
+
+        <select 
+                         style={{width : '100%'}}
+              onChange={(e) => setNewStage(e.target.value)}>
+              <option value=''>בחר שלב</option>
+              <option value="שלב קליטה">שלב קליטה</option>
+              <option value="שלב א׳">שלב א׳</option>
+              <option value="שלב ב׳">שלב ב׳</option>
+              <option value="מסלול חיפוש עבודה">מסלול חיפוש עבודה</option>
+              <option value="מסלול לילות">מסלול לילות</option>
+            </select>
       
         <br /><br />
 
         <h6>ממלא הטופס</h6>
-        <input className="select" 
+        <input  
                 onChange={(event) => {
                   setNewValue(event.target.value); }}/>
-        
-
         </form>
 
         <button name='button' onClick={createUser}   >הוספת הצעיר</button>

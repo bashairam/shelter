@@ -1,4 +1,3 @@
-import { async } from '@firebase/util';
 import {doc,setDoc, Timestamp} from 'firebase/firestore';
 import React from 'react';
 import { useState } from 'react';

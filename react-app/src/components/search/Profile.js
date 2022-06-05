@@ -96,6 +96,9 @@ function handleClickSign(e) {
            <Link to="/report">
           <button className="me-0" style = {{display : 'block'}}>הוספת דו״ח</button>
         </Link> 
+          <Link to="/updateDetailsHomeless" state={{ id: "123123123" }}>
+          <button className="me-0" style = {{display : 'block'}}>עדכון פרטי צעיר</button>
+        </Link> 
           </div>
         </div>
       </div>  

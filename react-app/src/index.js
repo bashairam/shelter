@@ -14,7 +14,8 @@ import {
   Profile,
   SignUp,
   Staff,
-  Report
+  Report,
+  DetailsHomeless
 } from "./components";
 
 ReactDOM.render(
@@ -23,6 +24,7 @@ ReactDOM.render(
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/report" element={<Report />} />
+      <Route path="/updateDetailsHomeless" element={<DetailsHomeless />} />
 
       <Route path="/add" element={<Add />} />
       <Route path="/user" element={<User />} />

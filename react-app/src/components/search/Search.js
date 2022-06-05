@@ -58,12 +58,15 @@ function Search() {
               <tbody>
                 { 
                   homeless.filter((item) => {
-                    const homelessName = item.name.includes(search)
-                
+                    const homelessName = item.name && item.name.includes(search)
+                    const homelessAddress = item.Address && item.parentsAddress.includes(search)
+                    const homelessAge = item.age && String(item.age).includes(search)
+                    const homelessId = item.id && String(item.id).includes(search)
+                    const homelessMentor = item.mentor && item.mentor.includes(search)
                     if(search === ""){
                       return item
                     }
-                    else if( homelessName )
+                    else if( homelessName || homelessAddress|| homelessAge || homelessId || homelessMentor)
                     {
                       return item
                     }
@@ -74,7 +77,7 @@ function Search() {
                           navigate(`/search/${item.id}`)
                        }}>
                     פרטים</button></td>
-                    <td>{item.parentsAssress}</td>
+                    <td>{item.parentsAddress}</td>
                     <td>{item.age}</td>
                     <td>{item.id}</td>
                     <td>{item.name}</td>

@@ -12,3 +12,4 @@ export {default as Stages} from "./Stages";
 export {default as useFetch} from "./useFetch";
 export {default as Staff} from "./Staff"
 export {default as Report} from "./Report";
+export {default as InputData} from "./InputData";

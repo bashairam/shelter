@@ -10,11 +10,11 @@ import {
   Add,
   User,
   Login,
-  Profiles,
   Profile,
   SignUp,
   Staff,
-  Report
+  Report,
+  InputData
 } from "./components";
 
 ReactDOM.render(
@@ -23,7 +23,7 @@ ReactDOM.render(
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/report" element={<Report />} />
-
+      <Route path="/inputData" element={<InputData />} />
       <Route path="/add" element={<Add />} />
       <Route path="/user" element={<User />} />
       <Route path="/login" element={<Login />} />

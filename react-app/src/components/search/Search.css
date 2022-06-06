@@ -41,12 +41,15 @@ margin: auto;
       
 }
 
-
+.fa-fa-search{
+    width: 80%;
+}
   
    .search input:focus{
 
     box-shadow: none;
     border: 2px solid black;
+    
 
 
    }
@@ -66,3 +69,6 @@ margin: auto;
     background-color: #555555;
     color: white;
   }
+
+
+ 

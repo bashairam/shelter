@@ -134,13 +134,8 @@ function handleChange(e) {
      });
      await setDoc(doc(firestore, "inHomelesses",NewID ), { 
       stage: NewStage,
-<<<<<<< HEAD
-      room: NewRoom,
-      date: Timestamp.fromDate(new Date() ),
-=======
       room: (NewRoom),
       date: newDate,
->>>>>>> Danya-Abushamsyeh-main
 
       });
       window.location.reload(false);
@@ -297,16 +292,6 @@ function handleChange(e) {
 
          <select  disabled={selectStatus}
                  style={{width : '100%'}}
-<<<<<<< HEAD
-                 type = 'number'
-              onChange={(e) => setNewRoom(e.target.value)}>
-              <option value= {1} >בחר חדר</option>
-              <option  >חדר 1</option>
-              <option value= "3" >חדר 2</option>
-              <option value='2'>חדר 3 </option>
-              <option value='4'>חדר 4</option>
-              <option value='5' >חדר 5</option>
-=======
                  type = "number"
               onChange={(e) => setNewRoom(e.target.value)}>
               <option value="0">בחר חדר</option>
@@ -315,7 +300,6 @@ function handleChange(e) {
               <option value="3" >חדר 3 </option>
               <option value="4">חדר 4</option>
               <option value="5" >חדר 5</option>
->>>>>>> Danya-Abushamsyeh-main
             </select>
             <br /><br />
 

@@ -59,15 +59,10 @@ function Search() {
                 { 
                   homeless.filter((item) => {
                     const homelessName = item.name && item.name.includes(search)
-<<<<<<< HEAD
-                    const homelessaddress = item.parentsAddress && item.parentsAddress.includes(search)
-
-=======
                     const homelessAddress = item.Address && item.parentsAddress.includes(search)
                     const homelessAge = item.age && String(item.age).includes(search)
                     const homelessId = item.id && String(item.id).includes(search)
                     const homelessMentor = item.mentor && item.mentor.includes(search)
->>>>>>> Danya-Abushamsyeh-main
                     if(search === ""){
                       return item
                     }

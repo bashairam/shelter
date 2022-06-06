@@ -47,18 +47,6 @@ class Report extends React.Component {
         var dateNow = new Date().toDateString();
         await onAuthStateChanged(auth, (user) => {
             if (user) {
-<<<<<<< HEAD
-              // User is signed in, see docs for a list of available properties
-              // https://firebase.google.com/docs/reference/js/firebase.User
-               this.userId = user.uid;
-               
-               console.log("current user is: (Report.jsx file)")
-                this.state = {createdBy:this.userId , content:"",created: "", sheft: "",createdFor:"",name:"" };
-
-              console.log(this.state)
-      
-              // ...
-=======
                 // User is signed in, see docs for a list of available properties
                 // https://firebase.google.com/docs/reference/js/firebase.User
                 this.userId = user.uid;
@@ -69,7 +57,6 @@ class Report extends React.Component {
                 console.log(this.state)
 
                 // ...
->>>>>>> jobehay-main
             } else {
                 // User is signed out
                 // ...
@@ -77,9 +64,6 @@ class Report extends React.Component {
         });
 
         let userJson = await getDetailsUserById(this.userId);
-<<<<<<< HEAD
-        this.state = {...this.state,name:userJson.name};
-=======
         this.state = { ...this.state, fname: userJson.fname, lname: userJson.lname };
 
 
@@ -87,18 +71,13 @@ class Report extends React.Component {
         this.setState({ ...this.state, created: dateNow });
 
     }
->>>>>>> jobehay-main
 
 
 
     //////////////////////////
     render() {
 
-<<<<<<< HEAD
-        const { created,name} = this.state;
-=======
         const { created, fname, lname } = this.state;
->>>>>>> jobehay-main
 
         return (
             <div className="d-flex justify-content-center" dir="rtl" >
@@ -116,7 +95,7 @@ class Report extends React.Component {
 
                             </select>
                         </div>
-                        <div class="col-6 col-md-4" > {name}</div>
+                        <div class="col-6 col-md-4" > {fname +" "+ lname}</div>
 
                     </div>
                     <br></br>

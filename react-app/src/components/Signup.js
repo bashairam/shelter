@@ -29,14 +29,9 @@ const SignUp = () => {
       navigate("/staff");
     }
 
-<<<<<<< HEAD
-     setDoc(doc(firestore, "users",email), {
-      name: name,
-=======
 
      addDoc(collection(firestore, "users"), {
       fname: name,
->>>>>>> Danya-Abushamsyeh-main
       email: email,
       phoneNumber: phone,
       type:type

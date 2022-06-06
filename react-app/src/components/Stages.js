@@ -24,8 +24,8 @@ const Stages = () => {
             <div className='my-5'>
                {Object.keys(stages).map((stage) => (
                     <Frame key={stage} 
-                        i={stage}
-                        names = {stages[stage].map(hmls=>{return hmls.id})}
+                    i={stage}
+                    names = {stages[stage].map(hmls=>{return hmls.id})}
                         hmlsLists={hmlsLists}
                         />
                 ))

@@ -4,7 +4,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { ref, set } from "firebase/database";
 import './Form.css' 
-import { setDoc,doc } from "firebase/firestore";
+import { collection,addDoc } from "firebase/firestore";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -29,12 +29,26 @@ const SignUp = () => {
       navigate("/staff");
     }
 
+<<<<<<< HEAD
      setDoc(doc(firestore, "users",email), {
       name: name,
+=======
+
+     addDoc(collection(firestore, "users"), {
+      fname: name,
+>>>>>>> Danya-Abushamsyeh-main
       email: email,
       phoneNumber: phone,
       type:type
     });
+    alert("המשתמש נוסף בהצלחה");
+
+    //  addDoc(doc(firestore, "users"), {
+    //   fname: name,
+    //   email: email,
+    //   phoneNumber: phone,
+    //   type:type
+    // });
     onRegister();
 
   };

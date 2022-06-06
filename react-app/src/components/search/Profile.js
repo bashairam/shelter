@@ -93,16 +93,18 @@ function handleClickSign(e) {
               <tr>{homeless.formFillerId}</tr> 
            </div>
 
-           <Link to="/report">
-          <button className="me-0" style = {{display : 'block'}}>הוספת דו״ח</button>
-        </Link> 
+            
           </div>
         </div>
       </div>  
       
- <div className="body1">       
-<div className="tab_4 ">
-
+       
+        <div className="body1">     
+        <Link to="/report">
+          <button>הוספת דו״ח</button>
+        </Link>  
+        <div className="tab_4 ">
+       
 {/* <Dropdown>
     <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
       רקעים

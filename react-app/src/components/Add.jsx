@@ -55,8 +55,8 @@ function Add (){
      Prominent_institutions:Newinstitutions
      });
      await setDoc(doc(firestore, "inHomelesses",NewID ), { 
-      Stage: NewStage,
-      Room: NewRoom,
+      stage: NewStage,
+      room: NewRoom,
       date: Timestamp.fromDate(new Date() ),
 
       });
@@ -64,8 +64,8 @@ function Add (){
  };
 
   return (
-  <div  className="Add">
-    <h1 className="text-center mt-5"> טופס קליטת צעיר - היכרות ראשונית</h1>
+  <div  className="Add my-5">
+    <h1 className="text-center mt-5">טופס קליטת צעיר</h1>
     <br /><br />
     <form onSubmit={(e)=>e.preventDefault()}>
 
@@ -193,13 +193,14 @@ function Add (){
 
          <select 
                  style={{width : '100%'}}
+                 type = 'number'
               onChange={(e) => setNewRoom(e.target.value)}>
-              <option value= {null} >בחר חדר</option>
-              <option value= {1} >חדר 1</option>
-              <option value={2} >חדר 2</option>
-              <option value={3}>חדר 3 </option>
-              <option value={4}>חדר 4</option>
-              <option value={5} >חדר 5</option>
+              <option value= {1} >בחר חדר</option>
+              <option  >חדר 1</option>
+              <option value= "3" >חדר 2</option>
+              <option value='2'>חדר 3 </option>
+              <option value='4'>חדר 4</option>
+              <option value='5' >חדר 5</option>
             </select>
             <br /><br />
 

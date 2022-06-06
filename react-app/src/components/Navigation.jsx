@@ -7,10 +7,10 @@ import { NavDropdown } from 'react-bootstrap';
 function Navigation() {
   return (
     <div className="navigation">
-      <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <div className="container">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{width : '100%'}}>
+        <div className="container" >
         <div className='ml-auto'>
-            <ul className="navbar-nav">
+            <ul className="navbar-nav" >
               <li className="nav-item"> 
                   <NavDropdown title="איזור אישי" id="collasible-nav-dropdown">
                   <NavDropdown.Item className="text-end">
@@ -39,14 +39,12 @@ function Navigation() {
              
             </ul>
           </div> 
-          <div className='ms-auto'>
 
             <NavLink className="navbar-brand ms-auto" to="/">
             <img src={logo} height="70" width="200" alt="logo" /> 
             </NavLink>
           </div>
           
-        </div>
       </nav>
     </div>
   );

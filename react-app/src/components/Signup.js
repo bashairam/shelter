@@ -30,7 +30,7 @@ const SignUp = () => {
     }
 
      setDoc(doc(firestore, "users",email), {
-      fname: name,
+      name: name,
       email: email,
       phoneNumber: phone,
       type:type
@@ -42,7 +42,7 @@ const SignUp = () => {
   return (
     <div className="text-end">
     <div className="mx-auto">
-      <div className="row align-items-center my-5">
+      <div className="login my-5">
           <h1 className="font-weight-light">: הוספת איש צוות</h1>
       <form className="signupForm" onSubmit={handleSubmit}> 
         <div className="mb-3">
@@ -80,6 +80,8 @@ const SignUp = () => {
               <option value="מנהל">מנהל</option>
               <option value="רכז">רכז</option>
               <option value="עובד סוציאלי">עובד סוציאלי</option>
+              <option value="אם בית">אם בית</option>
+
             </select>
         </div> 
          <div className="mb-3"> 

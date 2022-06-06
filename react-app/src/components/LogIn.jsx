@@ -24,7 +24,7 @@ const LogIn = () => {
 
     <div className="text-end">
     <div className="mx-auto">
-      <div className="row align-items-center my-5">
+      <div className=" login my-5" >
           <h1 className="font-weight-light">כניסה לאיזור האישי</h1>
           <form  onSubmit={handleSubmit}>
       <div className="mb-3">

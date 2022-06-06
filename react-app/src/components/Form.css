@@ -1,3 +1,8 @@
+.login{
+    max-width: 60vw;
+    display: block;
+    margin-left: 20vw;
+}
 input{
     text-align: right;
     

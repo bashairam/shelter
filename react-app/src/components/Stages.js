@@ -16,7 +16,6 @@ const Stages = () => {
             else stages[hlm.stage] = [hlm];
     })
 
-    let strStages =['שלב קליטה','שלב א׳','שלב ב׳','מסלול חיפוש עבודה','מסלול לילות'];
 
     return (
 
@@ -25,7 +24,7 @@ const Stages = () => {
             <div className='my-5'>
                {Object.keys(stages).map((stage) => (
                     <Frame key={stage} 
-                        i={strStages[stage]}
+                        i={stage}
                         names = {stages[stage].map(hmls=>{return hmls.id})}
                         hmlsLists={hmlsLists}
                         />

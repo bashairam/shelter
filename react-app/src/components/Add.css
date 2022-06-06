@@ -36,16 +36,17 @@ margin-left: 30px;
 }
 
 .Add{
+  display: block;
 text-align: right;
-margin: 5%;
-margin-left: 30%;
+margin-left: auto;
+margin-right: auto;
 text-align: right;
-width: 40%;
-display: inline-block;
+width: 50%;
 border-radius: 4px;
 box-sizing: border-box;
 padding:10px;
 box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+min-width: fit-content;
 }
 
 .Add select{
@@ -66,6 +67,7 @@ text-align: right;
   box-sizing: border-box;
   padding:10px;
   box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+ right: 40%;
 }
 .Add textarea{
 text-align: right;
@@ -110,3 +112,4 @@ color: #ddd;
 
 
 }
+

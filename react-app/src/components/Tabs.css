@@ -6,10 +6,13 @@
      margin: 10px;
      width: 30%;
      text-align: center;
+
 }
 .room{
     width: 100%;
     min-height: max-content;
+
+
 }
 .cardHead{
   border-bottom: 2px #343741 solid;

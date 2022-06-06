@@ -16,7 +16,6 @@ const firebaseConfig = {
   storageBucket: "hamakum-40448.appspot.com",
   messagingSenderId: "667623969335",
   appId: "1:667623969335:web:97e4c870aaaa59b740e5b2",
-  measurementId: "G-RC8GW42M1D"
 };
 
 // const firebaseConfig = {

@@ -1,249 +1,314 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { firestore } from "../../firebase"
-import {  collection, getDocs ,getDoc, onSnapshot, doc } from "firebase/firestore";
-import "./Profile.css" ;
+import { firestore, storage } from "../../firebase"
+import { collection, getDocs, getDoc, onSnapshot, doc } from "firebase/firestore";
+import "./Profile.css";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap';
 import 'bootstrap/dist/js/bootstrap.js';
-import { Dropdown } from "react-bootstrap";
-import { DropdownButton } from "react-bootstrap";
+import { NavDropdown } from 'react-bootstrap';
+import { deleteObject, getDownloadURL, ref, uploadBytes, listAll, list, uploadBytesResumable } from "firebase/storage"
+import { v4 } from "uuid"
+import 'firebase/storage';
 
 
 export function Profile() {
+
+  //-------------------------variables-----------------------------------------------
   let { profileSlug } = useParams();
   const [homeless, setHomeless] = useState([]);
   const [reports, setReports] = useState([]);
   const [history, setHistory] = useState([]);
-  const [files, setFiles] = useState([]);
-  const [homelessDocuments, setHomelessDocuments] = useState([]);
-  const [signedForms, setSignedForms] = useState([]);
-  const col = collection(firestore, "homelesses");
+  const [data, setData] = useState([]);
+  const [formsData, setFormsData] = useState([])
+  let docRef = null
+  const dataa = []
+  const forms = []
 
-
+ 
+ 
   useEffect(() => {
-   const current = profileSlug;
+    const current = profileSlug;
+    const listRef1 = ref(storage,`homelessSignedForms/${profileSlug}`)
+    listAll(listRef1)
+      .then((res1) => {
+        res1.items.forEach((itemRef) => {
+          forms.push(itemRef.name)
+          setFormsData(forms)
+        });
+      }).catch((error) => {
+        alert("בבקשה נסה שוב")
+        console.error(error)
+      });
+
+    const listRef = ref(storage, `homelessDocuments/${profileSlug}`)
+    listAll(listRef)
+      .then((res) => {
+        res.items.forEach((itemRef) => {
+          dataa.push(itemRef.name)
+          setData(dataa)
+
+        });
+      }).catch((error) => {
+        alert("בבקשה נסה שוב")
+        console.error(error)
+      });
+
   }, [profileSlug]);
-  const homelessinfo = doc(firestore , "homelesses" , profileSlug)
-  const homelessReports = doc(firestore , "Reports" , profileSlug)
-  const homelessHistory = doc(firestore , "history" , profileSlug)
-  const homelessDoc = doc(firestore , "documents" , profileSlug)
-  const homelessSignedForms = doc(firestore , "signedForms" , profileSlug)
-  
-    onSnapshot(homelessinfo , (doc) =>{
-      setHomeless(doc.data());
-    })
-    onSnapshot(homelessReports , (doc) =>{
-      setReports(doc.data());
-    })
-    onSnapshot(homelessHistory , (doc) =>{
-      setHistory(doc.data());
-    })
-    onSnapshot(homelessDoc , (doc) =>{
-      setHomelessDocuments(doc.data());
-    })
-    onSnapshot(homelessSignedForms , (doc) =>{
-      setSignedForms(doc.data());
-    })
-  
 
-function handleClickRe(e) { 
-  const container = document.getElementById('demo');
-  const text = document.createTextNode(reports.re1);
-  container.appendChild(text); 
-}
-function handleClickHis(e) { 
-  const container = document.getElementById('demo');
-  const text = document.createTextNode(history.background);
-  container.appendChild(text); 
-}
+  const homelessinfo = doc(firestore, "homelesses", profileSlug)
+  const homelessReports = doc(firestore, "Reports", profileSlug)
+  const homelessHistory = doc(firestore, "history", profileSlug)
+  const homelessDoc = doc(firestore, "documents", profileSlug)
+  const homelessSignedForms = doc(firestore, "signedForms", profileSlug)
 
+  //--------------------------------function to get spacific data--------------------------------------
 
-function handleClickDoc(e) { 
+  onSnapshot(homelessinfo, (doc) => {
+    setHomeless(doc.data());
+  })
+
+  onSnapshot(homelessReports, (doc) => {
+    setReports(doc.data());
+  })
+  onSnapshot(homelessHistory, (doc) => {
+    setHistory(doc.data());
+  })
+ 
+  //-----------------------------
+
   const container = document.getElementById('demo');
-  const text = document.createTextNode(homelessDocuments.doc1);
-  container.appendChild(text); 
-}
-function handleClickSign(e) { 
-  const container = document.getElementById('demo');
-  const text = document.createTextNode(signedForms.sign1);
-  container.appendChild(text); 
-}
+
+  const handleClickRe = (e) => {   };
+
+  const handleClickHis = (e) => { container.innerText = history[e.target.id]  };
+
+  const handleClickDoc = (e) => {
+    const docRef1 = ref(storage, `/homelessDocuments/${profileSlug}/${e.target.id}`)
+    getDownloadURL(docRef1).then(function (url) {
+      window.open(url)
+    })
+  };
+  const handleClickDel = (e) => {
+    const delDocRef = ref(storage, `/homelessDocuments/${profileSlug}/${e.target.id}`)
+    deleteObject(delDocRef).then(() => {
+      alert("הקובץ נמחק בהצלחה")
+      window.location.reload()
+    }).catch((error) => {
+      console.error(error)
+    });
+  }
+  const handleClickDelForm = (e) => {
+    const delSignedFormRef = ref(storage, `/homelessSignedForms/${profileSlug}/${e.target.id}`)
+    deleteObject(delSignedFormRef).then(() => {
+      alert("הקובץ נמחק בהצלחה")
+      window.location.reload()
+    }).catch((error) => {
+      console.error(error)
+    });
+  }
+  const handleClickSign = (e) => {
+    console.log(e.target.id)
+    const signedFormRef = ref(storage, `/homelessSignedForms/${profileSlug}/${e.target.id}`)
+    getDownloadURL(signedFormRef).then(function (url) {
+      window.open(url)
+    })
+
+  };
+
+  const handleClickUpload = (e) => {
+    e.preventDefault()
+    const identifier = e.target.id
+    const file = e.target[0].files[0]
+    uploudDocument(file, identifier)
+  }
+  const uploudDocument = (file, identifier) => {
+    if (!file) return
+
+    if (identifier === 'doc') {
+      docRef = ref(storage, `/homelessDocuments/${profileSlug}/${file.name}`) //choose a differents name for the docs
+    }
+    else {
+      docRef = ref(storage, `/homelessSignedForms/${profileSlug}/${file.name}`) //choose a differents name for the docs
+    }
+    uploadBytes(docRef, file).then(() => {
+      alert("הקובץ נשמר בהצלחה")
+    })
+
+  }
+
 
   return (
-    
-    <div className="home">
-      <div class="container">
-   
-        <div className="right">
-          <div className="info">
-            {/* name */}
-            <div className="subInfo">
-                {homeless.name}
-              </div>
-            <div className="infoDetails"> 
-            {/* age */}
-              <tr>  {homeless.age}</tr> 
-            {/* address */}
-               <tr>  {homeless.parentsAssress}</tr>
-            {/* phone */}
-             <tr>{homeless.personalPhone}</tr> 
-            {/* mentor */}
-              <tr>{homeless.formFillerId}</tr> 
-           </div>
 
-           <Link to="/report">
-          <button className="me-0" style = {{display : 'block'}}>הוספת דו״ח</button>
-        </Link> 
-          <Link to="/updateDetailsHomeless" state={{ id: "123123123" }}>
-          <button className="me-0" style = {{display : 'block'}}>עדכון פרטי צעיר</button>
-        </Link> 
+    <div className="home">
+      <div className="clicks">
+        <div className="info">
+          {/* name */}
+          <div className="subInfo">
+            {homeless.name}
+          </div>
+          <div className="infoDetails">
+            {/* age */}
+            <tr>  {homeless.age}</tr>
+            {/* address */}
+            <tr>  {homeless.parentsAssress}</tr>
+            {/* phone */}
+            <tr>{homeless.personalPhone}</tr>
+            {/* mentor */}
+            <tr>{homeless.formFillerId}</tr>
           </div>
         </div>
-      </div>  
-      
-       
-        <div className="body1">     
         <Link to="/report">
-          <button>הוספת דו״ח</button>
-        </Link>  
-        <div className="tab_4 ">
-       
-{/* <Dropdown>
-    <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
-      רקעים
-    </Dropdown.Toggle>
+          <button className="me-0" style={{ display: 'block' }}>הוספת דו״ח</button>
+        </Link>
 
-    <Dropdown.Menu variant="dark">
-      <Dropdown.Item href="#/action-1" active>
-           רקע 1
-      </Dropdown.Item>
-      <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-      <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-      <Dropdown.Divider />
-     <Dropdown.Item href="#/action-4">Separated link</Dropdown.Item>
-    </Dropdown.Menu>
-  </Dropdown> */}
+        <form id="doc" onSubmit={handleClickUpload}>
+          <input type="file" ></input>
+          <button type="submit" id="subDoc"> העלאת מסמכים</button>
+        </form>
+        <form id="sign" onSubmit={handleClickUpload}>
+          <input type="file" ></input>
+          <button type="submit" id="subSign" > העלאת טפסים חתומים </button>
+        </form>
 
-<DropdownButton
-    id="dropdown1"
-    variant="secondary"
-    menuVariant= "light"
-    title="רקע"
-    className="dropdown dropleft"
-   
-  >
-    <Dropdown.Item href="#/action-1" active>
-     <a onClick={handleClickHis}>  רקע פסיכולוגי </a>
-    
-    </Dropdown.Item>
-    {/* <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-    <Dropdown.Divider />
-    <Dropdown.Item href="#/action-4">Separated link</Dropdown.Item> */}
-  </DropdownButton>
-
-
-  <DropdownButton
-    id="dropdown2"
-    variant="secondary"
-    menuVariant="dark"
-    title="דוחות"
-    className="mt-2"
-  >
-    
-    <Dropdown.Item href="#/action-1" active >
-      <a onClick={handleClickRe}> דוח 1 </a>
-    </Dropdown.Item>
-   
-    {/* <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-    <Dropdown.Divider />
-    <Dropdown.Item href="#/action-4">Separated link</Dropdown.Item> */}
- 
- 
-  </DropdownButton>
-
-
-  <DropdownButton
-    id="dropdown3"
-    variant="secondary"
-    menuVariant="dark"
-    title="מסמכים"
-    className="mt-3"
-  >
-    <Dropdown.Item href="#/action-1" active>
-    <a onClick={handleClickDoc}> מסמך 1 </a>
-      
-    </Dropdown.Item>
-    {/* <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-    <Dropdown.Divider />
-    <Dropdown.Item href="#/action-4">Separated link</Dropdown.Item> */}
-  </DropdownButton>
-  <DropdownButton
-    id="dropdown4"
-    variant="secondary"
-    menuVariant="dark"
-    title="טפסים חתומים"
-    className="mt-4"
-  >
-    <Dropdown.Item href="#/action-1" active>
-    <a onClick={handleClickSign}>  טופס 1 </a>
-    
-    </Dropdown.Item>
-    {/* <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-    <Dropdown.Divider />
-    <Dropdown.Item href="#/action-4">Separated link</Dropdown.Item> */}
-  </DropdownButton>
-   
-
-        {/* <Tab.Container id="right-tabs"  defaultActiveKey="first"> 
-  <Row>
-    <Col sm={3}>
-      <Nav variant="pills" className="flex-column ml-auto">
-        <Nav.Item>
-          <Nav.Link eventKey="first">רקעים</Nav.Link>
-         
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="second">דוחות</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="thrird">מסמכים</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="fourth">טפסים חתומים</Nav.Link>
-        </Nav.Item>
-      </Nav>
-    </Col>
-   
-
-    <Col sm={9} className = "kdd ml-auto">
-      <Tab.Content>
-        <Tab.Pane eventKey="first">
-               <Add />
-         
-        </Tab.Pane>
-        <Tab.Pane eventKey="second">
-          <Add />
-        </Tab.Pane>
-      </Tab.Content>
-    </Col>
-  </Row>
-</Tab.Container> */}
-  
-</div>
-<div className= "kk" id="demo">
-
-</div>    
-</div>   
       </div>
 
-   
-   
+
+      <div className="tab_4 ">
+
+        <div className="navigation">
+          <nav className="navbar navbar-expand navbar-dark bg-dark">
+            <div className="container">
+              <div className='ml-auto'>
+                <ul className="navbar-nav">
+                  <li className="nav-item">
+                    <NavDropdown title="טפסים חתומים" id="collasible-nav-dropdown">
+                      {
+                        formsData && formsData.map((val) => (
+                          <NavDropdown.Item className="text-end">
+                            <button id={val.id} style={{ float: 'right' }} onClick={handleClickSign} >{val}</button>
+                            <button id={val} style={{ float: 'left' }} onClick={handleClickDelForm}> מחק</button>
+                          </NavDropdown.Item>
+                        ))
+                      }
+                    </NavDropdown>
+                  </li>
+                  <li className="nav-item">
+                    <NavDropdown title="מסמכים" id="collasible-nav-dropdown">
+
+                      {
+                        data && data.map((val) => (
+                          <NavDropdown.Item className="text-end">
+                            <button id={val.id} style={{ float: 'right' }} onClick={handleClickDoc} >{val}</button>
+                            <button id={val} style={{ float: 'left' }} onClick={handleClickDel}> מחק</button>
+                          </NavDropdown.Item>
+                        ))
+                      }
+                    </NavDropdown>
+                  </li>
+
+
+                  <li className="nav-item">
+                    <NavDropdown title=" דוחות" id="collasible-nav-dropdown">
+
+                      {reports && Object.keys(reports).map((re, i) => (
+                        <NavDropdown.Item className="text-end">
+                          <button id={"re" + (i + 1)} onClick={handleClickRe}> דוח {i + 1} </button>
+                        </NavDropdown.Item>
+                      ))
+                      }
+
+                    </NavDropdown>
+
+                  </li>
+
+                  <li className="nav-item">
+
+
+                    <NavDropdown title="רקעים" id="collasible-nav-dropdown">
+
+                      {
+
+                        homeless.background &&
+
+                        <NavDropdown.Item className="text-end">
+
+                          <button id='background' onClick={handleClickHis}>רקע כללי</button>
+
+                        </NavDropdown.Item>
+                      }
+                      {
+
+                        homeless.therapeutic_history &&
+
+                        <NavDropdown.Item className="text-end">
+
+                          <button id='therapeutic_history' onClick={handleClickHis}>רקע טיפולי</button>
+
+                        </NavDropdown.Item>
+                      }{
+                        homeless.addiction_History &&
+
+                        <NavDropdown.Item className="text-end">
+
+                          <button id='addiction_History' onClick={handleClickHis}>רקע התמכרותי</button>
+
+                        </NavDropdown.Item>
+
+                      }{
+                        homeless.criminalRecord &&
+
+                        <NavDropdown.Item className="text-end">
+
+                          <button id='criminalRecord' onClick={handleClickHis}>רקע פלילי</button>
+
+                        </NavDropdown.Item>
+
+                      }{
+                        homeless.psycoticPast &&
+
+                        <NavDropdown.Item className="text-end">
+
+                          <button id='psycoticPast' onClick={handleClickHis}>רקע פסיכיאטרי</button>
+
+                        </NavDropdown.Item>
+                      }{
+                        homeless.prominent_institutions &&
+
+                        <NavDropdown.Item className="text-end">
+
+                          <button id='prominent_institutions' onClick={handleClickHis}>מסדות</button>
+
+                        </NavDropdown.Item>
+
+
+
+                      }
+                    </NavDropdown>
+                  </li>
+
+                </ul>
+              </div>
+              <div className='ms-auto'>
+
+
+              </div>
+
+            </div>
+          </nav>
+        </div>
+
+
+
+      </div>
+      <div id="demo">
+        {history.background}
+      </div>
+    </div>
+
+
+
   );
 }
 

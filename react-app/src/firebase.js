@@ -2,8 +2,7 @@
 import { initializeApp } from "firebase/app";
  import { getAuth } from "firebase/auth";
 import { getFirestore,collection, getDocs, setDoc, doc ,addDoc} from 'firebase/firestore';
-
-
+import {getStorage} from "firebase/storage"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -18,32 +17,16 @@ const firebaseConfig = {
   appId: "1:667623969335:web:97e4c870aaaa59b740e5b2",
 };
 
-// const firebaseConfig = {
-//   apiKey: "AIzaSyB04ei02_pRE6thYtg8jMMOVBKaOxQdllo",
-//   authDomain: "text-197b8.firebaseapp.com",
-//   projectId: "text-197b8",
-//   storageBucket: "text-197b8.appspot.com",
-//   messagingSenderId: "912021751581",
-//   appId: "1:912021751581:web:f9f4b851da5b5e797a83f4"
-// };
-
-
 // Initialize Firebase
  const app = initializeApp(firebaseConfig);
  export const firestore = getFirestore(app);
  export const auth = getAuth(app);
+ export const storage = getStorage(app)
 
-// export  {firestore,app,auth};
-
- //export const auth = getAuth();
-//export const db = getDatabase(app);
-// const app = initializeApp(firebaseConfig);
 export default app;
-// const auth = getAuth(app);
+
 
 async function getDetailsUserById(userId) {
-  console.log("users =====")
-  console.log(userId)
   let userJson = {};
   const users = collection(firestore, 'users');
 

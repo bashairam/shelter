@@ -7,14 +7,11 @@ import "./Profile.css";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap';
 import 'bootstrap/dist/js/bootstrap.js';
-import { Dropdown, FormSelect } from "react-bootstrap";
-import { DropdownButton } from "react-bootstrap";
 import { NavDropdown } from 'react-bootstrap';
-import { NavLink } from "react-router-dom";
 import { deleteObject, getDownloadURL, ref, uploadBytes, listAll, list, uploadBytesResumable } from "firebase/storage"
 import { v4 } from "uuid"
 import 'firebase/storage';
-import useForceUpdate from 'use-force-update';
+
 
 export function Profile() {
 
@@ -23,56 +20,41 @@ export function Profile() {
   const [homeless, setHomeless] = useState([]);
   const [reports, setReports] = useState([]);
   const [history, setHistory] = useState([]);
-  const [files, setFiles] = useState([]);
-  const [homelessDocuments, setHomelessDocuments] = useState([]);
-  const [signedForms, setSignedForms] = useState([]);
-  const [filtered, setFiltered] = useState([]);
   const [data, setData] = useState([]);
   const [formsData, setFormsData] = useState([])
-  const col = collection(firestore, "homelesses");
   let docRef = null
-  const val = []
   const dataa = []
-  const forms =[]
-  const his1 = {
-    background: 'רקע כללי',
-    therapeutic_history: 'רקע טיפולי',
-    addiction_History: 'רקע התמכרותי',
-    criminalRecord: 'רקע פלילי',
-    psycoticPast: 'רקע פסיכיאטרי',
-    prominent_institutions: 'מסדות'
-  }
-  const forceUpdate = useForceUpdate();
+  const forms = []
+
+ 
+ 
   useEffect(() => {
     const current = profileSlug;
-       
-    const listRef1 = ref(storage, 'homelessSignedForms/')
-      listAll(listRef1)
+    const listRef1 = ref(storage,`homelessSignedForms/${profileSlug}`)
+    listAll(listRef1)
       .then((res1) => {
         res1.items.forEach((itemRef) => {
           forms.push(itemRef.name)
-          console.log(forms)
           setFormsData(forms)
-          console.log("ll" , formsData)
         });
       }).catch((error) => {
         alert("בבקשה נסה שוב")
         console.error(error)
       });
 
-    const listRef = ref(storage, 'homelessDocuments/')
+    const listRef = ref(storage, `homelessDocuments/${profileSlug}`)
     listAll(listRef)
       .then((res) => {
         res.items.forEach((itemRef) => {
           dataa.push(itemRef.name)
           setData(dataa)
-          
+
         });
       }).catch((error) => {
         alert("בבקשה נסה שוב")
         console.error(error)
       });
-  
+
   }, [profileSlug]);
 
   const homelessinfo = doc(firestore, "homelesses", profileSlug)
@@ -83,62 +65,33 @@ export function Profile() {
 
   //--------------------------------function to get spacific data--------------------------------------
 
-
   onSnapshot(homelessinfo, (doc) => {
     setHomeless(doc.data());
-    setFiles(Object.keys(homeless).filter(key => homeless[key] === "on"))
-    setFiltered(Object.keys(his1).filter((i) => files.includes(i)))
-     forceUpdate();
   })
+
   onSnapshot(homelessReports, (doc) => {
     setReports(doc.data());
   })
   onSnapshot(homelessHistory, (doc) => {
     setHistory(doc.data());
   })
-  onSnapshot(homelessDoc, (doc) => {
-    setHomelessDocuments(doc.data());
-  })
-  onSnapshot(homelessSignedForms, (doc) => {
-    setSignedForms(doc.data());
-  })
-
+ 
   //-----------------------------
-
-  //--------------------------------------------------------------------------
-  const fileInput = useRef();
-  const selectFile = () => {
-    fileInput.current.click();
-  }
-
-  const compare = () => {
-    //funtion that filter all the histories that the homeless had 
-    
-    Object.entries(his1).map(([key, value]) => {
-      if (filtered.includes(key)) {
-        val.push(value)
-        forceUpdate();
-      }
-    })
-  }
-
-  // console.log(filtered)
 
   const container = document.getElementById('demo');
 
-  const handleClickRe = (e) => { container.innerText = compare() };
+  const handleClickRe = (e) => {   };
 
-  const handleClickHis = (e) => { forceUpdate(); container.innerText = compare() };
+  const handleClickHis = (e) => { container.innerText = history[e.target.id]  };
 
   const handleClickDoc = (e) => {
-    const docRef1 = ref(storage, `/homelessDocuments/${e.target.id}`)
+    const docRef1 = ref(storage, `/homelessDocuments/${profileSlug}/${e.target.id}`)
     getDownloadURL(docRef1).then(function (url) {
-      console.log("rkl ", url)
       window.open(url)
     })
   };
   const handleClickDel = (e) => {
-    const delDocRef = ref(storage, `/homelessDocuments/${e.target.id}`)
+    const delDocRef = ref(storage, `/homelessDocuments/${profileSlug}/${e.target.id}`)
     deleteObject(delDocRef).then(() => {
       alert("הקובץ נמחק בהצלחה")
       window.location.reload()
@@ -147,7 +100,7 @@ export function Profile() {
     });
   }
   const handleClickDelForm = (e) => {
-    const delSignedFormRef = ref(storage, `/homelessSignedForms/${e.target.id}`)
+    const delSignedFormRef = ref(storage, `/homelessSignedForms/${profileSlug}/${e.target.id}`)
     deleteObject(delSignedFormRef).then(() => {
       alert("הקובץ נמחק בהצלחה")
       window.location.reload()
@@ -157,7 +110,7 @@ export function Profile() {
   }
   const handleClickSign = (e) => {
     console.log(e.target.id)
-    const signedFormRef = ref(storage, `/homelessSignedForms/${e.target.id}`)
+    const signedFormRef = ref(storage, `/homelessSignedForms/${profileSlug}/${e.target.id}`)
     getDownloadURL(signedFormRef).then(function (url) {
       window.open(url)
     })
@@ -174,10 +127,10 @@ export function Profile() {
     if (!file) return
 
     if (identifier === 'doc') {
-      docRef = ref(storage, `/homelessDocuments/${file.name}`) //choose a differents name for the docs
+      docRef = ref(storage, `/homelessDocuments/${profileSlug}/${file.name}`) //choose a differents name for the docs
     }
     else {
-      docRef = ref(storage, `/homelessSignedForms/${file.name}`) //choose a differents name for the docs
+      docRef = ref(storage, `/homelessSignedForms/${profileSlug}/${file.name}`) //choose a differents name for the docs
     }
     uploadBytes(docRef, file).then(() => {
       alert("הקובץ נשמר בהצלחה")
@@ -187,7 +140,7 @@ export function Profile() {
 
 
   return (
-   
+
     <div className="home">
       <div className="clicks">
         <div className="info">
@@ -231,8 +184,8 @@ export function Profile() {
                 <ul className="navbar-nav">
                   <li className="nav-item">
                     <NavDropdown title="טפסים חתומים" id="collasible-nav-dropdown">
-                     {
-                        formsData.map((val) => (
+                      {
+                        formsData && formsData.map((val) => (
                           <NavDropdown.Item className="text-end">
                             <button id={val.id} style={{ float: 'right' }} onClick={handleClickSign} >{val}</button>
                             <button id={val} style={{ float: 'left' }} onClick={handleClickDelForm}> מחק</button>
@@ -243,9 +196,9 @@ export function Profile() {
                   </li>
                   <li className="nav-item">
                     <NavDropdown title="מסמכים" id="collasible-nav-dropdown">
-                  
+
                       {
-                        data.map((val) => (
+                        data && data.map((val) => (
                           <NavDropdown.Item className="text-end">
                             <button id={val.id} style={{ float: 'right' }} onClick={handleClickDoc} >{val}</button>
                             <button id={val} style={{ float: 'left' }} onClick={handleClickDel}> מחק</button>
@@ -259,7 +212,7 @@ export function Profile() {
                   <li className="nav-item">
                     <NavDropdown title=" דוחות" id="collasible-nav-dropdown">
 
-                      {Object.keys(reports).map((re, i) => (
+                      {reports && Object.keys(reports).map((re, i) => (
                         <NavDropdown.Item className="text-end">
                           <button id={"re" + (i + 1)} onClick={handleClickRe}> דוח {i + 1} </button>
                         </NavDropdown.Item>
@@ -271,42 +224,67 @@ export function Profile() {
                   </li>
 
                   <li className="nav-item">
-                   
-                    
+
+
                     <NavDropdown title="רקעים" id="collasible-nav-dropdown">
-                    {/* {console.log(filtered)} */}
-                    
+
                       {
-                        filtered.length && val.length && filtered.map(i => (
-                          <NavDropdown.Item className="text-end">
-                            <button id={filtered[i]} onClick={handleClickHis}>L (i+1)</button>
-                          </NavDropdown.Item>
-                        ))
+
+                        homeless.background &&
+
+                        <NavDropdown.Item className="text-end">
+
+                          <button id='background' onClick={handleClickHis}>רקע כללי</button>
+
+                        </NavDropdown.Item>
+                      }
+                      {
+
+                        homeless.therapeutic_history &&
+
+                        <NavDropdown.Item className="text-end">
+
+                          <button id='therapeutic_history' onClick={handleClickHis}>רקע טיפולי</button>
+
+                        </NavDropdown.Item>
+                      }{
+                        homeless.addiction_History &&
+
+                        <NavDropdown.Item className="text-end">
+
+                          <button id='addiction_History' onClick={handleClickHis}>רקע התמכרותי</button>
+
+                        </NavDropdown.Item>
+
+                      }{
+                        homeless.criminalRecord &&
+
+                        <NavDropdown.Item className="text-end">
+
+                          <button id='criminalRecord' onClick={handleClickHis}>רקע פלילי</button>
+
+                        </NavDropdown.Item>
+
+                      }{
+                        homeless.psycoticPast &&
+
+                        <NavDropdown.Item className="text-end">
+
+                          <button id='psycoticPast' onClick={handleClickHis}>רקע פסיכיאטרי</button>
+
+                        </NavDropdown.Item>
+                      }{
+                        homeless.prominent_institutions &&
+
+                        <NavDropdown.Item className="text-end">
+
+                          <button id='prominent_institutions' onClick={handleClickHis}>מסדות</button>
+
+                        </NavDropdown.Item>
+
+
 
                       }
-
-
-
-                      {/* <NavDropdown.Item className="text-end">
-                        <button onClick={handleClickHis}> דוח 1 </button>
-                      </NavDropdown.Item>
-
-                      <NavDropdown.Item className="text-end">
-                        <button onClick={handleClickHis}> דוח 1 </button>
-                      </NavDropdown.Item>
-
-                      <NavDropdown.Item className="text-end">
-                        <button onClick={handleClickHis}> דוח 1 </button>
-                      </NavDropdown.Item>
-
-                      <NavDropdown.Item className="text-end">
-                        <button onClick={handleClickHis}> דוח 1 </button>
-                      </NavDropdown.Item>
-
-                      <NavDropdown.Item className="text-end">
-                        <button onClick={handleClickHis}> דוח 1 </button>
-                      </NavDropdown.Item>
-                      */}
                     </NavDropdown>
                   </li>
 
@@ -322,11 +300,6 @@ export function Profile() {
         </div>
 
 
-
-
-
-
-        {/* </div>  */}
 
       </div>
       <div id="demo">

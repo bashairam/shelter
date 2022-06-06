@@ -57,7 +57,7 @@ async function getDetailsUserById(userId) {
   return userJson;
 }
 async function updateDetailsUserById(userId,userJson) {
-  await setDoc(doc(firestore, "users", userId), { "fname": userJson.fname, "lname": userJson.lname, "address": userJson.address, "phoneNumber": userJson.phoneNumber });
+  await setDoc(doc(firestore, "users", userId), { "fname": userJson.fname,  "address": userJson.address, "phoneNumber": userJson.phoneNumber });
 
 }
 async function createNewReportByIdDoc( reportJson) {

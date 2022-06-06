@@ -1,30 +1,30 @@
 import React from "react";
 
-import { createNewReportByIdDoc,auth,getDetailsUserById } from "../firebase"
-import {  onAuthStateChanged } from "firebase/auth";
+import { createNewReportByIdDoc, auth, getDetailsUserById } from "../firebase"
+import { onAuthStateChanged } from "firebase/auth";
 
 
 
 class Report extends React.Component {
     constructor(props) {
         super(props);
-       
+
 
         this.isClicked = false;
-        this.state={createdBy:this.userId , content:"",created: "", sheft: "",createdFor:""};
+        this.state = { createdBy: this.userId, content: "", created: "", sheft: "", createdFor: "" };
         this.handleContent = this.handleContent.bind(this);
         this.handleSheft = this.handleSheft.bind(this);
-      
+
 
         this.handleSubmit = this.handleSubmit.bind(this);
 
     }
-    
+
     handleSubmit(event) {
         // this.isClicked = true;
         event.preventDefault();
         console.log(this.state)
-        createNewReportByIdDoc(  this.state).then(() => {
+        createNewReportByIdDoc(this.state).then(() => {
             alert('הפרטים עודכנו בהצלחה');
 
         }).catch(() => {
@@ -37,16 +37,17 @@ class Report extends React.Component {
     handleContent(event) {
         this.isClicked = false;
         this.setState({ content: event.target.value });
-      }
-      handleSheft(event) {
+    }
+    handleSheft(event) {
         this.isClicked = false;
         this.setState({ sheft: event.target.value });
-      }
+    }
 
-      async componentDidMount() {
+    async componentDidMount() {
         var dateNow = new Date().toDateString();
-       await onAuthStateChanged(auth, (user) => {
+        await onAuthStateChanged(auth, (user) => {
             if (user) {
+<<<<<<< HEAD
               // User is signed in, see docs for a list of available properties
               // https://firebase.google.com/docs/reference/js/firebase.User
                this.userId = user.uid;
@@ -57,30 +58,50 @@ class Report extends React.Component {
               console.log(this.state)
       
               // ...
+=======
+                // User is signed in, see docs for a list of available properties
+                // https://firebase.google.com/docs/reference/js/firebase.User
+                this.userId = user.uid;
+
+                console.log("current user is: (Report.jsx file)")
+                this.state = { createdBy: this.userId, content: "", created: "", sheft: "", createdFor: "", fname: "", lname: "" };
+
+                console.log(this.state)
+
+                // ...
+>>>>>>> jobehay-main
             } else {
-              // User is signed out
-              // ...
+                // User is signed out
+                // ...
             }
-          });
+        });
 
         let userJson = await getDetailsUserById(this.userId);
+<<<<<<< HEAD
         this.state = {...this.state,name:userJson.name};
+=======
+        this.state = { ...this.state, fname: userJson.fname, lname: userJson.lname };
 
-        
-          
-        this.setState({ ...this.state,created:dateNow });
-        
-      }
 
-   
+
+        this.setState({ ...this.state, created: dateNow });
+
+    }
+>>>>>>> jobehay-main
+
+
 
     //////////////////////////
     render() {
 
+<<<<<<< HEAD
         const { created,name} = this.state;
+=======
+        const { created, fname, lname } = this.state;
+>>>>>>> jobehay-main
 
         return (
-            <div  className="d-flex justify-content-center my-5" dir="rtl" >
+            <div className="d-flex justify-content-center" dir="rtl" >
                 <form onSubmit={this.handleSubmit} class="col-md-6" dir="rtl" >
                     <div class="d-flex justify-content-center"><h1>הוספת דו"ח  לצעיר</h1></div>
                     <br></br>
@@ -101,7 +122,7 @@ class Report extends React.Component {
                     <br></br>
 
                     <div >
-                        <textarea class="form-control  text-right"  id="exampleFormControlTextarea1" placeholder="תוכן הדוח" onChange={this.handleContent} rows="7"></textarea>
+                        <textarea class="form-control  text-right" id="exampleFormControlTextarea1" placeholder="תוכן הדוח" onChange={this.handleContent} rows="7"></textarea>
                     </div>
                     <div class="col-md-6">
                         <br></br>

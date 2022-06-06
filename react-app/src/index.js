@@ -15,7 +15,8 @@ import {
   Staff,
   Profile,
   SignUp,
-  Report
+  Report,
+  DetailsHomeless
 } from "./components";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -27,6 +28,7 @@ root.render(
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/report" element={<Report />} />
+      <Route path="/updateDetailsHomeless" element={<DetailsHomeless />} />
 
       <Route path="/add" element={<Add />} />
       <Route path="/user" element={<User />} />

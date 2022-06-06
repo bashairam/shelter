@@ -10,16 +10,11 @@ class User extends React.Component {
     super(props);
     this.isClicked = true;
     
-    // this.state = {
-    //   fields: {},
-    //   errors: {},
-    // };
-    // this.error ={errorFName:"",errorLName:"",errorPhone:""};
-    this.state = { fname: "", lname: "", address: "", phoneNumber: "" ,key:this.userId};
+  
+    this.state = { fname: "", email: "", phoneNumber: "" ,key:this.userId};
 
     this.handleFirstName = this.handleFirstName.bind(this);
-    this.handleLastName = this.handleLastName.bind(this);
-    this.handleAddress = this.handleAddress.bind(this);
+    this.handleAddress = this.handleEmail.bind(this);
     this.handlePhoneNumber = this.handlePhoneNumber.bind(this);
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,33 +22,30 @@ class User extends React.Component {
 
 
 // aux. functions
-   _validationName(str) {
-    var hasNumber = /\d/;   
-    if(hasNumber.test(str)) {
-      return false;
-    } 
-    return true;
-  }
+  //  _validationName(str) {
+  //   var hasNumber = /\d/;   
+  //   if(hasNumber.test(str)) {
+  //     return false;
+  //   } 
+  //   return true;
+  // }
   //
   handleFirstName(event) {
     this.isClicked = false;
-    if(this._validationName( event.target.value )){
       this.setState({ fname: event.target.value });
-    }else{
-      this.error.errorFName = "שם פרטי לא נכון"
-    }
+   
   }
-  handleLastName(event) {
+  // handleLastName(event) {
+  //   this.isClicked = false;
+  //   if(this._validationName( event.target.value )){
+  //     this.setState({ lname: event.target.value });
+  //   }else{
+  //     this.error.errorFName = "שם משפחה לא נכון"
+  //   }
+  // }
+  handleEmail(event) {
     this.isClicked = false;
-    if(this._validationName( event.target.value )){
-      this.setState({ lname: event.target.value });
-    }else{
-      this.error.errorFName = "שם משפחה לא נכון"
-    }
-  }
-  handleAddress(event) {
-    this.isClicked = false;
-    this.setState({ address: event.target.value });
+    this.setState({ email: event.target.value });
   }
   handlePhoneNumber(event) {
     this.isClicked = false;
@@ -80,11 +72,11 @@ class User extends React.Component {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
      
-         this.state = { fname: "", lname: "", address: "", phoneNumber: "" ,key:this.userId};
+         this.state = { fname: "", email:user.email, phoneNumber: "" ,key:this.userId};
 
         this.userId = user.uid;
         const userJson = await getDetailsUserById(user.uid);
-        this.setState({key:this.userId, fname: userJson.fname, lname: userJson.lname, address: userJson.address, phoneNumber: userJson.phoneNumber });
+        this.setState({key:this.userId, fname: userJson.fname, email: userJson.email, phoneNumber: userJson.phoneNumber });
         console.log(this.state)
         // ...
       } else {
@@ -97,28 +89,22 @@ class User extends React.Component {
   }
 
   render() {
-    const { fname, lname, address, phoneNumber } =this.state;
+    const { fname, email, phoneNumber } =this.state;
     return (
       <div className="form-box">
         <form   onSubmit={this.handleSubmit} >
+       
           <label >
 
             <input type="text" dir="rtl" placeholder={fname} onChange={this.handleFirstName} />
             <span> </span>
-            :שם פרטי
+            :שם מלה
           </label>
           <label value="Ayy"></label>
           <label>
-
-            <input type="text" dir="rtl" placeholder={lname} onChange={this.handleLastName} />
+            <input type="text" dir="rtl" placeholder={email} onChange={this.handleEmail} />
             <span> </span>
-            :שם משפחה
-          </label>
-          <label>
-
-            <input type="text" dir="rtl" placeholder={address} onChange={this.handleAddress} />
-            <span> </span>
-            :כתובת
+            :מייל
           </label>
           <label>
             <input type="text" dir="rtl" placeholder={phoneNumber} onChange={this.handlePhoneNumber} />

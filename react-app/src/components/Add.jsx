@@ -26,11 +26,11 @@ function Add (){
   const [Newinstitutions, setNewinstitutions] = useState("");//institution
   const [NewHow, setNewHow] = useState("");
  // const [checked,setChecked]=useState(false);
-  const [checkcri,setCheckedcru]=useState(false);
-  const [checkpsy,setCheckedpsy]=useState(false);
-  const [checkadd,setCheckedadd]=useState(false);
-  const [checkback,setCheckedback]=useState(false);
-  const [NewinstituY_N, setNewinstituY_N] = useState(false);//institution
+  const [checkcri,setCheckedcru]=useState(true);
+  const [checkpsy,setCheckedpsy]=useState(true);
+  const [checkadd,setCheckedadd]=useState(true);
+  const [checkback,setCheckedback]=useState(true);
+  const [NewinstituY_N, setNewinstituY_N] = useState(true);//institution
 
   const [NewStage, setNewStage] =useState("");
   const [NewRoom, setNewRoom] =useState(0);

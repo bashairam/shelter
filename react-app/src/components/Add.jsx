@@ -146,9 +146,7 @@ function handleChange(e) {
       });
       window.location.reload(false);
       navigate('./Add'); 
-    if(newName === null){
-      alert('please enter the name!');
-    }
+    
     
     };
 

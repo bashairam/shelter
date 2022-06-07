@@ -1,86 +1,88 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1ca7cdef5ca5b50da4cdc99a4daa8f0bdfb75029
 .input{
-margin: 50px;
-}
-.Add text{
-margin-left: 30px;
-}
-
-.Add{
-  display: block;
-text-align: right;
-margin-left: auto;
-margin-right: auto;
-text-align: right;
-width: 50%;
-border-radius: 4px;
-box-sizing: border-box;
-padding:10px;
-box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
-min-width: fit-content;
-}
-
-.Add select{
-text-align: right;
-margin: 8px 0;
-display: inline-block;
-border-radius: 4px;
-box-sizing: border-box;
-padding:10px;
-box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
-right: 40%;
-}
-.Add input{
-text-align: right;
+  margin: 50px;
+  }
+  .Add text{
+  margin-left: 30px;
+  }
+  
+  .Add{
+    display: block;
+  text-align: right;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: right;
+  width: 50%;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding:10px;
+  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+  min-width: fit-content;
+  }
+  
+  .Add select{
+  text-align: right;
   margin: 8px 0;
   display: inline-block;
   border-radius: 4px;
   box-sizing: border-box;
   padding:10px;
   box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
- right: 40%;
-}
-.Add textarea{
-text-align: right;
-width: 100%;
-margin: 8px 0;
-display: inline-block;
-border-radius: 4px;
-box-sizing: border-box;
-padding:10px;
-box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
-justify-content: center;
-align-items: center;
-right: 40%;
-}
-
-.Add select{
-margin: 8px 0;
-display: inline-block;
-border-radius: 4px;
-box-sizing: border-box;
-padding:10px;
-width: 30%;
-text-align: right;
-}
-
-.Add button{
-font-size: 18px;
-font-weight: bold;
-margin: 50px 0 2vh 0;
-text-align: center;
-background-color: #343741;
-color: #ddd;
-  width: 80%;
-  margin-right: 10%;
-
+  right: 40%;
+  }
+  .Add input{
+  text-align: right;
+    margin: 8px 0;
+    display: inline-block;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding:10px;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+   right: 40%;
+  }
+  .Add textarea{
+  text-align: right;
+  width: 100%;
+  margin: 8px 0;
+  display: inline-block;
   border-radius: 4px;
   box-sizing: border-box;
-  padding: 5px;
+  padding:10px;
   box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
   justify-content: center;
- align-items: center;
-
-
-}
-
+  align-items: center;
+  right: 40%;
+  }
+  
+  .Add select{
+  margin: 8px 0;
+  display: inline-block;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding:10px;
+  width: 30%;
+  text-align: right;
+  }
+  
+  .Add button{
+  font-size: 18px;
+  font-weight: bold;
+  margin: 50px 0 2vh 0;
+  text-align: center;
+  background-color: #343741;
+  color: #ddd;
+    width: 80%;
+    margin-right: 10%;
+  
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 5px;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+    justify-content: center;
+   align-items: center;
+  
+  
+  }

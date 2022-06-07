@@ -91,26 +91,40 @@ class User extends React.Component {
   render() {
     const { fname, email, phoneNumber } =this.state;
     return (
-      <div className="form-box">
+      <div className="Add">
         <form   onSubmit={this.handleSubmit} >
        
-          <label >
+            {/* <input type="text"  placeholder={email} onChange={this.handleEmail} /> */}
+            <div class="col-6 col-md-4" > {email}</div>
 
-            <input type="text" dir="rtl" placeholder={fname} onChange={this.handleFirstName} />
             <span> </span>
-            :שם מלה
-          </label>
+        
+
+          <h6>(כולל משפחה) שם</h6>
+          <input
+            type="text"
+            style={{ width: '100%' }}
+            value={fname}
+            onChange={this.handleFirstName}
+          />
+
           <label value="Ayy"></label>
-          <label>
-            <input type="text" dir="rtl" placeholder={email} onChange={this.handleEmail} />
-            <span> </span>
-            :מייל
-          </label>
-          <label>
+          <h6>טלפון</h6>
+          <input
+            style={{ width: '100%' }}
+            type="number"
+            maxlength="10"
+            value={phoneNumber}
+            onChange={this.handlePhoneNumber}
+          />
+
+
+         
+          {/* <label>
             <input type="text" dir="rtl" placeholder={phoneNumber} onChange={this.handlePhoneNumber} />
             <span> </span>
             :נייד
-          </label>
+          </label> */}
           <input style={{backgroundColor: '#343741', borderColor : '#343741', color : '#ffff' }}className="btnSubmit" type="submit" value="עדכון" disabled={this.isClicked} />
         </form>
       </div>

@@ -12,7 +12,6 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [type, setType] = useState("");
-
   const navigate = useNavigate();
 
   const handleSubmit =  (e) => {
@@ -28,7 +27,6 @@ const SignUp = () => {
         .catch((error) => console.log(error));
       navigate("/staff");
     }
-
 
      addDoc(collection(firestore, "users"), {
       fname: name,

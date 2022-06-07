@@ -56,3 +56,4 @@ const Frame = ({i,names,hmlsLists}) => {
 
 export default Stages;
 
+ 

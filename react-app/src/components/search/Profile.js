@@ -217,6 +217,7 @@ export function Profile() {
                     <NavDropdown title=" דוחות" id="collasible-nav-dropdown">
 
                       {reports && Object.keys(reports).map((re, i) => (
+                        
                         <NavDropdown.Item className="text-end">
                           <button id={"re" + (i + 1)} onClick={handleClickRe}> דוח {i + 1} </button>
                         </NavDropdown.Item>
@@ -234,7 +235,7 @@ export function Profile() {
 
                       {
 
-                        homeless.background &&
+                        !homeless.background &&
 
                         <NavDropdown.Item className="text-end">
 
@@ -244,7 +245,7 @@ export function Profile() {
                       }
                       {
 
-                        homeless.therapeutic_history &&
+                        !homeless.therapeutic_history &&
 
                         <NavDropdown.Item className="text-end">
 
@@ -252,7 +253,7 @@ export function Profile() {
 
                         </NavDropdown.Item>
                       }{
-                        homeless.addiction_History &&
+                        !homeless.addiction_History &&
 
                         <NavDropdown.Item className="text-end">
 
@@ -261,7 +262,7 @@ export function Profile() {
                         </NavDropdown.Item>
 
                       }{
-                        homeless.criminalRecord &&
+                        !homeless.criminalRecord &&
 
                         <NavDropdown.Item className="text-end">
 
@@ -270,7 +271,7 @@ export function Profile() {
                         </NavDropdown.Item>
 
                       }{
-                        homeless.psycoticPast &&
+                        !homeless.psycoticPast &&
 
                         <NavDropdown.Item className="text-end">
 
@@ -278,7 +279,7 @@ export function Profile() {
 
                         </NavDropdown.Item>
                       }{
-                        homeless.prominent_institutions &&
+                        !homeless.prominent_institutions &&
 
                         <NavDropdown.Item className="text-end">
 

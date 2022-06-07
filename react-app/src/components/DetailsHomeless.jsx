@@ -14,7 +14,7 @@ class DetailsHomeless extends React.Component {
     // psycoticPast:"cnbvn",addiction_History:"hkfjgvhj",prominent_institutions:"ghgh",formFiller:",bmmnm"};
 
     this.state = {
-      name: "", age: "",date:"", id: "", personalPhone: "",parentsAddress: "", background: "",
+      name: "", age: "",date:"", id: "ff", personalPhone: "",parentsAddress: "", background: "",
       referrer: "", contact: "", therapeutic_history: "", criminalRecord: "",
       psycoticPast: "", addiction_History: "", prominent_institutions: "", formFiller: "",stage:"בחר שלב",room:"בחר חדר",sleepingPlace:"" };
 
@@ -30,12 +30,14 @@ class DetailsHomeless extends React.Component {
   }
   handleName=(event) =>{
     this.isClicked = false;
+    
     this.setState({ name: event.target.value });
 
   }
 
   handleAge=(event) =>{
     this.isClicked = false;
+    
     this.setState({ age: event.target.value });
   }
   handlePersonalPhone=(event) =>{
@@ -148,7 +150,7 @@ componentDidMount(){
         <input
         type="datetime-local"
         style={{width : '100%'}}
-        placeholder={date}
+        value={date}
         onChange={this.handledate}
 
        />
@@ -159,7 +161,7 @@ componentDidMount(){
           <input
             type="text"
             style={{ width: '100%' }}
-            placeholder={name}
+            value={name}
             onChange={this.handleName}
           />
           <br /><br />
@@ -168,7 +170,7 @@ componentDidMount(){
           <input
             type="number"
             style={{ width: '100%' }}
-            placeholder={age}
+            value={age}
             onChange={this.handleAge}
          
           />
@@ -178,7 +180,7 @@ componentDidMount(){
           <input
             style={{ width: '100%' }}
             maxlength="9"
-            placeholder={id}
+            value={id}
             onChange={this.handleid}
 
           />
@@ -189,7 +191,7 @@ componentDidMount(){
             style={{ width: '100%' }}
             type="number"
             maxlength="10"
-            placeholder={personalPhone}
+            value={personalPhone}
             onChange={this.handlePersonalPhone}
 
 
@@ -199,20 +201,20 @@ componentDidMount(){
           <h6>כתובת</h6>
           <input
             style={{ width: '100%' }}
-            placeholder={parentsAddress}
+            value={parentsAddress}
             onChange={this.handleparentsAddress}
 
           />
           <br /><br />
 
           <h6>?רקע- מה הצעיר מספר על עצמו? מדוע הגיע לשלטר</h6>
-          <textarea placeholder={background}  onChange={this.handlebackground} rows="5" >
+          <textarea value={background}  onChange={this.handlebackground} rows="5" >
           </textarea>
           <br /><br />
 
           <h6>?(היכן ישן בימים האחרונים) מחוסר קורת גג</h6>
           <input
-           placeholder={sleepingPlace}
+           value={sleepingPlace}
             style={{ width: '100%' }}
              onChange={this.handlesleepingPlace}
 
@@ -222,7 +224,7 @@ componentDidMount(){
           <h6>גורם מפנה / פנייה עצמאית</h6>
           <input
             style={{ width: '100%' }}
-            placeholder={referrer}
+            value={referrer}
             onChange={this.handlereferrer}
 
           />
@@ -232,20 +234,20 @@ componentDidMount(){
           <input
             style={{ width: '100%' }}
             maxlength="10"
-            placeholder={contact}
+            value={contact}
             onChange={this.handlecontact}
 
           />
           <br /><br />
 
           <h6>היסטוריה טיפולית</h6>
-          <textarea placeholder={therapeutic_history}   onChange={this.handletherapeutic_history} rows="5" >
+          <textarea value={therapeutic_history}   onChange={this.handletherapeutic_history} rows="5" >
           </textarea>
           <br /><br />
 
           <h6>(אם כן פרט) :האם יש עבר פלילי
           </h6>
-          <textarea placeholder={criminalRecord}  onChange={this.handlecriminalRecord} rows="5" >
+          <textarea value={criminalRecord}  onChange={this.handlecriminalRecord} rows="5" >
           </textarea>
 
           <br /><br />
@@ -254,12 +256,12 @@ componentDidMount(){
           <h6> (אם כן פרט) :האם יש אבחנה או עבר פסיכוט
 
           </h6>
-          <textarea placeholder={psycoticPast}   onChange={this.handlepsycoticPast} rows="5" >
+          <textarea value={psycoticPast}   onChange={this.handlepsycoticPast} rows="5" >
           </textarea>
           <br /><br />
 
           <h6>      האם יש התמכרות פעילה או עבר של התמכרות  </h6>
-          <textarea placeholder={addiction_History}  onChange={this.handleaddiction_History} rows="5" >
+          <textarea value={addiction_History}  onChange={this.handleaddiction_History} rows="5" >
           </textarea>
           <br /><br />
 
@@ -304,9 +306,9 @@ componentDidMount(){
 
           <br /><br />
 
-          <h6>ממלא הטופס</h6>
+          <h6> עדכון ע"י</h6>
           <input
-            placeholder={formFiller}
+            value={formFiller}
             onChange={this.handleformFiller}
 
 

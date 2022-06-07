@@ -52,7 +52,7 @@ class Report extends React.Component {
                 this.userId = user.uid;
 
                 console.log("current user is: (Report.jsx file)")
-                this.state = { createdBy: this.userId, content: "", created: "", sheft: "", createdFor: "", fname: "", lname: "" };
+                this.state = { createdBy: this.userId, content: "", created: "", sheft: "", createdFor: "", fname: "" };
 
                 console.log(this.state)
 
@@ -64,7 +64,7 @@ class Report extends React.Component {
         });
 
         let userJson = await getDetailsUserById(this.userId);
-        this.state = { ...this.state, fname: userJson.fname, lname: userJson.lname };
+        this.state = { ...this.state, fname: userJson.fname};
 
 
 
@@ -77,7 +77,7 @@ class Report extends React.Component {
     //////////////////////////
     render() {
 
-        const { created, fname, lname } = this.state;
+        const { created, fname } = this.state;
 
         return (
             <div className="d-flex justify-content-center" dir="rtl" >

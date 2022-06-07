@@ -101,7 +101,7 @@ export function Search() {
                       const homelessName = item.name && item.name.includes(search)
                       const homelessAddress = item.parentsAddress && item.parentsAddress.includes(search)
                       const homelessAge = item.age && String(item.age).includes(search)
-                      const homelessId = item.ID && String(item.ID).includes(search)
+                      const homelessId = item.id && String(item.id).includes(search)
 
                 
 

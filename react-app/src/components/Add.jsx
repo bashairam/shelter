@@ -136,7 +136,6 @@ function handleChange(e) {
       stage: NewStage,
       room: (NewRoom),
       date: newDate,
-
       });
       window.location.reload(false);
       navigate('./Add'); };
@@ -153,6 +152,8 @@ function handleChange(e) {
         onChange={(event) => {
           setNewDate(event.target.value);
         }} />
+
+
   
       <br /><br />
       <h6>(כולל משפחה) שם</h6>

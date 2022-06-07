@@ -26,7 +26,7 @@ export function Profile() {
   const dataa = []
   const forms = []
 
- 
+  const [homelessId, sethomelessId] = useState([]);
  
   useEffect(() => {
     const current = profileSlug;
@@ -67,6 +67,8 @@ export function Profile() {
 
   onSnapshot(homelessinfo, (doc) => {
     setHomeless(doc.data());
+   
+    sethomelessId("123123123123");
   })
 
   onSnapshot(homelessReports, (doc) => {
@@ -140,7 +142,6 @@ export function Profile() {
 
 
   return (
-
     <div className="home">
       <div className="clicks">
         <div className="info">
@@ -149,7 +150,6 @@ export function Profile() {
             {homeless.name}
           </div>
           <div className="infoDetails">
-            {/* age */}
             <tr>  {homeless.age}</tr>
             {/* address */}
             <tr>  {homeless.parentsAssress}</tr>
@@ -162,6 +162,10 @@ export function Profile() {
         <Link to="/report">
           <button className="me-0" style={{ display: 'block' }}>הוספת דו״ח</button>
         </Link>
+        <Link to="/updateDetailsHomeless"  >
+          <button className="me-0" style={{ display: 'block' }}>עדכון פרטי הצעיר </button>
+        </Link>
+
 
         <form id="doc" onSubmit={handleClickUpload}>
           <input type="file" ></input>

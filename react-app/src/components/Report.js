@@ -95,7 +95,7 @@ class Report extends React.Component {
 
                             </select>
                         </div>
-                        <div class="col-6 col-md-4" > {fname +" "+ lname}</div>
+                        <div class="col-6 col-md-4" > {fname}</div>
 
                     </div>
                     <br></br>

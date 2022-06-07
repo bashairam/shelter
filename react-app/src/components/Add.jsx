@@ -38,6 +38,11 @@ function Add (){
   //const usersCollectionRef = collection(firestore, "history");
 const navigate = useNavigate();
 
+
+  
+
+
+
 function handleChange(e) {
   const elements = document.getElementsByName("checkbox");
   const cri = document.getElementsByName("cri");
@@ -121,7 +126,10 @@ function handleChange(e) {
      psycoticPast:checkpsy ,
     addiction_History:checkadd ,
     criminalRecord:checkcri,
-    prominent_institutions: NewinstituY_N
+    prominent_institutions: NewinstituY_N,
+    sleepingPlace: NewHow,
+    nameOf_prominent_institutions:Newinstitutions
+
    });
 
    await setDoc(doc(firestore, "history",NewID ), { 
@@ -130,7 +138,6 @@ function handleChange(e) {
      psycoticPast: NewPsyHis, 
      criminalRecord:NewcriHis,
      addiction_History:NewaddHis,
-     prominent_institutions:Newinstitutions
      });
      await setDoc(doc(firestore, "inHomelesses",NewID ), { 
       stage: NewStage,
@@ -138,7 +145,12 @@ function handleChange(e) {
       date: newDate,
       });
       window.location.reload(false);
-      navigate('./Add'); };
+      navigate('./Add'); 
+    if(newName === null){
+      alert('please enter the name!');
+    }
+    
+    };
 
   return (
   <div  className="Add my-5">
@@ -153,8 +165,6 @@ function handleChange(e) {
           setNewDate(event.target.value);
         }} />
 
-
-  
       <br /><br />
       <h6>(כולל משפחה) שם</h6>
       <input
@@ -206,7 +216,7 @@ function handleChange(e) {
       <h6> ?רקע- מה הצעיר מספר על עצמו? מדוע הגיע לשלטר  <input
         name="back" type="checkbox" onChange={handleChange}/>
       </h6>
-      <textarea disabled={checkback}
+      <textarea   disabled={checkback}
                 rows="5" 
                 onChange={(event) => {
                   setNewBack(event.target.value); }}> </textarea>
@@ -303,8 +313,7 @@ function handleChange(e) {
               <option value="5" >חדר 5</option>
             </select>
             <br /><br />
-
-        <select disabled={selectStatus}
+        <select disabled={selectStatus} required
                          style={{width : '100%'}}
               onChange={(e) => setNewStage(e.target.value)}>
               <option value=''>בחר שלב</option>
@@ -314,7 +323,6 @@ function handleChange(e) {
               <option value="מסלול חיפוש עבודה">מסלול חיפוש עבודה</option>
               <option value="מסלול לילות">מסלול לילות</option>
             </select>
-      
         <br /><br />
 
         <h6>ממלא הטופס</h6>
@@ -322,7 +330,6 @@ function handleChange(e) {
                 onChange={(event) => {
                   setNewValue(event.target.value); }}/>
         </form>
-
         <button name='button' onClick={createUser}   >הוספת הצעיר</button>
     </div>
   );

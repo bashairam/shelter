@@ -39,8 +39,57 @@ async function getDetailsUserById(userId) {
 
   return userJson;
 }
+async function getDetailsHomelessesById(id) {
+ 
+  let homelessesJson = {};
+  const homelesses = collection(firestore, 'homelesses');
+
+  const homelessSnapshot = await getDocs(homelesses);
+  homelessSnapshot.docs.map((doc) => {
+    if (doc.id === id) {
+      homelessesJson = doc.data();
+    }
+  });
+  const {room,stage,date} = await getRoomNoAndStageForHomelessById(id);
+  const {addiction_History,background,criminalRecord,prominent_institutions,psycoticPast
+    ,therapeutic_history}= await getHistoryById (id);
+  return {...homelessesJson,room,stage,date,addiction_History,background,criminalRecord,prominent_institutions,psycoticPast
+    ,therapeutic_history};
+}
+
+async function getHistoryById(id_homeless) {
+
+  let historyJson = {};
+  const history = collection(firestore, 'history');
+
+  const HistortSnapshot = await getDocs(history);
+  HistortSnapshot.docs.map((doc) => {
+    if (doc.id === id_homeless) {
+      historyJson = doc.data();
+    }
+  });
+
+  return historyJson;
+}
+
+async function getRoomNoAndStageForHomelessById(id_homeless) {
+
+  let resJson = {};
+  const inHomelesses = collection(firestore, 'inHomelesses');
+
+  const inHomelessesSnapshot = await getDocs(inHomelesses);
+  inHomelessesSnapshot.docs.map((doc) => {
+    if (doc.id === id_homeless) {
+      resJson = doc.data();
+    }
+  });
+
+  return resJson;
+}
+
+
 async function updateDetailsUserById(userId,userJson) {
-  await setDoc(doc(firestore, "users", userId), { "fname": userJson.fname,  "address": userJson.address, "phoneNumber": userJson.phoneNumber });
+  await setDoc(doc(firestore, "users", userId), { "fname": userJson.fname,  "email": userJson.email, "phoneNumber": userJson.phoneNumber });
 
 }
 async function createNewReportByIdDoc( reportJson) {
@@ -49,6 +98,40 @@ async function createNewReportByIdDoc( reportJson) {
   })
   
 }
+async function updateHomeless (homelessesJson) {
+  console.log("test");
+  await setDoc(doc(firestore, "homelesses",homelessesJson.id), {
+   name: homelessesJson.name,
+   age: Number (homelessesJson.age),
+   date: homelessesJson.date,
+   personalPhone : (homelessesJson.personalPhone),
+   contact : (homelessesJson.contact),
+   formFiller: homelessesJson.formFiller,
+   parentsAddress:homelessesJson.parentsAddress,
+   referrer:homelessesJson.referrer,
+   background: homelessesJson.background,
+   psycoticPast:homelessesJson.psycoticPast ,
+  addiction_History:homelessesJson.addiction_History ,
+  criminalRecord:homelessesJson.criminalRecord,
+  prominent_institutions: homelessesJson.prominent_institutions
+ });
+
+ await setDoc(doc(firestore, "history",homelessesJson.id ), { 
+   background: homelessesJson.background,  
+   therapeutic_history:homelessesJson.therapeutic_history ,
+   psycoticPast: homelessesJson.psycoticPast, 
+   criminalRecord:homelessesJson.criminalRecord,
+   addiction_History:homelessesJson.addiction_History,
+   prominent_institutions:homelessesJson.prominent_institutions
+   });
+  return await setDoc(doc(firestore, "inHomelesses",homelessesJson.id ), { 
+    stage: homelessesJson.stage,
+    room: (homelessesJson.room),
+    date: homelessesJson.date,
+
+    });
+     
+  };
 
 
-export { getDetailsUserById, updateDetailsUserById ,createNewReportByIdDoc}
+export { getDetailsUserById, updateDetailsUserById ,createNewReportByIdDoc,getDetailsHomelessesById,updateHomeless}

@@ -4,7 +4,8 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { ref, set } from "firebase/database";
 import './Form.css' 
-import { collection,addDoc } from "firebase/firestore";
+import { collection,addDoc,setDoc,doc } from "firebase/firestore";
+import { async } from "@firebase/util";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -18,24 +19,27 @@ const SignUp = () => {
   const handleSubmit =  (e) => {
     e.preventDefault();
     function onRegister() {
+      console.log("out register func");
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          set(ref(firestore, "users/" + userCredential.user.uid), {
-            password: password,
-            email: email,
-          });
+         
+           setDoc(doc(firestore, "users", auth.lastNotifiedUid), 
+          {
+          fname: name,
+          email: email,
+          phoneNumber: phone,
+          type:type
+        }
+          );
+        
         })
         .catch((error) => console.log(error));
       navigate("/staff");
     }
 
+      onRegister();
+    
 
-     addDoc(collection(firestore, "users"), {
-      fname: name,
-      email: email,
-      phoneNumber: phone,
-      type:type
-    });
     alert("המשתמש נוסף בהצלחה");
 
     //  addDoc(doc(firestore, "users"), {
@@ -44,7 +48,7 @@ const SignUp = () => {
     //   phoneNumber: phone,
     //   type:type
     // });
-    onRegister();
+    
 
   };
 

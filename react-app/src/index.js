@@ -20,7 +20,17 @@ import {
   InputData
 } from "./components";
 
+import {useLocation,useParams} from 'react-router'
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+const IntroRedirect = () => {
+  const { id } = useParams();
+  console.log("xxxxxx")
+  console.log(useParams());
+  return <DetailsHomeless id = {id} /> 
+};
+// element={<DetailsHomeless id = "asdadasdasdasdasd"/>}
 root.render(
   <React.StrictMode>
     <AuthProvider>
@@ -29,7 +39,8 @@ root.render(
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/report" element={<Report />} />
-      <Route path="/updateDetailsHomeless" element={<DetailsHomeless />} />
+
+      <Route path="/updateDetailsHomeless" element={<IntroRedirect />}  />
       <Route path="/inputData" element={<InputData />} />
       <Route path="/add" element={<Add />} />
       <Route path="/user" element={<User />} />

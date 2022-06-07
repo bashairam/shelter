@@ -102,7 +102,7 @@ class User extends React.Component {
           </label>
           <label value="Ayy"></label>
           <label>
-            <input type="text" dir="rtl" placeholder={email} onChange={this.handleEmail} />
+            <input type="text"  placeholder={email} onChange={this.handleEmail} />
             <span> </span>
             :מייל
           </label>

@@ -3,6 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
+import RequireAuth from './components/RequireAuth';
 import { AuthProvider } from "./AuthProvider";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import {
@@ -37,22 +38,24 @@ root.render(
     <Router>
     <Navigation />
     <Routes>
+      {/* puplic routes */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/search" element={<Search />}/>
+      <Route path="/user" element={<User />} />
+      <Route path="/add" element={<Add />} />
+
+      {/* protected routes */}
+      <Route element={<RequireAuth />}>
       <Route path="/" element={<Home />} />
       <Route path="/report" element={<Report />} />
-
       <Route path="/updateDetailsHomeless" element={<IntroRedirect />}  />
       <Route path="/inputData" element={<InputData />} />
-      <Route path="/add" element={<Add />} />
-      <Route path="/user" element={<User />} />
-      <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/staff" element={<Staff />} />
-      <Route path="/search" element={<Search />}>
-        {/* <Route path="" element={<Profiles />} /> */}
+      <Route path="/search/:profileSlug" element={<Profile />} />
       </Route>
-        <Route path="/search/:profileSlug" element={<Profile />} />
-    </Routes>
 
+    </Routes>
   </Router>
   </AuthProvider>
   </React.StrictMode>

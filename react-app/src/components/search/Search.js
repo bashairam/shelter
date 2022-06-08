@@ -7,7 +7,6 @@ import { firestore } from "../../firebase"
 import "./Search.css"
 
 
-
 export function Search() {
   const navigate = useNavigate();
   const [homeless, setHomeless] = useState([]);

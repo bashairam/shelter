@@ -18,7 +18,7 @@ const SignUp = () => {
     function onRegister() {
       console.log("out register func");
       createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
+        .then(() => {
          
            setDoc(doc(firestore, "users", auth.lastNotifiedUid), 
           {

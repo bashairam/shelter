@@ -21,8 +21,9 @@ import {
   InputData
 } from "./components";
 
-import {useLocation} from 'react-router'
+import {useLocation,useParams} from 'react-router'
 import AllReport from './components/AllReport';
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const AllReportsWithProps = () => {

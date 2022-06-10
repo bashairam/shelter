@@ -33,6 +33,10 @@ export function Search() {
   const handleClickAddiction = (e) => {
     setChecked("addiction")
   }
+
+  const handleClickAll = (e) => {
+    window.location.reload();
+  }
   
   
   return (
@@ -62,7 +66,11 @@ export function Search() {
               <Dropdown.Item >
               <a onClick={handleClickAddiction}>רקע התמכרותי</a>
               </Dropdown.Item>
-    
+              
+              <Dropdown.Item >
+              <a onClick={handleClickAll}>כל הצעירים</a>
+              </Dropdown.Item>
+
             </DropdownButton>
 
             <input
@@ -88,6 +96,7 @@ export function Search() {
                 <thead>
                   <tr >
                     <th></th>
+                    <th>מסודות שהיה בהן בעבר</th>
                     <th>עיר מגורים</th>
                     <th>גיל</th>
                     <th>ת.ז</th>
@@ -102,19 +111,19 @@ export function Search() {
                       const homelessAddress = item.parentsAddress && item.parentsAddress.includes(search)
                       const homelessAge = item.age && String(item.age).includes(search)
                       const homelessId = item.ID && String(item.ID).includes(search)
-
+                      const homelessPastEstablishment = item.nameOf_prominent_institutions && item.nameOf_prominent_institutions.includes(search)
                 
 
-                      if (checked ==="psycotic" && (item.psycoticPastY_N !== "on")) {
+                      if (checked ==="psycotic" && !item.psycoticPast) {
                         return false;
                       }
-                      if (checked=== "criminal" && (item.criminalRecordY_N !== "on")) {
+                      if (checked=== "criminal" && !item.criminalRecord) {
                         return false;
                       }
-                      if (checked=== "addiction" && (item.addiction_HistoryY_N !== "on")) {
+                      if (checked=== "addiction" && !item.addiction_History) {
                         return false;
                       }
-                      else if (homelessName || homelessAddress || homelessAge || homelessId) {
+                      else if (homelessName || homelessAddress || homelessAge || homelessId || homelessPastEstablishment) {
                         return item
                       }
                       if (search === "") {
@@ -126,10 +135,12 @@ export function Search() {
                           navigate(`/search/${item.id}`)
                         }}>
                           פרטים</button></td>
+                        <td>{item.nameOf_prominent_institutions}</td>  
                         <td>{item.parentsAddress}</td>
                         <td>{item.age}</td>
                         <td>{item.id}</td>
                         <td>{item.name}</td>
+
                       </tr>
                     )}
                 </tbody>

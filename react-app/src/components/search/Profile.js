@@ -2,16 +2,16 @@ import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { firestore, storage } from "../../firebase"
-import { collection, getDocs, getDoc, onSnapshot, doc } from "firebase/firestore";
+import { getDocs, getDoc, onSnapshot, doc } from "firebase/firestore";
 import "./Profile.css";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap';
 import 'bootstrap/dist/js/bootstrap.js';
 import { NavDropdown } from 'react-bootstrap';
 import { deleteObject, getDownloadURL, ref, uploadBytes, listAll, list, uploadBytesResumable } from "firebase/storage"
-import { v4 } from "uuid"
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'firebase/storage';
-
+import LoadingScreen from 'react-loading-screen';
 
 export function Profile() {
 
@@ -22,14 +22,21 @@ export function Profile() {
   const [history, setHistory] = useState([]);
   const [data, setData] = useState([]);
   const [formsData, setFormsData] = useState([])
+  const [loading , setLoading] = useState(false);
+  const homelessinfo = doc(firestore, "homelesses", profileSlug)
+  const homelessReports = doc(firestore, "Reports", profileSlug)
+  const homelessHistory = doc(firestore, "history", profileSlug)
+ 
   let docRef = null
   const dataa = []
   const forms = []
 
+
+ //------------------------------------------------------------------------------------------------- 
  
- 
-  useEffect(() => {
-    const current = profileSlug;
+   useEffect(() => {
+
+    //---------------------------fill the array with documents name ------------
     const listRef1 = ref(storage,`homelessSignedForms/${profileSlug}`)
     listAll(listRef1)
       .then((res1) => {
@@ -42,6 +49,7 @@ export function Profile() {
         console.error(error)
       });
 
+    //----------------------------fill the array with signed forms name ---------------
     const listRef = ref(storage, `homelessDocuments/${profileSlug}`)
     listAll(listRef)
       .then((res) => {
@@ -57,11 +65,6 @@ export function Profile() {
 
   }, [profileSlug]);
 
-  const homelessinfo = doc(firestore, "homelesses", profileSlug)
-  const homelessReports = doc(firestore, "Reports", profileSlug)
-  const homelessHistory = doc(firestore, "history", profileSlug)
-  const homelessDoc = doc(firestore, "documents", profileSlug)
-  const homelessSignedForms = doc(firestore, "signedForms", profileSlug)
 
   //--------------------------------function to get spacific data--------------------------------------
 
@@ -76,7 +79,8 @@ export function Profile() {
     setHistory(doc.data());
   })
  
-  //-----------------------------
+  //-----------------------------functions for display the informations-------------------------------
+ 
 
   const container = document.getElementById('demo');
 
@@ -85,133 +89,221 @@ export function Profile() {
   const handleClickHis = (e) => { container.innerText = history[e.target.id]  };
 
   const handleClickDoc = (e) => {
-    const docRef1 = ref(storage, `/homelessDocuments/${profileSlug}/${e.target.id}`)
+    // setLoading(true);
+    console.log(e.target.title);
+    const docRef1 = ref(storage, `/homelessDocuments/${profileSlug}/${e.target.title}`)
     getDownloadURL(docRef1).then(function (url) {
+      setLoading(false);
       window.open(url)
     })
   };
-  const handleClickDel = (e) => {
-    const delDocRef = ref(storage, `/homelessDocuments/${profileSlug}/${e.target.id}`)
-    deleteObject(delDocRef).then(() => {
-      alert("הקובץ נמחק בהצלחה")
-      window.location.reload()
-    }).catch((error) => {
-      console.error(error)
-    });
-  }
-  const handleClickDelForm = (e) => {
-    const delSignedFormRef = ref(storage, `/homelessSignedForms/${profileSlug}/${e.target.id}`)
-    deleteObject(delSignedFormRef).then(() => {
-      alert("הקובץ נמחק בהצלחה")
-      window.location.reload()
-    }).catch((error) => {
-      console.error(error)
-    });
-  }
+
   const handleClickSign = (e) => {
     console.log(e.target.id)
     const signedFormRef = ref(storage, `/homelessSignedForms/${profileSlug}/${e.target.id}`)
     getDownloadURL(signedFormRef).then(function (url) {
       window.open(url)
     })
-
   };
 
-  const handleClickUpload = (e) => {
-    e.preventDefault()
-    const identifier = e.target.id
-    const file = e.target[0].files[0]
-    uploudDocument(file, identifier)
+  //-----------------------------functions for delete documents from firebase storage-------------------
+
+  const handleClickDel = (e) => { //dalete documents
+    setLoading(true);
+    const delDocRef = ref(storage, `/homelessDocuments/${profileSlug}/${e.target.id}`)
+    deleteObject(delDocRef).then(() => {
+      const text =  "' קובץ" +e.target.id+ " נמחק בהצלחה ' "
+      alert(text)
+      window.location.reload()
+    }).catch((error) => {
+      alert("בבקשה נסה שוב")
+      console.error(error)
+    });
   }
-  const uploudDocument = (file, identifier) => {
-    if (!file) return
-
-    if (identifier === 'doc') {
-      docRef = ref(storage, `/homelessDocuments/${profileSlug}/${file.name}`) //choose a differents name for the docs
-    }
-    else {
-      docRef = ref(storage, `/homelessSignedForms/${profileSlug}/${file.name}`) //choose a differents name for the docs
-    }
-    uploadBytes(docRef, file).then(() => {
-      alert("הקובץ נשמר בהצלחה")
-    })
-
+  const handleClickDelForm = (e) => { //delete Signed forms
+    setLoading(true);
+    const delSignedFormRef = ref(storage, `/homelessSignedForms/${profileSlug}/${e.target.id}`)
+    deleteObject(delSignedFormRef).then(() => {
+      setLoading(false);
+      const text =  "' קובץ" +e.target.id+ " נמחק בהצלחה ' "
+      alert(text)
+      window.location.reload()
+    }).catch((error) => {
+      alert("בבקשה נסה שוב")
+      console.error(error)
+    });
   }
+  
+ //------------------------------functions to upload the documents to firebase storage----------------------------------------
 
+ const handleClickUpload = (e) => {
+  e.preventDefault()
+  setLoading(true);
+  const identifier = e.target.title
+  const file = e.target.files[0]
+  console.log(e.target.title)
+  if (!file){
+    setLoading(false);
+    alert("נא לבחור קובץ קודם")
+    return
+  } 
+  if(!identifier){
+    setLoading(false);
+    alert("תנסה שוב בבקשה")
+    return
+  }
+  uploudDocument(file, identifier)
+}
+const uploudDocument = (file, identifier) => {
+
+  if (identifier === 'doc') {
+    docRef = ref(storage, `/homelessDocuments/${profileSlug}/${file.name}`) //choose a differents name for the docs
+  }
+  else {
+    docRef = ref(storage, `/homelessSignedForms/${profileSlug}/${file.name}`) //choose a differents name for the docs
+  }
+  uploadBytes(docRef, file).then(() => {
+    setLoading(false);
+    const text =  "' קובץ" +e.target.id+ " נשמר בהצלחה ' "
+    alert(text)
+    window.location.reload()
+  })
+
+}
+
+ 
+
+
+  //------------------------------------------------Display all the page------------------------------------------
 
   return (
-
+ 
     <div className="home">
-      <div className="clicks">
+         {
+        loading && <LoadingScreen loading={true}
+        bgColor='#f1f1f1'
+        spinnerColor='rgb(247, 116, 9)'
+        textColor='#rgba(0, 0, 0, 0.877)'
+        text='...טוען'> </LoadingScreen>
+      
+      }
+     <div className="clicks">
+
+      <div className="vl">
+
         <div className="info">
-          {/* name */}
-          <div className="subInfo">
-            {homeless.name}
-          </div>
+
+            {/* name */}
+            <div className="subInfo" data-toggle="tooltip" data-placement="bottom" title="שם הצעיר">
+               {homeless.name}
+             </div>
+
           <div className="infoDetails">
+
             {/* age */}
-            <tr>  {homeless.age}</tr>
+            {homeless.age && <tr>  {homeless.age}  <i className="bi1 bi-person fa-fw" data-toggle="tooltip" data-placement="bottom" title="גיל"></i></tr>}
+           
             {/* address */}
-            <tr>  {homeless.parentsAssress}</tr>
+            {homeless.parentsAddress && <tr> {homeless.parentsAddress}  <i className="bi2 bi-house-door fa-fw" data-toggle="tooltip" data-placement="bottom" title="כתובת"></i>  </tr>}
+           
             {/* phone */}
-            <tr>{homeless.personalPhone}</tr>
+            {homeless.personalPhone && <tr>{homeless.personalPhone} <i className="bi3 bi-telephone fa-fw" data-toggle="tooltip" data-placement="bottom" title="טלפון"></i></tr>}
+           
             {/* mentor */}
-            <tr>{homeless.formFillerId}</tr>
+            {homeless.formFiller && <tr>{homeless.formFiller} <i className="bi4 bi-journal-check fa-fw" data-toggle="tooltip" data-placement="bottom" title ="עובד סוציאלי"></i></tr>}
+
+            {/* status */}
+            {/* {homeless.date && <tr>{homeless.formFiller} <i className="bi4 bi-journal-check fa-fw" data-toggle="tooltip" data-placement="bottom" title ="עובד סוציאלי"></i></tr>} */}
           </div>
+         
         </div>
+        <div className = "cli">
         <Link to="/report">
-          <button className="me-0" style={{ display: 'block' }}>הוספת דו״ח</button>
+          <button className="me-0 "  style={{right: "53%"}} > עדכון פרטים<i className ="bi5 bi-pencil fa-fw"></i> </button>
         </Link>
+     
+        <Link to="/report">
+          <button className="me-0 " > הוספת דוח<i className="bi5 bi-file-earmark-plus fa-fw"></i> </button>
+        </Link>
+        
+        </div>
+        <div>
 
-        <form id="doc" onSubmit={handleClickUpload}>
-          <input type="file" ></input>
-          <button type="submit" id="subDoc"> העלאת מסמכים</button>
-        </form>
-        <form id="sign" onSubmit={handleClickUpload}>
-          <input type="file" ></input>
-          <button type="submit" id="subSign" > העלאת טפסים חתומים </button>
-        </form>
+        </div>
+        <div className="cli1" >
+          <label for="formFile" className="btn"   data-toggle="tooltip" data-placement="bottom" title="נא לבחור קובץ">העלאת מסמכים <i className="bi5 bi-cloud-upload fa-lg"></i></label>
+             <input type="file" id="formFile" title = "doc" style={{buttom : '50%'}} onChange={handleClickUpload}/>
+        </div>
+    
+        <div className="cli2">
+        <label for="formFile" className="btn" style={{buttom : '2%'}}  data-toggle="tooltip" data-placement="bottom" title="נא לבחור קובץ">העלאת טפסים חתומים <i className="bi5 bi-cloud-upload fa-lg"></i></label>
+             <input type="file" id="formFile" title = "sign" onChange={handleClickUpload}/>
+       
+        </div>
+       
+           
+       
+       
+      
+        
 
+</div>
       </div>
-
-
+      <div className="ff"> 
+      {/* <ColoredLine color="rgb(247, 116, 9)" /> */}
+      <hr className="new4" />
+      </div>
+     
       <div className="tab_4 ">
 
-        <div className="navigation">
-          <nav className="navbar navbar-expand navbar-dark bg-dark">
-            <div className="container">
+        <div className="navigation-ls">
+          <nav className="navbar navbar-expand  ">
+            <div className="container-fluid">
+
               <div className='ml-auto'>
                 <ul className="navbar-nav">
-                  <li className="nav-item">
-                    <NavDropdown title="טפסים חתומים" id="collasible-nav-dropdown">
+                  <li className="nav-item1">
+                    
+                    <NavDropdown title="טפסים חתומים" id="collasible-nav-dropdown1" style ={{right : '50%'}}>
+                     
                       {
-                        formsData && formsData.map((val) => (
+                        ((formsData.length === 0) && ( <NavDropdown.Item className="text-end">
+                       
+                         <a> אין טפסים חתומים </a>
+                    
+                        </NavDropdown.Item>) ) ||(formsData && formsData.map((val) => (
                           <NavDropdown.Item className="text-end">
-                            <button id={val.id} style={{ float: 'right' }} onClick={handleClickSign} >{val}</button>
-                            <button id={val} style={{ float: 'left' }} onClick={handleClickDelForm}> מחק</button>
+                              <button id={val}  style={{ width : '20%' }}  className = "deleteBtn" onClick={handleClickDelForm}> מחק</button>
+                             <button id={val.id} title = {val} onClick={handleClickSign} className = "btn2" >{val}</button>
                           </NavDropdown.Item>
-                        ))
+                        )))
+                        
                       }
                     </NavDropdown>
                   </li>
-                  <li className="nav-item">
-                    <NavDropdown title="מסמכים" id="collasible-nav-dropdown">
-
+                  <li className="nav-item1">
+                    <NavDropdown title="מסמכים" id="collasible-nav-dropdown1" style ={{right : '30%'}}>
                       {
-                        data && data.map((val) => (
+                          ((data.length === 0) && ( <NavDropdown.Item className="text-end" >
+                       
+                          <a > אין מסמכים </a>
+                     
+                           </NavDropdown.Item>) ) ||(
+                           data && data.map((val) => (
                           <NavDropdown.Item className="text-end">
-                            <button id={val.id} style={{ float: 'right' }} onClick={handleClickDoc} >{val}</button>
-                            <button id={val} style={{ float: 'left' }} onClick={handleClickDel}> מחק</button>
+                            <button id={val} style={{ width : '20%' }} onClick={handleClickDel} className = "deleteBtn"> מחק</button>
+                            <button id={val.id} title = {val} onClick={handleClickDoc} className = "btn2">{val}</button>
                           </NavDropdown.Item>
                         ))
+                        )   
                       }
                     </NavDropdown>
                   </li>
 
 
-                  <li className="nav-item">
-                    <NavDropdown title=" דוחות" id="collasible-nav-dropdown">
-
+                  <li className="nav-item1">
+                    <NavDropdown title=" דוחות" id="collasible-nav-dropdown1" style ={{left : '10%'}}>
+                       
                       {reports && Object.keys(reports).map((re, i) => (
                         <NavDropdown.Item className="text-end">
                           <button id={"re" + (i + 1)} onClick={handleClickRe}> דוח {i + 1} </button>
@@ -223,62 +315,62 @@ export function Profile() {
 
                   </li>
 
-                  <li className="nav-item">
+                  <li className="nav-item1">
 
 
-                    <NavDropdown title="רקעים" id="collasible-nav-dropdown">
+                    <NavDropdown title="רקעים" id="collasible-nav-dropdown1" style ={{left : '50%'}}>
 
                       {
 
-                        homeless.background &&
+                        !homeless.background &&
 
                         <NavDropdown.Item className="text-end">
 
-                          <button id='background' onClick={handleClickHis}>רקע כללי</button>
+                          <button id='background' className ="btn2"  onClick={handleClickHis}>רקע כללי</button>
 
                         </NavDropdown.Item>
                       }
                       {
 
-                        homeless.therapeutic_history &&
+                        !homeless.therapeutic_history &&
 
                         <NavDropdown.Item className="text-end">
 
-                          <button id='therapeutic_history' onClick={handleClickHis}>רקע טיפולי</button>
+                          <button id='therapeutic_history' className ="btn2" style={{ float: 'right' }}onClick={handleClickHis}>רקע טיפולי</button>
 
                         </NavDropdown.Item>
                       }{
-                        homeless.addiction_History &&
+                        !homeless.addiction_History &&
 
                         <NavDropdown.Item className="text-end">
 
-                          <button id='addiction_History' onClick={handleClickHis}>רקע התמכרותי</button>
-
-                        </NavDropdown.Item>
-
-                      }{
-                        homeless.criminalRecord &&
-
-                        <NavDropdown.Item className="text-end">
-
-                          <button id='criminalRecord' onClick={handleClickHis}>רקע פלילי</button>
+                          <button id='addiction_History' className ="btn2" style={{ float: 'right' }} onClick={handleClickHis}>רקע התמכרותי</button>
 
                         </NavDropdown.Item>
 
                       }{
-                        homeless.psycoticPast &&
+                        !homeless.criminalRecord &&
 
                         <NavDropdown.Item className="text-end">
 
-                          <button id='psycoticPast' onClick={handleClickHis}>רקע פסיכיאטרי</button>
+                          <button id='criminalRecord' className ="btn2" style={{ float: 'right' }}onClick={handleClickHis}>רקע פלילי</button>
+
+                        </NavDropdown.Item>
+
+                      }{
+                        !homeless.psycoticPast &&
+
+                        <NavDropdown.Item className="text-end">
+
+                          <button id='psycoticPast' className ="btn2"style={{ float: 'right' }} onClick={handleClickHis}>רקע פסיכיאטרי</button>
 
                         </NavDropdown.Item>
                       }{
-                        homeless.prominent_institutions &&
+                        !homeless.prominent_institutions &&
 
                         <NavDropdown.Item className="text-end">
 
-                          <button id='prominent_institutions' onClick={handleClickHis}>מסדות</button>
+                          <button id='prominent_institutions' className ="btn2" style={{ float: 'right' }} onClick={handleClickHis}>מסדות</button>
 
                         </NavDropdown.Item>
 
@@ -298,14 +390,14 @@ export function Profile() {
             </div>
           </nav>
         </div>
-
-
-
-      </div>
-      <div id="demo">
+        <div id="demo">
         {history.background}
+      
       </div>
-    </div>
+      </div>
+
+      
+    </div> 
 
 
 

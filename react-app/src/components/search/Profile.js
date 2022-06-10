@@ -72,6 +72,7 @@ export function Profile() {
     setHomeless(doc.data());
 
     setHomelessId(doc.id);
+
   })
 
   onSnapshot(homelessReports, (doc) => {
@@ -224,7 +225,7 @@ Z
           <button className="me-0 "  style={{right: "53%"}} > עדכון פרטים<i className ="bi5 bi-pencil fa-fw"></i> </button>
         </Link>
      
-        <Link to="/report" state={homelessId}>
+        <Link to={"/report"} state={{id:homelessId, method:"create"}}>
           <button className="me-0 " > הוספת דוח<i className="bi5 bi-file-earmark-plus fa-fw"></i> </button>
         </Link>
         

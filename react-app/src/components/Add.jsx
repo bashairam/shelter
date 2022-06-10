@@ -41,7 +41,74 @@ function Add() {
 
 
 
+function handleChange(e) {
+  const elements = document.getElementsByName("checkbox");
+  const cri = document.getElementsByName("cri");
+  const back = document.getElementsByName("back");
+  const psy = document.getElementsByName("psy");
+  const inst = document.getElementsByName("inst");
+  const add = document.getElementsByName("add");
 
+  let checkedCount = 0;
+  let checkedCountcri = 0;
+  let checkedCountback = 0;
+  let checkedCountpsy = 0;
+  let checkedCountadd = 0;
+  let checkedCountinst = 0;
+
+  elements.forEach((element) => {
+    if (element.checked) {
+      checkedCount++;
+    }
+  });
+  cri.forEach((element) => {
+    if (element.checked) {
+      checkedCountcri++;
+    }
+  });  back.forEach((element) => {
+    if (element.checked) {
+      checkedCountback++;
+    }
+  });  psy.forEach((element) => {
+    if (element.checked) {
+      checkedCountpsy++;
+    }
+  }); inst.forEach((element) => {
+    if (element.checked) {
+      checkedCountinst++;
+    }
+  });  add.forEach((element) => {
+    if (element.checked) {
+      checkedCountadd++;
+    }
+  });
+  if (checkedCount > 1 || checkedCount === 0) {
+    setselectStatus(true);
+  } else {
+    setselectStatus(false);
+  }
+  if (checkedCountcri > 1 || checkedCountcri === 0) {
+    setCheckedcru(true);
+  } else {
+    setCheckedcru(false);
+  }if (checkedCountback > 1 || checkedCountback === 0) {
+    setCheckedback(true);
+  } else {
+    setCheckedback(false);
+  }if (checkedCountpsy > 1 || checkedCountpsy === 0) {
+    setCheckedpsy(true);
+  } else {
+    setCheckedpsy(false);
+  }if (checkedCountinst > 1 || checkedCountinst === 0) {
+    setNewinstituY_N(true);
+  } else {
+    setNewinstituY_N(false);
+  }if (checkedCountadd > 1 || checkedCountadd === 0) {
+    setCheckedadd(true);
+  } else {
+    setCheckedadd(false);
+  }
+}
 
   function handleChange(e) {
 

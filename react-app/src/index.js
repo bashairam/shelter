@@ -45,7 +45,7 @@ root.render(
       <Route path="/add" element={<Add />} />
 
       {/* protected routes */}
-      <Route element={<RequireAuth />}>
+      <Route element={<RequireAuth allowedRoles={['מדריך']} />}>
       <Route path="/" element={<Home />} />
       <Route path="/report" element={<Report />} />
       <Route path="/updateDetailsHomeless" element={<IntroRedirect />}  />

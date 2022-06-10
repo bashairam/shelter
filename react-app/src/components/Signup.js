@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { auth, firestore } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { ref, set } from "firebase/database";
 import './Form.css' 
-import {setDoc,doc } from "firebase/firestore";
+import { collection,addDoc,setDoc,doc } from "firebase/firestore";
+import { async } from "@firebase/util";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -11,12 +13,12 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [type, setType] = useState("");
+
   const navigate = useNavigate();
 
   const handleSubmit =  (e) => {
     e.preventDefault();
     function onRegister() {
-      console.log("out register func");
       createUserWithEmailAndPassword(auth, email, password)
         .then(() => {
          
@@ -28,14 +30,17 @@ const SignUp = () => {
           type:type
         }
           );
+
         
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.log(error)).then(()=>{navigate("/staff");})
+        .then(()=>{ alert("המשתמש נוסף בהצלחה");})
     }
 
       onRegister();
-    alert("המשתמש נוסף בהצלחה");
-    navigate("/staff");
+    
+
+
     //  addDoc(doc(firestore, "users"), {
     //   fname: name,
     //   email: email,

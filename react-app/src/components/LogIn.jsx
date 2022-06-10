@@ -17,8 +17,10 @@ const LogIn = () => {
       signInWithEmailAndPassword(auth, email, password).catch((error) =>
         alert(error.message)
         
-      ).then(()=>{     
+      ).then(()=>{    
+         
          navigate(from,{replace: true});
+
         })
     }
     onRegister();

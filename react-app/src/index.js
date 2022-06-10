@@ -60,16 +60,11 @@ root.render(
       {/* protected routes */}
       <Route element={<RequireAuth allowedRoles={['מדריך']} />}>
       <Route path="/" element={<Home />} />
-<<<<<<< HEAD
-      <Route path="/report" element={<Report />} />
-      <Route path="/updateDetailsHomeless" element={<IntroRedirect />}  />
-=======
       <Route path="/report" element={<ReportHomelessWithProps />} />
       {/* <Route path="/allreports" element={<AllReport />} /> */}
       <Route path="/allreports" element={<AllReportsWithProps/>} />
 
       <Route path="/updateDetailsHomeless" element={<DetailsHomelessWithProps />}  />
->>>>>>> jobehay-main
       <Route path="/inputData" element={<InputData />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/staff" element={<Staff />} />

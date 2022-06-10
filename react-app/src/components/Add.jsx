@@ -201,6 +201,7 @@ function handleChange(e) {
       prominent_institutions: NewinstituY_N,
       sleepingPlace: NewHow,
       nameOf_prominent_institutions: Newinstitutions
+      
 
     });
 

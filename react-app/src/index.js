@@ -41,9 +41,9 @@ const DetailsHomelessWithProps = () => {
 
 const ReportHomelessWithProps = () => {
   const {state} = useLocation();
-  const { id } = state
+  const { id ,method,report} = state
 
-  return <Report id = {id} /> 
+  return <Report id = {id} method={method} report={report} /> 
 };
 // element={<DetailsHomeless id = "asdadasdasdasdasd"/>}
 root.render(

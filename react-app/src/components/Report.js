@@ -9,10 +9,18 @@ class Report extends React.Component {
     constructor(props) {
         super(props);
         console.log("Report page: id of homeless that we selected is "+this.props.id)
+        console.log(this.props.method);
+        this.nameBtn = "עדון";
+        if(this.props.method == "create")
+            this.nameBtn = "הוספה"
+        this.state = { createdBy: this.userId, content: "", created: "", sheft: "משמרת", createdFor: this.props.id };
 
-
+        if(this.props.report!= null){
+            
+            this.state = { createdBy: this.userId, content: this.props.report.content, created: this.props.report.created, sheft: this.props.report.sheft, createdFor: this.props.id };
+                }
+        console.log(this.props.report);
         this.isClicked = false;
-        this.state = { createdBy: this.userId, content: "", created: "", sheft: "", createdFor: this.props.id };
         this.handleContent = this.handleContent.bind(this);
         this.handleSheft = this.handleSheft.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -43,6 +51,9 @@ class Report extends React.Component {
     }
     
     async componentDidMount() {
+        if(this.props.method =="create"){
+
+        
         var dateNow = new Date().toDateString();
         await onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -68,7 +79,9 @@ class Report extends React.Component {
 
 
         this.setState({ ...this.state, created: dateNow });
-
+    }else{
+        this.setState({...this.state, fname:this.props.report.fname})
+    }
     }
 
 
@@ -76,8 +89,9 @@ class Report extends React.Component {
     //////////////////////////
     render() {
 
-        const { created, fname } = this.state;
-
+        const { created, fname,content,sheft } = this.state;
+        console.log(content)
+        console.log("-------")
         return (
             <div className="d-flex justify-content-center" dir="rtl" >
                 <form onSubmit={this.handleSubmit} class="col-md-6" dir="rtl" >
@@ -88,7 +102,7 @@ class Report extends React.Component {
 
                         <div class="col-6 col-md-4">
                             <select class="form-select form-select-sm text-right" aria-label=".form-select-sm example" onChange={this.handleSheft} >
-                                <option  >משמרת</option>
+                                <option  >{sheft}</option>
                                 <option value="בוקר">בוקר</option>
                                 <option value="ערב">ערב</option>
 
@@ -100,11 +114,11 @@ class Report extends React.Component {
                     <br></br>
 
                     <div >
-                        <textarea class="form-control  text-right" id="exampleFormControlTextarea1" placeholder="תוכן הדוח" onChange={this.handleContent} rows="7"></textarea>
+                        <textarea class="form-control  text-right" id="exampleFormControlTextarea1" value={content}  onChange={this.handleContent} rows="7">{content}</textarea>
                     </div>
                     <div class="col-md-6">
                         <br></br>
-                        <input style={{ backgroundColor: '#343741', borderColor: '#343741', color: '#ffff' }} className="btnSubmit" type="submit" value="הוספה" disabled={this.isClicked} />
+                        <input style={{ backgroundColor: '#343741', borderColor: '#343741', color: '#ffff' }} className="btnSubmit" type="submit" value={this.nameBtn} disabled={this.isClicked} />
 
                     </div>
                 </form>

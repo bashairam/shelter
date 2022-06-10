@@ -14,7 +14,8 @@ class DetailsHomeless extends React.Component {
     this.state = {
       name: "", age: "",date:"", id: this.props.id, personalPhone: "",parentsAddress: "", background: "",
       referrer: "", contact: "", therapeutic_history: "", criminalRecord: "",
-      psycoticPast: "", addiction_History: "", prominent_institutions: "", formFiller: "",stage:"בחר שלב",room:"בחר חדר",sleepingPlace:"" };
+      psycoticPast: "", addiction_History: "", prominent_institutions: "", formFiller: "",stage:"בחר שלב",room:"בחר חדר",sleepingPlace:""
+      ,nameOf_prominent_institutions:"" };
 
   
 
@@ -129,7 +130,7 @@ componentDidMount(){
 
   render() {
     const { name, age,date ,id, personalPhone, parentsAddress, background, referrer, contact, therapeutic_history
-      , criminalRecord, psycoticPast, addiction_History, prominent_institutions, formFiller,room,stage,sleepingPlace } = this.state;
+      , criminalRecord, psycoticPast, addiction_History, prominent_institutions, formFiller,room,stage,sleepingPlace,nameOf_prominent_institutions } = this.state;
 
     return (
       <div className="Add">

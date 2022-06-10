@@ -68,7 +68,7 @@ export function Profile() {
   onSnapshot(homelessinfo, (doc) => {
     setHomeless(doc.data());
    
-    sethomelessId("123123123123");
+    sethomelessId(doc.id);
   })
 
   onSnapshot(homelessReports, (doc) => {
@@ -159,12 +159,16 @@ export function Profile() {
             <tr>{homeless.formFillerId}</tr>
           </div>
         </div>
-        <Link to="/report">
+        <Link to={"/report"}  state={{id:homelessId}} >
           <button className="me-0" style={{ display: 'block' }}>הוספת דו״ח</button>
         </Link>
-        <Link to="/updateDetailsHomeless"  >
+        <Link to={"/updateDetailsHomeless"} state={{id:homelessId}}    >
           <button className="me-0" style={{ display: 'block' }}>עדכון פרטי הצעיר </button>
         </Link>
+        <Link to={"/allreports"}   state={{id:homelessId}} >
+          <button className="me-0" style={{ display: 'block' }}>הצג כל הדוחות </button>
+        </Link>
+        
 
 
         <form id="doc" onSubmit={handleClickUpload}>

@@ -20,15 +20,28 @@ import {
   InputData
 } from "./components";
 
-import {useLocation,useParams} from 'react-router'
+import {useLocation} from 'react-router'
+import AllReport from './components/AllReport';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+const AllReportsWithProps = () => {
+  const {state} = useLocation();
+  const { id } = state
 
-const IntroRedirect = () => {
-  const { id } = useParams();
-  console.log("xxxxxx")
-  console.log(useParams());
+  return <AllReport id = {id} /> 
+};
+const DetailsHomelessWithProps = () => {
+  const {state} = useLocation();
+  const { id } = state
+
   return <DetailsHomeless id = {id} /> 
+};
+
+const ReportHomelessWithProps = () => {
+  const {state} = useLocation();
+  const { id } = state
+
+  return <Report id = {id} /> 
 };
 // element={<DetailsHomeless id = "asdadasdasdasdasd"/>}
 root.render(
@@ -38,9 +51,11 @@ root.render(
     <Navigation />
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/report" element={<Report />} />
+      <Route path="/report" element={<ReportHomelessWithProps />} />
+      {/* <Route path="/allreports" element={<AllReport />} /> */}
+      <Route path="/allreports" element={<AllReportsWithProps/>} />
 
-      <Route path="/updateDetailsHomeless" element={<IntroRedirect />}  />
+      <Route path="/updateDetailsHomeless" element={<DetailsHomelessWithProps />}  />
       <Route path="/inputData" element={<InputData />} />
       <Route path="/add" element={<Add />} />
       <Route path="/user" element={<User />} />

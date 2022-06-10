@@ -8,14 +8,13 @@ import { onAuthStateChanged } from "firebase/auth";
 class Report extends React.Component {
     constructor(props) {
         super(props);
+        console.log("Report page: id of homeless that we selected is "+this.props.id)
 
 
         this.isClicked = false;
-        this.state = { createdBy: this.userId, content: "", created: "", sheft: "", createdFor: "" };
+        this.state = { createdBy: this.userId, content: "", created: "", sheft: "", createdFor: this.props.id };
         this.handleContent = this.handleContent.bind(this);
         this.handleSheft = this.handleSheft.bind(this);
-
-
         this.handleSubmit = this.handleSubmit.bind(this);
 
     }
@@ -42,7 +41,7 @@ class Report extends React.Component {
         this.isClicked = false;
         this.setState({ sheft: event.target.value });
     }
-
+    
     async componentDidMount() {
         var dateNow = new Date().toDateString();
         await onAuthStateChanged(auth, (user) => {
@@ -52,7 +51,7 @@ class Report extends React.Component {
                 this.userId = user.uid;
 
                 console.log("current user is: (Report.jsx file)")
-                this.state = { createdBy: this.userId, content: "", created: "", sheft: "", createdFor: "", fname: "" };
+                this.state = { createdBy: this.userId, content: "", created: "", sheft: "", createdFor: this.props.id, fname: "" };
 
                 console.log(this.state)
 
@@ -90,8 +89,8 @@ class Report extends React.Component {
                         <div class="col-6 col-md-4">
                             <select class="form-select form-select-sm text-right" aria-label=".form-select-sm example" onChange={this.handleSheft} >
                                 <option  >משמרת</option>
-                                <option value="morning">בוקר</option>
-                                <option value="afternoon">ערב</option>
+                                <option value="בוקר">בוקר</option>
+                                <option value="ערב">ערב</option>
 
                             </select>
                         </div>

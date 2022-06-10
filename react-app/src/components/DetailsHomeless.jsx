@@ -7,25 +7,16 @@ class DetailsHomeless extends React.Component {
 
   constructor(props) {
     super(props);
+    console.log("DetailsHomeLess File: "+ this.props.id)
     this.isClicked = true;
     
-    // this.state = { name: "jkhdjh", age: "88",id:"756453" , personalPhone:"6756745" ,parentsAddress:"jerusalem",background :"nkkj",
-    // referrer:"knkj",contact :"87867856",therapeutic_history:"cghdhg",criminalRecord:",.vnm,",
-    // psycoticPast:"cnbvn",addiction_History:"hkfjgvhj",prominent_institutions:"ghgh",formFiller:",bmmnm"};
-
+    
     this.state = {
-      name: "", age: "",date:"", id: "ff", personalPhone: "",parentsAddress: "", background: "",
+      name: "", age: "",date:"", id: this.props.id, personalPhone: "",parentsAddress: "", background: "",
       referrer: "", contact: "", therapeutic_history: "", criminalRecord: "",
       psycoticPast: "", addiction_History: "", prominent_institutions: "", formFiller: "",stage:"בחר שלב",room:"בחר חדר",sleepingPlace:"" };
 
-    // this.handleName = this.handleName.bind(this);
-    // this.handleAge = this.handleAge.bind(this);
-    // this.handlePersonalPhone = this.handlePersonalPhone.bind(this);
-    // // this.handleparentsAddress = this.handleparentsAddress.bind(this);
-    // // this.handleparentsAddress = this.handleparentsAddress.bind(this);
-
-    // this.handleSubmit = this.handleSubmit.bind(this);
-    
+  
 
   }
   handleName=(event) =>{
@@ -181,7 +172,7 @@ componentDidMount(){
             style={{ width: '100%' }}
             maxlength="9"
             value={id}
-            onChange={this.handleid}
+            //onChange={this.handleid}
 
           />
           <br /><br />
@@ -268,15 +259,13 @@ componentDidMount(){
           <h6> מוסדות בולטים בעבר</h6>
           <input
             style={{ width: '100%' }}
-            placeholder={prominent_institutions}
+            value={prominent_institutions}
             onChange={this.handleprominent_institutions}
 
           />
-          <br /><br />        <br /><br />
+          <br /><br />       
 
-          <h6> ?האם ברצונך להכניס את הצעיר לשלטר  <input
-            type="checkbox" /></h6>
-{/* defaultChecked={} */}
+        
           <select
             style={{ width: '100%' }}
             onChange={this.handleroom}

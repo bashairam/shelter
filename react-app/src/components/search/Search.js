@@ -12,7 +12,6 @@ import 'react-toastify'
 import { async } from "@firebase/util";
 import { toast } from "react-toastify";
 
-
 export function Search() {
 
 

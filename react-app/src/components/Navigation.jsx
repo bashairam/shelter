@@ -5,6 +5,7 @@ import { signOut } from 'firebase/auth';
 import useAuth from "../hooks/useAuth";
 import { auth } from '../firebase';
 import { useNavigate} from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 function Navigation() {
   
@@ -20,6 +21,9 @@ function Navigation() {
       navigate("/login");
     }
   };
+  const editDetails=()=>{
+    navigate("/user");
+  };
 
   return (
     <div className="navigation">
@@ -29,8 +33,8 @@ function Navigation() {
             <ul className="navbar-nav" >
               <li className="nav-item"> 
                   <NavDropdown title="איזור אישי" id="collasible-nav-dropdown">
-                 { currentUser && <NavDropdown.Item className="text-end">
-                  <Link style={{float:'right'}} to="/user" >עדכון פרטים אישיים</Link>
+                 { currentUser && <NavDropdown.Item  className="text-end">
+                   <button onClick={editDetails} style={{float:'right'}} >עדכון פרטים אישיים</button> 
                   </NavDropdown.Item>}
                   <NavDropdown.Item >
                     <button onClick={clickLogin}>

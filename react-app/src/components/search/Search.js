@@ -1,14 +1,11 @@
-import { collection,getFirestore, deleteDoc,addDoc, deleteField, getDocs,getDoc,doc ,onSnapshot } from "firebase/firestore";
-import React, { useState, useEffect, useReducer } from "react";
+import { collection, deleteDoc,getDocs,doc  } from "firebase/firestore";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 import { DropdownButton } from "react-bootstrap";
-import { firestore, getDetailsHomelessesById } from "../../firebase"
+import { firestore } from "../../firebase"
 import "./Search.css"
-import { dblClick } from "@testing-library/user-event/dist/click";
-import { Component } from "react";
 import 'react-toastify'
-import { async } from "@firebase/util";
 import { toast } from "react-toastify";
 
 export function Search() {
@@ -77,7 +74,7 @@ export function Search() {
             <DropdownButton
               id="dropdown1"
               variant="secondary"
-              menuVariant="light"
+              menuVariant="dark"
               title="סנן לפי"
               className="dropdown dropleft"
               size="sm"

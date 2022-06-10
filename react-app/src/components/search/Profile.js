@@ -27,10 +27,10 @@ export function Profile() {
   const forms = []
 
   const [homelessId, sethomelessId] = useState([]);
- 
+
   useEffect(() => {
     const current = profileSlug;
-    const listRef1 = ref(storage,`homelessSignedForms/${profileSlug}`)
+    const listRef1 = ref(storage, `homelessSignedForms/${profileSlug}`)
     listAll(listRef1)
       .then((res1) => {
         res1.items.forEach((itemRef) => {
@@ -67,7 +67,7 @@ export function Profile() {
 
   onSnapshot(homelessinfo, (doc) => {
     setHomeless(doc.data());
-   
+
     sethomelessId(doc.id);
   })
 
@@ -77,14 +77,14 @@ export function Profile() {
   onSnapshot(homelessHistory, (doc) => {
     setHistory(doc.data());
   })
- 
+
   //-----------------------------
 
   const container = document.getElementById('demo');
 
-  const handleClickRe = (e) => {   };
+  const handleClickRe = (e) => { };
 
-  const handleClickHis = (e) => { container.innerText = history[e.target.id]  };
+  const handleClickHis = (e) => { container.innerText = history[e.target.id] };
 
   const handleClickDoc = (e) => {
     const docRef1 = ref(storage, `/homelessDocuments/${profileSlug}/${e.target.id}`)
@@ -159,16 +159,16 @@ export function Profile() {
             <tr>{homeless.formFillerId}</tr>
           </div>
         </div>
-        <Link to={"/report"}  state={{id:homelessId}} >
+        <Link to={"/report"} state={{ id: homelessId }} >
           <button className="me-0" style={{ display: 'block' }}>הוספת דו״ח</button>
         </Link>
-        <Link to={"/updateDetailsHomeless"} state={{id:homelessId}}    >
+        <Link to={"/updateDetailsHomeless"} state={{ id: homelessId }}    >
           <button className="me-0" style={{ display: 'block' }}>עדכון פרטי הצעיר </button>
         </Link>
-        <Link to={"/allreports"}   state={{id:homelessId}} >
+        <Link to={"/allreports"} state={{ id: homelessId }} >
           <button className="me-0" style={{ display: 'block' }}>הצג כל הדוחות </button>
         </Link>
-        
+
 
 
         <form id="doc" onSubmit={handleClickUpload}>
@@ -193,8 +193,8 @@ export function Profile() {
                   <li className="nav-item">
                     <NavDropdown title="טפסים חתומים" id="collasible-nav-dropdown">
                       {
-                        formsData && formsData.map((val) => (
-                          <NavDropdown.Item className="text-end">
+                        formsData && formsData.map((val, index) => (
+                          <NavDropdown.Item key={index} className="text-end">
                             <button id={val.id} style={{ float: 'right' }} onClick={handleClickSign} >{val}</button>
                             <button id={val} style={{ float: 'left' }} onClick={handleClickDelForm}> מחק</button>
                           </NavDropdown.Item>
@@ -206,8 +206,8 @@ export function Profile() {
                     <NavDropdown title="מסמכים" id="collasible-nav-dropdown">
 
                       {
-                        data && data.map((val) => (
-                          <NavDropdown.Item className="text-end">
+                        data && data.map((val, index) => (
+                          <NavDropdown.Item key={index} className="text-end">
                             <button id={val.id} style={{ float: 'right' }} onClick={handleClickDoc} >{val}</button>
                             <button id={val} style={{ float: 'left' }} onClick={handleClickDel}> מחק</button>
                           </NavDropdown.Item>
@@ -221,7 +221,7 @@ export function Profile() {
                     <NavDropdown title=" דוחות" id="collasible-nav-dropdown">
 
                       {reports && Object.keys(reports).map((re, i) => (
-                        
+
                         <NavDropdown.Item className="text-end">
                           <button id={"re" + (i + 1)} onClick={handleClickRe}> דוח {i + 1} </button>
                         </NavDropdown.Item>

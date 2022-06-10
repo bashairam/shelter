@@ -11,13 +11,15 @@ const useFetch = (url) => {
 
   useEffect(() => {
     const getData = async () => {
-      const data = await getDocs(dataCollectionRef);
-      setData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      const rdata = await getDocs(dataCollectionRef);
+      return rdata;
     };
-    getData().then( setIsPending(false) );
+    getData().then((rdata) => {
+      setData(rdata.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      setIsPending(false)
+    });
 
   }, [url])
-
 
   return { data, isPending };
 }

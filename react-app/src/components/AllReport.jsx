@@ -2,6 +2,7 @@ import React from "react";
 import "./AllReport.css"
 import { getReportById } from "../firebase"
 import { onAuthStateChanged } from "firebase/auth";
+import { Link } from "react-router-dom";
 
 
 
@@ -74,21 +75,27 @@ handlecreatedFor=(event)=> {
     <th >שם המדריך</th>
     <th >משמרת</th>
     <th >תוכן הדוח</th>
+    <th >עדכון</th>
+
 </tr>
 {
      this.items.map((item) => (
         <tr key={item.id}>
             <td 
-            style={{  width : '10%' }} 
+            style={{  width : '10%' 
+          }} 
             >{item.created}</td>
             <td style={{  width : '10%' }}>{item.fname}</td>
             <td  style={{  width : '10%' }}  >{item.sheft}</td>
 
-            <td style={{  width : '60%' }}><textarea   disabled  type="text" class="form-control" id="example4" placeholder="100% width of the parent">{item.content}</textarea></td>
-            
+            <td style={{  width : '60%' }}><textarea style={{  height: '15vh'}} multilineColor={{ color:'red' }}  disabled  type="text" class="form-control  text-right" id="exampleFormControlTextarea1" >{item.content}</textarea></td>
+          <td style={{  width : '10%' }} ><Link to={"/report"}  state={{id:this.props.id ,method:"update",report:item}} >
+          <button className="me-0" style={{ display: 'block' }}>עדכון דו״ח</button>
+        </Link></td>
         </tr>
     ))
 }
+
   
   
 </table>

@@ -68,9 +68,8 @@ async function getDetailsHomelessesById(id) {
     }
   });
   const {room,stage,date} = await getRoomNoAndStageForHomelessById(id);
-  const {addiction_History,background,criminalRecord,prominent_institutions,psycoticPast
-    ,therapeutic_history}= await getHistoryById (id);
-  return {...homelessesJson,room,stage,date,addiction_History,background,criminalRecord,prominent_institutions,psycoticPast
+  const {addiction_History,background,criminalRecord,psycoticPast,therapeutic_history}= await getHistoryById (id);
+  return {...homelessesJson,room,stage,date,addiction_History,background,criminalRecord,psycoticPast
     ,therapeutic_history};
 }
 
@@ -131,7 +130,8 @@ async function updateHomeless (homelessesJson) {
   addiction_History:homelessesJson.addiction_History ,
   criminalRecord:homelessesJson.criminalRecord,
   prominent_institutions: homelessesJson.prominent_institutions,
-  sleepingPlace:homelessesJson.sleepingPlace
+  sleepingPlace:homelessesJson.sleepingPlace,
+  nameOf_prominent_instituti:homelessesJson.nameOf_prominent_instituti
  });
 
  await setDoc(doc(firestore, "history",homelessesJson.id ), { 
@@ -139,8 +139,8 @@ async function updateHomeless (homelessesJson) {
    therapeutic_history:homelessesJson.therapeutic_history ,
    psycoticPast: homelessesJson.psycoticPast, 
    criminalRecord:homelessesJson.criminalRecord,
-   addiction_History:homelessesJson.addiction_History,
-   prominent_institutions:homelessesJson.prominent_institutions
+   addiction_History:homelessesJson.addiction_History
+  //  prominent_institutions:homelessesJson.prominent_institutions
    });
   return await setDoc(doc(firestore, "inHomelesses",homelessesJson.id ), { 
     stage: homelessesJson.stage,

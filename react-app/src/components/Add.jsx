@@ -134,6 +134,7 @@ function Add() {
       prominent_institutions: NewinstituY_N,
       sleepingPlace: NewHow,
       nameOf_prominent_institutions: Newinstitutions
+      
 
     });
 

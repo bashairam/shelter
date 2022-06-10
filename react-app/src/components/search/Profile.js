@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router";c
 import { Link } from "react-router-dom";
 import { firestore, storage } from "../../firebase"
 import { collection, getDocs, getDoc, onSnapshot, doc } from "firebase/firestore";
@@ -159,7 +159,7 @@ export function Profile() {
             <tr>{homeless.formFillerId}</tr>
           </div>
         </div>
-        <Link to={"/report"}  state={{id:homelessId}} >
+        <Link to={"/report"}  state={{id:homelessId,method:"create"}} >
           <button className="me-0" style={{ display: 'block' }}>הוספת דו״ח</button>
         </Link>
         <Link to={"/updateDetailsHomeless"} state={{id:homelessId}}    >

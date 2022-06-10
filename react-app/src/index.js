@@ -19,8 +19,8 @@ import {
   DetailsHomeless,
   InputData
 } from "./components";
-
 import {useLocation,useParams} from 'react-router'
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

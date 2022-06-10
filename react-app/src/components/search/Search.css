@@ -71,4 +71,18 @@ margin: auto;
   }
 
 
+   
+
+  .delete{
+    width: 60px;
+    border-radius: 12px;
+    transition-duration: 0.4s;
+    background-color: white;
+  color: black;
+  border: 2px solid #555555;
+   }
+   .delete:hover {
+    background-color: #555555;
+    color: white;
+  }
  

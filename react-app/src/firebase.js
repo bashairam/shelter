@@ -39,6 +39,23 @@ async function getDetailsUserById(userId) {
 
   return userJson;
 }
+
+async function getReportById(id_homeless) {
+  let reportsLst = [];
+  const reports = collection(firestore, 'reports');
+
+  const reportsSnapshot = await getDocs(reports);
+
+  reportsSnapshot.docs.map((doc) => {
+    const currDoc = doc.data()['doc']
+    if (currDoc['createdFor'] === id_homeless) {
+      reportsLst.push(currDoc);
+ 
+    }
+  });
+
+  return reportsLst;
+}
 async function getDetailsHomelessesById(id) {
  
   let homelessesJson = {};
@@ -89,7 +106,7 @@ async function getRoomNoAndStageForHomelessById(id_homeless) {
 
 
 async function updateDetailsUserById(userId,userJson) {
-  await setDoc(doc(firestore, "users", userId), { "fname": userJson.fname,  "email": userJson.email, "phoneNumber": userJson.phoneNumber });
+  await setDoc(doc(firestore, "users", userId), { "fname": userJson.fname,  "email": userJson.email, "phoneNumber": userJson.phoneNumber,"type": userJson.type });
 
 }
 async function createNewReportByIdDoc( reportJson) {
@@ -113,7 +130,8 @@ async function updateHomeless (homelessesJson) {
    psycoticPast:homelessesJson.psycoticPast ,
   addiction_History:homelessesJson.addiction_History ,
   criminalRecord:homelessesJson.criminalRecord,
-  prominent_institutions: homelessesJson.prominent_institutions
+  prominent_institutions: homelessesJson.prominent_institutions,
+  sleepingPlace:homelessesJson.sleepingPlace
  });
 
  await setDoc(doc(firestore, "history",homelessesJson.id ), { 
@@ -134,4 +152,5 @@ async function updateHomeless (homelessesJson) {
   };
 
 
-export { getDetailsUserById, updateDetailsUserById ,createNewReportByIdDoc,getDetailsHomelessesById,updateHomeless}
+export { getDetailsUserById, updateDetailsUserById ,createNewReportByIdDoc,getDetailsHomelessesById
+  ,updateHomeless,getReportById}

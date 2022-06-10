@@ -10,7 +10,7 @@ class User extends React.Component {
     this.isClicked = true;
     
   
-    this.state = { fname: "", email: "", phoneNumber: "" , type: "",key:this.userId};
+    this.state = { fname: "", email: "", phoneNumber: "" ,key:this.userId,type:""};
 
     this.handleFirstName = this.handleFirstName.bind(this);
     this.handleAddress = this.handleEmail.bind(this);
@@ -71,11 +71,10 @@ class User extends React.Component {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
      
-         this.state = { fname: "", email:user.email, phoneNumber: "" , type:"",key:this.userId};
-
+         this.state = { fname: "", email:user.email, phoneNumber: "" ,type:"",key:this.userId}
         this.userId = user.uid;
         const userJson = await getDetailsUserById(user.uid);
-        this.setState({key:this.userId, fname: userJson.fname, email: userJson.email, phoneNumber: userJson.phoneNumber, type: userJson.type });
+        this.setState({key:this.userId, fname: userJson.fname, email: userJson.email, phoneNumber: userJson.phoneNumber ,type:userJson.type});
         console.log(this.state)
         // ...
       } else {

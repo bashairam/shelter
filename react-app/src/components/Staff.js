@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { firestore } from "../firebase";
 import LoadingScreen from 'react-loading-screen';
+import { getAuth, deleteUser } from "firebase/auth";
 
 const Staff = () => {
 
@@ -12,12 +13,18 @@ const Staff = () => {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
-
+  // const auth = getAuth();
+  // const user = auth.name
+  
   const handleDelete = async (id) => {
     if (window.confirm("? האם אתה בטוח שאתה רוצה למחוק את העודב ממערכת")) {
 
        const docRe = doc(firestore, "users",id) 
        await deleteDoc(docRe)
+       
+          
+      // deleteUser(user)
+
     }
     window.location.reload(false);
     navigate("/staff");

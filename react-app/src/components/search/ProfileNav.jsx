@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { Link, NavLink } from "react-router-dom";
 import { firestore, storage } from "../../firebase"
 import { onSnapshot, doc } from "firebase/firestore";
-import "./Profile.css";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap';
 import 'bootstrap/dist/js/bootstrap.js';
@@ -17,6 +15,7 @@ import useAuth from "../../hooks/useAuth";
 import * as ReactDOM from 'react-dom';
 import AllReport from "../AllReport";
 
+
 function ProfileNav() {
   
     let { profileSlug } = useParams();
@@ -24,6 +23,7 @@ function ProfileNav() {
   const [history, setHistory] = useState([]);
   const [data, setData] = useState([]);
   const [formsData, setFormsData] = useState([])
+  const [inHomeless, setInHomeless] = useState([]);
   const [loading , setLoading] = useState(false);
   const homelessinfo = doc(firestore, "homelesses", profileSlug)
   const homelessReports = doc(firestore, "reports", profileSlug)
@@ -35,7 +35,10 @@ function ProfileNav() {
   const { currentUser } = useAuth();
   const { isPending, data: users } = useFetch('users');
   const [homeless, setHomeless] = useState([]);
-
+  let enterDate = ""
+  let enterTime=""
+  let exitDate = ""
+  let exitTime=""
 
 
   onSnapshot(homelessinfo, (doc) => {
@@ -129,6 +132,62 @@ const handleDelete = async (id) => {
    
  }
 
+ const handleClickGen = (e) => {  //-------Split the date and the time-----------------
+  if(homeless.date){ //enter date 
+    const enter1 = homeless.date;
+    let enter = enter1.split('T');
+    enterDate = enter[0];
+    enterTime = enter[1];
+  }
+
+  if(homeless.exitDate){//exit date
+    const enter2 =homeless.exitDate;
+    let enter21 = enter2.split('T');
+    exitDate = enter21[0];
+    exitTime = enter21[1]; 
+  }
+
+ const myElement = (
+
+<div className="infoDeta text-right"  > 
+
+{/*Enter Date*/}
+
+{homeless.date && <tr > תאריך כניסה :  {enterDate}   </tr>}
+
+{/*Enter Time*/}
+{homeless.date && <tr  > זמן כניסה :  {enterTime}    </tr>}
+
+{/* Room */}
+{ (!homeless.exitDate && inHomeless.room && <tr> מספר חדר בשלטר :  {inHomeless.room} </tr>)}
+ 
+{/* Stage */}
+{(!homeless.exitDate && inHomeless.stage && <tr>שלב בשלטר :  {inHomeless.stage} </tr>) }
+
+{/*referrer*/}
+{homeless.referrer && <tr>גורם פנייה : {homeless.referrer}  </tr>}
+
+{/*Contact */}
+{homeless.contact && <tr>טלפון איש קשר :  {homeless.contact}</tr>}
+
+{/*Sleeping place */}
+{homeless.sleepingPlace && <tr>מקום שינה אחרון :  {homeless.sleepingPlace} </tr>}
+
+{/*name Of prominent institutions*/}
+{homeless.nameOf_prominent_institutions && <tr style={{ color: 'rgb(247, 116, 9)' , fontWeight :'600'}}> המסדות שהיה בהן בעבר :  {homeless.nameOf_prominent_institutions}</tr>  }
+
+{/*Exit Date*/}
+{homeless.exitDate && <tr> תאריך יצאה :  {exitDate}   </tr>}
+
+ {/*Enter Time*/}
+{homeless.exitDate && <tr> זמן יצאה :  {exitTime}   </tr>}
+
+</div>
+)
+let root = ReactDOM.createRoot(document.getElementById('demo'));
+root.render(myElement);
+
+ }
 //-----------------------------functions for delete documents from firebase storage-------------------
 
 const handleClickDel = (e) => { //dalete documents
@@ -166,7 +225,7 @@ const handleClickDelForm = (e) => { //delete Signed forms
 
           <div id = "profileNav" className='ml-auto'>
             <ul className="navbar-nav">
-              <li className="nav-item1">
+              <li className="nav-item">
                 
                 <NavDropdown title="טפסים חתומים" id="collasible-nav-dropdown1" style ={{right : '50%'}}>
                  
@@ -190,7 +249,7 @@ const handleClickDelForm = (e) => { //delete Signed forms
                 Role({currentUser},{users},{isPending},['מנהל','רכז','עובד סוציאלי'])==true
                  
                 &&
-                <li className="nav-item1">
+                <li className="nav-item">
                 <NavDropdown title="מסמכים" id="collasible-nav-dropdown1" style ={{right : '30%'}}>
                   {
                       ((data.length === 0) && ( <NavDropdown.Item className="text-end" >
@@ -215,7 +274,7 @@ const handleClickDelForm = (e) => { //delete Signed forms
            
               {Role({currentUser},{users},{isPending},['מנהל','רכז','עובד סוציאלי'])==true                     
                 &&
-                <li className="nav-item1">
+                <li className="nav-item">
 
 
                 <NavDropdown title="רקע" id="collasible-nav-dropdown1" style ={{left : '50%'}}>
@@ -280,7 +339,14 @@ const handleClickDelForm = (e) => { //delete Signed forms
                 </NavDropdown>
               </li>
             }
-              
+                      
+                      <li className="nav-item">
+                    <NavItem title="מידע כללי" id="collasible-nav-dropdown1" style ={{left : '2px'}} onClick={handleClickGen}>
+                    מידע כללי
+                    </NavItem>
+
+                  </li>
+
 
             </ul>
           </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { firestore, storage } from "../../firebase"
-import { collection, getDocs, getDoc, onSnapshot, doc } from "firebase/firestore";
+import { collection, getDocs, getDoc,deleteDoc, onSnapshot, doc } from "firebase/firestore";
 import "./Profile.css";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap';
@@ -11,6 +11,7 @@ import { NavDropdown } from 'react-bootstrap';
 import { deleteObject, getDownloadURL, ref, uploadBytes, listAll, list, uploadBytesResumable } from "firebase/storage"
 import { v4 } from "uuid"
 import 'firebase/storage';
+import { async } from "@firebase/util";
 
 
 export function Profile() {
@@ -139,7 +140,15 @@ export function Profile() {
     })
 
   }
+  const handleDelete = async (id) => {
+    window.confirm("? האם אתה בטוח שאתה רוצה למחוק את הצעיר ממערכת");
+   const docRe = doc(firestore,"inHomelesses",id)
 
+   await deleteDoc(docRe)
+
+   navigate('./search'); 
+   
+ }
 
   return (
     <div className="home">

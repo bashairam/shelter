@@ -31,6 +31,7 @@ function Add() {
   const [checkadd, setCheckedadd] = useState(true);
   const [checkback, setCheckedback] = useState(true);
   const [NewinstituY_N, setNewinstituY_N] = useState(true);//institution
+  const [checktherap, setCheckedtherap] = useState(true);
 
   const [NewStage, setNewStage] = useState("");
   const [NewRoom, setNewRoom] = useState(0);
@@ -52,6 +53,7 @@ function Add() {
     const psy = document.getElementsByName("psy");
     const inst = document.getElementsByName("inst");
     const add = document.getElementsByName("add");
+    const therap = document.getElementsByName("therap");
 
     let checkedCount = 0;
     let checkedCountcri = 0;
@@ -59,6 +61,7 @@ function Add() {
     let checkedCountpsy = 0;
     let checkedCountadd = 0;
     let checkedCountinst = 0;
+    let checkedCounttherap = 0;
 
     elements.forEach((element) => {
       if (element.checked) {
@@ -84,6 +87,10 @@ function Add() {
     }); add.forEach((element) => {
       if (element.checked) {
         checkedCountadd++;
+      }
+    });therap.forEach((element) => {
+      if (element.checked) {
+        checkedCounttherap++;
       }
     });
     if (checkedCount > 1 || checkedCount === 0) {
@@ -111,48 +118,52 @@ function Add() {
       setCheckedadd(true);
     } else {
       setCheckedadd(false);
+    }if (checkedCounttherap > 1 || checkedCounttherap === 0) {
+      setCheckedtherap(true);
+    } else {
+      setCheckedtherap(false);
     }
   }
 
   const createUser = async () => {
-    if(!newName || !NewID){
+    if (!newName || !NewID) {
       window.confirm("משהו השתבש ודא שהכנסת את השם ואת תעודת הזהות!")
-    }else{
-    await setDoc(doc(firestore, "homelesses", NewID), {
-      name: newName,
-      age: Number(newAge),
-      date: newDate,
-      personalPhone: (NewTel),
-      contact: (NewContTel),
-      formFiller: newformFiller,
-      parentsAddress: NewAddr,
-      referrer: NewWhy,
-      background: checkback,
-      psycoticPast: checkpsy,
-      addiction_History: checkadd,
-      criminalRecord: checkcri,
-      prominent_institutions: NewinstituY_N,
-      sleepingPlace: NewHow,
-      nameOf_prominent_institutions: Newinstitutions
+    } else {
+      await setDoc(doc(firestore, "homelesses", NewID), {
+        name: newName,
+        age: Number(newAge),
+        date: newDate,
+        personalPhone: (NewTel),
+        contact: (NewContTel),
+        formFiller: newformFiller,
+        parentsAddress: NewAddr,
+        referrer: NewWhy,
+        background: checkback,
+        psycoticPast: checkpsy,
+        addiction_History: checkadd,
+        criminalRecord: checkcri,
+        prominent_institutions: NewinstituY_N,
+        sleepingPlace: NewHow,
+        nameOf_prominent_institutions: Newinstitutions,
+        therapeutic_history: checktherap
+      });
 
-    });
+      await setDoc(doc(firestore, "history", NewID), {
+        background: NewBack,
+        therapeutic_history: NewHis,
+        psycoticPast: NewPsyHis,
+        criminalRecord: NewcriHis,
+        addiction_History: NewaddHis,
+      });
+      await setDoc(doc(firestore, "inHomelesses", NewID), {
+        stage: NewStage,
+        room: (NewRoom),
+        date: newDate,
+      });
 
-    await setDoc(doc(firestore, "history", NewID), {
-      background: NewBack,
-      therapeutic_history: NewHis,
-      psycoticPast: NewPsyHis,
-      criminalRecord: NewcriHis,
-      addiction_History: NewaddHis,
-    });
-    await setDoc(doc(firestore, "inHomelesses", NewID), {
-      stage: NewStage,
-      room: (NewRoom),
-      date: newDate,
-    });
-   
-    window.location.reload(false);
-    navigate('./Add');
-  }
+      window.location.reload(false);
+      navigate('./Add');
+    }
   };
 
   return (
@@ -162,6 +173,7 @@ function Add() {
       <form onSubmit={(e) => e.preventDefault()}>
         <h6> תאריך ושעת הגעה</h6>
         <input
+          required
           type="datetime-local"
           style={{ width: '100%' }}
           onChange={(event) => {
@@ -174,7 +186,7 @@ function Add() {
           type="text"
           required
           style={{ width: '100%' }}
-          onChange={(event) => { 
+          onChange={(event) => {
             setNewName(event.target.value);
           }} />
         <br /><br />
@@ -190,7 +202,7 @@ function Add() {
 
         <h6>ת"ז</h6>
         <input
-          aria-required
+          required
           style={{ width: '100%' }}
           maxlength="9"
           onChange={(event) => {
@@ -251,9 +263,13 @@ function Add() {
           }} />
         <br /><br />
 
-        <h6>היסטוריה טיפולית</h6>
+        <h6>היה לו/ה היסטוריה טיפולית? אם כן פרט<input
+          name="therap" type="checkbox" onChange={handleChange} />
+
+        </h6>
         <textarea rows="5"
           cols="70"
+          disabled={checktherap}
           onChange={(event) => {
             setNewHis(event.target.value);
           }}> </textarea>

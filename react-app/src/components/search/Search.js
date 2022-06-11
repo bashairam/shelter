@@ -49,7 +49,7 @@ export function Search() {
   }
 
  const handleDelete = async (id) => {
-       window.confirm("? האם אתה בטוח שאתה רוצה למחוק את הצעיר ממערכת");
+     if( window.confirm("? האם אתה בטוח שאתה רוצה למחוק את הצעיר ממערכת")){
       const docRef = doc(firestore,"homelesses",id)
       const docRe = doc(firestore,"inHomelesses",id)
       const docR = doc(firestore,"history",id)
@@ -58,15 +58,20 @@ export function Search() {
       await deleteDoc(docRe)
       await deleteDoc(docR)
       toast.success("הצעיר נמחק בהצלחה!");
-
+ }
       window.location.reload(false);
       navigate('./search'); 
-      
-    
-  
     }
 
+    const handleDe = async (id) => {
+     if(window.confirm("? האם אתה בטוח שאתה רוצה להוציא את הצעיר מהשלטר")){
+     const docRe = doc(firestore,"inHomelesses",id)
 
+     await deleteDoc(docRe)
+     }
+     window.location.reload(false);
+     navigate('./search'); 
+   }
 
   return (
     <div className="row height d-flex justify-content-center align-items-center my-5">
@@ -105,6 +110,7 @@ export function Search() {
               onChange={(event) => {
                 setSearch(event.target.value)
               }} />
+              
           </div>
           <div className="form-group">
             <br />
@@ -120,7 +126,8 @@ export function Search() {
               <table className="table ">
                 <thead>
                   <tr >
-                    <th>מחיקת צעיר</th>
+                    <th>הוצאה מהשלטר</th>
+                    <th> מחיקת צעיר מהמערכת</th>
                     <th>צפה בפרופיל</th>
                     <th>עיר מגורים</th>
                     <th>גיל</th>
@@ -156,6 +163,10 @@ export function Search() {
                       }
                     }).map(item =>
                       <tr key={item.id} >
+                        <td>
+                        <button className="delete"  onClick={() => handleDe(item.id)}>
+                        להוציא</button>
+                        </td>
                         <td>
                           <button className="delete"  onClick={() => handleDelete(item.id)}>
                             מחק</button></td>

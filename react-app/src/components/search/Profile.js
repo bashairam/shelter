@@ -2,13 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { firestore, storage } from "../../firebase"
-import { collection, getDocs, getDoc, deleteDoc, onSnapshot, doc } from "firebase/firestore";
+import {onSnapshot, doc } from "firebase/firestore";
 import "./Profile.css";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap';
 import 'bootstrap/dist/js/bootstrap.js';
-import { NavDropdown ,Tab } from 'react-bootstrap';
-import { deleteObject, getDownloadURL, ref, uploadBytes, listAll, list, uploadBytesResumable } from "firebase/storage"
+import { getDownloadURL, ref, uploadBytes, listAll, list, uploadBytesResumable } from "firebase/storage"
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'firebase/storage';
 import ReactDOM from 'react-dom/client';
@@ -259,7 +258,7 @@ export function Profile() {
    
  
     <div className="home">
-      <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+      <script src="https://kit.fontawesome.com/yourcode.js" crossOrigin="anonymous"></script>
          {
         loading && <LoadingScreen loading={true}
         bgColor='#f1f1f1'

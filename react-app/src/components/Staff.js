@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import useFetch from "./useFetch";
-import { collection, getFirestore, deleteDoc, doc } from "firebase/firestore";
+import { deleteDoc, doc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import { async } from "@firebase/util";
 import { Link } from "react-router-dom";
-import { auth, firestore } from "../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { firestore } from "../firebase";
 import LoadingScreen from 'react-loading-screen';
 
 const Staff = () => {

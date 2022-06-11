@@ -3,6 +3,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { Link,useLocation,useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import './Form.css' 
+import useAuth from "../hooks/useAuth";
 
 const LogIn = () => {
   const [email, setEmail] = useState("");
@@ -10,6 +11,8 @@ const LogIn = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+  const {currentUser} = useAuth();
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,7 +32,7 @@ const LogIn = () => {
 
   return (
 
-    <div className="text-end">
+    !currentUser ? <div className="text-end">
     <div className="mx-auto">
       <div className=" login my-5" >
           <h1 className="font-weight-light">כניסה לאיזור האישי</h1>
@@ -62,6 +65,7 @@ const LogIn = () => {
       </div>
     </div>
   </div>
+  :<div>{navigate(from,{replace: true})}</div>
   );
 };
 

@@ -1,41 +1,23 @@
-/* 
-  h2{
-      text-align: center;
-  }
-  .center{
-    margin-left: auto;
-    margin-right: auto;
-  }
-  td{
-    border: 1px solid #dddddd;
-    text-align: right;
-    padding: 5px;
-  }
-   th {
-    border: 1px solid #dddddd;
-    text-align: right;
-    padding: 5px;
-  }
- 
-  
-  /* tr:nth-child(even) {
-    background-color: #dddddd;
-  } */
-  /* textarea{
-   
-    
-    height: 20vh;
-    width: 80%;
-    background-color: white;
+.centerTitle{
+  text-align: center;
+  font-size: 32px ;
+  font-weight: bold;
+}
+.center{
+  margin-left: auto;
+  margin-right: auto;
+}
 
-  }
- #w{
-     width: 10px;
- }
 
- #r{
-    width:60% ;
-    margin-left: 20%;
+button {
+  transition-duration: 0.4s;
+  border-radius: 12px;
+  background-color:white; /* Green */
+  border-style: none;
 
 }
-.b{border-style: dashed;}  */
+
+button:hover {
+  background-color: black; /* Green */
+  color: white;
+}

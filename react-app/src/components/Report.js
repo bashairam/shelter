@@ -1,6 +1,6 @@
 import React from "react";
 
-import { createNewReportByIdDoc, auth, getDetailsUserById } from "../firebase"
+import { createNewReportByIdDoc, auth, getDetailsUserById, updateReportByIdDoc } from "../firebase"
 import { onAuthStateChanged } from "firebase/auth";
 
 
@@ -8,36 +8,47 @@ import { onAuthStateChanged } from "firebase/auth";
 class Report extends React.Component {
     constructor(props) {
         super(props);
-        console.log("Report page: id of homeless that we selected is "+this.props.id)
+        console.log("Report page: id of homeless that we selected is " + this.props.report)
         console.log(this.props.method);
-        this.nameBtn = "עדון";
-        if(this.props.method == "create")
+        this.nameBtn = "עדכון";
+        if (this.props.method == "create")
             this.nameBtn = "הוספה"
         this.state = { createdBy: this.userId, content: "", created: "", sheft: "משמרת", createdFor: this.props.id };
 
-        if(this.props.report!= null){
-            
+        if (this.props.report != null)
             this.state = { createdBy: this.userId, content: this.props.report.content, created: this.props.report.created, sheft: this.props.report.sheft, createdFor: this.props.id };
-                }
+
         console.log(this.props.report);
         this.isClicked = false;
         this.handleContent = this.handleContent.bind(this);
         this.handleSheft = this.handleSheft.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
 
     }
 
-    handleSubmit(event) {
-        // this.isClicked = true;
+    handleSubmit = (event) => {
+        this.isClicked = true;
         event.preventDefault();
-        console.log(this.state)
-        createNewReportByIdDoc(this.state).then(() => {
-            alert('הפרטים עודכנו בהצלחה');
+        if (this.props.method == "create") {
 
-        }).catch(() => {
-            alert('הפרטים לא עודכנו תנסה שוב');
 
-        });
+            createNewReportByIdDoc(this.state).then(() => {
+                alert('הפרטים עודכנו בהצלחה');
+
+            }).catch(() => {
+                alert('הפרטים לא עודכנו תנסה שוב');
+
+            });
+        } else {
+            updateReportByIdDoc(this.props.report.idDoc, this.state).then(() => {
+                alert('הפרטים עודכנו בהצלחה');
+
+            }).catch(() => {
+                alert('הפרטים לא עודכנו תנסה שוב');
+
+            });
+        }
+        history.back();
+
 
     }
 
@@ -49,39 +60,56 @@ class Report extends React.Component {
         this.isClicked = false;
         this.setState({ sheft: event.target.value });
     }
-    
+
     async componentDidMount() {
-        if(this.props.method =="create"){
-
-        
-        var dateNow = new Date().toDateString();
-        await onAuthStateChanged(auth, (user) => {
-            if (user) {
-                // User is signed in, see docs for a list of available properties
-                // https://firebase.google.com/docs/reference/js/firebase.User
-                this.userId = user.uid;
-
-                console.log("current user is: (Report.jsx file)")
-                this.state = { createdBy: this.userId, content: "", created: "", sheft: "", createdFor: this.props.id, fname: "" };
-
-                console.log(this.state)
-
-                // ...
-            } else {
-                // User is signed out
-                // ...
-            }
-        });
-
-        let userJson = await getDetailsUserById(this.userId);
-        this.state = { ...this.state, fname: userJson.fname};
+        if (this.props.method == "create") {
 
 
+            var dateNow = new Date().toDateString();
+            await onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    // User is signed in, see docs for a list of available properties
+                    // https://firebase.google.com/docs/reference/js/firebase.User
+                    this.userId = user.uid;
 
-        this.setState({ ...this.state, created: dateNow });
-    }else{
-        this.setState({...this.state, fname:this.props.report.fname})
-    }
+                    console.log("current user is: (Report.jsx file)")
+                    this.state = { createdBy: this.userId, content: "", created: "", sheft: "", createdFor: this.props.id, fname: "" };
+
+                    console.log(this.state)
+
+                    // ...
+                } else {
+                    // User is signed out
+                    // ...
+                }
+            });
+
+            let userJson = await getDetailsUserById(this.userId);
+            this.state = { ...this.state, fname: userJson.fname };
+
+
+
+            this.setState({ ...this.state, created: dateNow });
+        } else {
+            await onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    // User is signed in, see docs for a list of available properties
+                    // https://firebase.google.com/docs/reference/js/firebase.User
+                    this.userId = user.uid;
+
+                    console.log("current user is: (Report.jsx file)")
+                    this.state = { createdBy: this.userId, createdFor: this.props.id };
+
+                    console.log(this.state)
+
+                    // ...
+                } else {
+                    // User is signed out
+                    // ...
+                }
+            });
+            this.setState({ ...this.state, fname: this.props.report.fname });
+        }
     }
 
 
@@ -89,22 +117,23 @@ class Report extends React.Component {
     //////////////////////////
     render() {
 
-        const { created, fname,content,sheft } = this.state;
-        console.log(content)
-        console.log("-------")
+        const { created, fname, content, sheft } = this.state;
+
         return (
             <div className="d-flex justify-content-center" dir="rtl" >
                 <form onSubmit={this.handleSubmit} class="col-md-6" dir="rtl" >
-                    <div class="d-flex justify-content-center"><h1>הוספת דו"ח  לצעיר</h1></div>
+                    <div class="d-flex justify-content-center"><h1>{this.nameBtn} דו"ח  לצעיר</h1></div>
                     <br></br>
                     <div class="row">
                         <div class="col-6 col-md-4" > {created}</div>
 
                         <div class="col-6 col-md-4">
-                            <select class="form-select form-select-sm text-right" aria-label=".form-select-sm example" onChange={this.handleSheft} >
-                                <option  >{sheft}</option>
+                            <select  required class="form-select form-select-sm text-right" aria-label=".form-select-sm example" onChange={this.handleSheft} >
+                               <option value=''>משמרת</option>
                                 <option value="בוקר">בוקר</option>
                                 <option value="ערב">ערב</option>
+                                <option value="לילה">לילה</option>
+
 
                             </select>
                         </div>
@@ -114,7 +143,7 @@ class Report extends React.Component {
                     <br></br>
 
                     <div >
-                        <textarea class="form-control  text-right" id="exampleFormControlTextarea1" value={content}  onChange={this.handleContent} rows="7">{content}</textarea>
+                        <textarea class="form-control  text-right" id="exampleFormControlTextarea1" value={content} onChange={this.handleContent} rows="7">{content}</textarea>
                     </div>
                     <div class="col-md-6">
                         <br></br>

@@ -337,9 +337,10 @@ function handleChange(e) {
         <textarea rows="5"
           cols="70"
           disabled={checktherap}
+          value={NewHis}
           onChange={(event) => {
             setNewHis(event.target.value);
-          }}> </textarea>
+          }}/>
         <br /><br />
 
         <h6>(אם כן פרט) :האם יש עבר פלילי    <input
@@ -347,11 +348,12 @@ function handleChange(e) {
         </h6>
         <textarea rows="5"
           cols="70"
+          value={NewcriHis}
           disabled={checkcri}
           name="locationId"
           onChange={(event) => {
             setNewcriHis(event.target.value);
-          }}> </textarea>
+          }}/> 
 
         <br /><br />
 

@@ -14,8 +14,8 @@ import 'firebase/storage';
 import useFetch from "../useFetch";
 import Role from "../Role";
 import useAuth from "../../hooks/useAuth";
+import * as ReactDOM from 'react-dom';
 import AllReport from "../AllReport";
-import { async } from "@firebase/util";
 
 function ProfileNav() {
   
@@ -97,7 +97,8 @@ function ProfileNav() {
 
 const container = document.getElementById('demo');
 
-const handleClickRe = (e) => { container.innerHTML=<AllReport id={{homelessId}} />};
+const handleClickRe = (e) => {  container.innerHTML=<AllReport id = {profileSlug}/>
+};
 
 const handleClickHis = (e) => { container.innerText = history[e.target.id] };
 
@@ -159,11 +160,11 @@ const handleClickDelForm = (e) => { //delete Signed forms
 
   return (
 
-    <div className="navigation-ls">
+    <div  className="navigation-ls">
       <nav className="navbar navbar-expand  ">
         <div className="container-fluid">
 
-          <div className='ml-auto'>
+          <div id = "profileNav" className='ml-auto'>
             <ul className="navbar-nav">
               <li className="nav-item1">
                 
@@ -184,12 +185,14 @@ const handleClickDelForm = (e) => { //delete Signed forms
                   }
                 </NavDropdown>
               </li>
+<li>
+  <NavItem>
+  <button onClick={handleClickRe}>reports</button>
+  </NavItem>
+</li>
 
-              <li>
-              <NavLink className="nav-link" to="/allreports"  state={{id:profileSlug}}>
-                  דוחות
-                </NavLink>
-              </li>
+
+
               {
                 Role({currentUser},{users},{isPending},['מנהל','רכז','עובד סוציאלי'])==true
                  

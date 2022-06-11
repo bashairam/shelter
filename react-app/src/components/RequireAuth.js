@@ -31,7 +31,7 @@ const RequireAuth = ({allowedRoles}) => {
         
       // 
 
-      : <Navigate to="/login" state={{ from: location }} replace />
+      :<div> {console.log(currentUser)}<Navigate to="/login" state={{ from: location }} replace /></div>
 
   );
 }

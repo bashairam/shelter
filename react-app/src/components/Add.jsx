@@ -229,7 +229,7 @@ function handleChange(e) {
       });
 
       window.location.reload(false);
-      navigate('./Add');
+      navigate('./staff');
     }
   };
 

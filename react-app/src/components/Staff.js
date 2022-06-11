@@ -54,7 +54,7 @@ const Staff = () => {
               <table className="table ">
                 <thead>
                   <tr >
-                    <th>הוצאת עודב</th>
+                    <th>הוצאת עובד</th>
                     <th>תפקיד</th>
                     <th>טלפון</th>
                     <th>מייל</th>

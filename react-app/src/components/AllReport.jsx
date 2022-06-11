@@ -78,7 +78,7 @@ class AllReport extends React.Component {
     const { created, fname } = this.state;
 
     return (
-      <div dir="rtl" className="row height d-flex justify-content-center align-items-center my-30">
+      <div dir="rtl" className="row height d-flex justify-content-center align-items-center my-5">
         <style></style>
 
 

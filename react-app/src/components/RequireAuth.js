@@ -18,7 +18,11 @@ const RequireAuth = ({allowedRoles}) => {
       ? !isPending
           ? allowedRoles.includes(users.find((user) => user.id === currentUser.uid).type)
         ? <Outlet />
-        : <div>משתמש לא מורשה</div>
+        : <div>
+          {alert('משתמש לא מורשה')}
+          {history.back()}
+          
+        </div>
 
 
        :

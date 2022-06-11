@@ -123,7 +123,7 @@ class User extends React.Component {
             :נייד
           </label> */}
           <div className="">
-          <button type="submit" className="btn btn-primary" disabled={this.isClicked}>
+          <button type="submit" className="btn" disabled={this.isClicked}>
           עדכון
         </button>
           </div>

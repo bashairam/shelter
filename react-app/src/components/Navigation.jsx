@@ -35,7 +35,7 @@ function Navigation() {
             <ul className="navbar-nav" >
               <li className="nav-item"> 
                   <NavDropdown title="איזור אישי" id="collasible-nav-dropdown">
-                 { currentUser && <NavDropdown.Item  className="text-end">
+                 { currentUser!=null && <NavDropdown.Item  className="text-end">
                    <button onClick={editDetails} style={{float:'right'}} >עדכון פרטים אישיים</button> 
                   </NavDropdown.Item>}
                   <NavDropdown.Item >
@@ -50,22 +50,16 @@ function Navigation() {
                   כל הצעירים
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/add">
-                  הוספת צעיר
-                </NavLink>
-              </li>
-              
-              <li className="nav-item">
-                { currentUser &&
-                    Role({currentUser},{users},{isPending},['מנהל'])==true
-                  &&
+               {currentUser != null
+                 ? Role({currentUser},{users},{isPending},['מנהל'])==true
+                  &&  <li className="nav-item">
+
                     <NavLink className="nav-link" to="/staff">
                   צוות השלטר
                 </NavLink>
-                }
-              </li>             
-             
+                
+              </li>            
+             :<li></li>}
             </ul>
           </div> 
 

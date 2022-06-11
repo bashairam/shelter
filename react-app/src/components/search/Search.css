@@ -9,7 +9,10 @@
    
 }
 
+.namee{
+    min-width:200px;
 
+}
 table td {
     width: 20%;
   
@@ -88,4 +91,13 @@ margin: auto;
     background-color: #555555;
     color: white;
   }
- 
+
+  .form-control{
+    margin-left: 5px;
+
+  }
+  
+  .btn{
+      min-width: 90px;
+
+  }

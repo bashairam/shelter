@@ -57,18 +57,23 @@ root.render(
       <Route path="/search" element={<Search />}/>
       <Route path="/user" element={<User />} />
       <Route path="/add" element={<Add />} />
-      <Route path="/" element={<Home />} />
 
       {/* protected routes */}
-      <Route element={<RequireAuth allowedRoles={['מנהל','רכז','עובד סוציאלי']} />}>
+      <Route element={<RequireAuth allowedRoles={['מנהל','רכז','עובד סוציאלי','מדריך']} />}>
+      <Route path="/" element={<Home />} />
       <Route path="/report" element={<ReportHomelessWithProps />} />
       <Route path="/allreports" element={<AllReportsWithProps/>} />
-      <Route path="/updateDetailsHomeless" element={<DetailsHomelessWithProps />}  />
-      <Route path="/inputData" element={<InputData />} />
-      <Route path="/signup" element={<SignUp />} />
-      <Route path="/staff" element={<Staff />} />
       <Route path="/search/:profileSlug" element={<Profile />} />
       </Route>
+      <Route element={<RequireAuth allowedRoles={['מנהל','רכז','עובד סוציאלי']} />}>
+      <Route path="/updateDetailsHomeless" element={<DetailsHomelessWithProps />}  />
+      </Route>
+
+      <Route element={<RequireAuth allowedRoles={['מנהל']} />}>
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/staff" element={<Staff />} />
+      </Route>
+
     </Routes>
   </Router>
   </AuthProvider>

@@ -260,7 +260,7 @@ function handleChange(e) {
         <input
           aria-required
           style={{ width: '100%' }}
-          maxlength="9"
+          maxLength="9"
           onChange={(event) => {
             setNewID(event.target.value);
           }} />
@@ -270,7 +270,7 @@ function handleChange(e) {
         <input
           style={{ width: '100%' }}
           type="number"
-          maxlength="10"
+          maxLength="10"
           onChange={(event) => {
             setNewTel(event.target.value);
           }} />
@@ -313,7 +313,7 @@ function handleChange(e) {
         <h6>(אם יש) טלפון איש קשר / גורם מלווה בקהילה</h6>
         <input
           style={{ width: '100%' }}
-          maxlength="10"
+          maxLength="10"
           onChange={(event) => {
             setNewContTel(event.target.value);
           }} />

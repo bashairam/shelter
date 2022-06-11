@@ -5,12 +5,14 @@ import { signOut } from 'firebase/auth';
 import useAuth from "../hooks/useAuth";
 import { auth } from '../firebase';
 import { useNavigate} from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
+import Role from './Role';
+import useFetch from './useFetch';
 
 function Navigation() {
   
   const navigate = useNavigate();
   const { currentUser } = useAuth();
+  const { isPending, data: users } = useFetch('users');
 
   const clickLogin = () => {
     if (currentUser) {
@@ -55,9 +57,13 @@ function Navigation() {
               </li>
               
               <li className="nav-item">
-                {currentUser&&<NavLink className="nav-link" to="/staff">
+                { currentUser &&
+                    Role({currentUser},{users},{isPending},['מנהל'])==true
+                  &&
+                    <NavLink className="nav-link" to="/staff">
                   צוות השלטר
-                </NavLink>}
+                </NavLink>
+                }
               </li>             
              
             </ul>

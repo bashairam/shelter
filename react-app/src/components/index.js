@@ -12,4 +12,3 @@ export {default as useFetch} from "./useFetch";
 export {default as Staff} from "./Staff"
 export {default as Report} from "./Report";
 export {default as DetailsHomeless} from "./DetailsHomeless";
-export {default as InputData} from "./InputData";

@@ -1,24 +1,14 @@
-import { useState } from "react";
-import { useEffect } from "react";
+
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useFetch from "./useFetch";
+import LoadingScreen from 'react-loading-screen';
+
 
 const RequireAuth = ({allowedRoles}) => {
   const location = useLocation();
   const { currentUser } = useAuth();
   const { isPending, data: users } = useFetch('users');
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-
-    console.log(isPending);
-    console.log(users);
-
-    // if (!isPending) { setReady(true) }
-
-  }
-    , [isPending]);
 
 
   return (
@@ -28,10 +18,17 @@ const RequireAuth = ({allowedRoles}) => {
       ? !isPending
           ? allowedRoles.includes(users.find((user) => user.id === currentUser.uid).type)
         ? <Outlet />
-        : <div>unauthraized</div>
+        : <div>משתמש לא מורשה</div>
 
 
-       :<div>loading ...</div>
+       :
+         <LoadingScreen loading={true}
+        bgColor='#f1f1f1'
+        spinnerColor='rgb(247, 116, 9)'
+        textColor='#rgba(0, 0, 0, 0.877)'
+        text='...טוען'> </LoadingScreen>
+      
+        
       // 
 
       : <Navigate to="/login" state={{ from: location }} replace />

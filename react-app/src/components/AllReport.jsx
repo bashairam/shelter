@@ -1,7 +1,6 @@
 import React from "react";
 import "./AllReport.css"
 import { getReportById } from "../firebase"
-import { onAuthStateChanged } from "firebase/auth";
 import { Link } from "react-router-dom";
 
 
@@ -45,7 +44,6 @@ handlecreatedFor=(event)=> {
    await getReportById( this.state.createdFor).then((data) => {
       this.setState(data);
       this.items =data.reverse();
-      console.log(this.items);
     }).catch(() => {
       alert('יש בעיה בשליפת הנתונים תבדוק זמינות השרת');
   
@@ -78,10 +76,11 @@ handlecreatedFor=(event)=> {
     <th >עדכון</th>
 
 </tr>
-{
+{    
      this.items.map((item) => (
         <tr key={item.id}>
-            <td 
+        { console.log(item)}
+           <td 
             style={{  width : '10%' 
           }} 
             >{item.created}</td>

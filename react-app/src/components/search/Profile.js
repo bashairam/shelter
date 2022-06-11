@@ -1,17 +1,17 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { firestore, storage } from "../../firebase"
-import { getDocs, getDoc, onSnapshot, doc } from "firebase/firestore";
+import { onSnapshot, doc } from "firebase/firestore";
 import "./Profile.css";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap';
 import 'bootstrap/dist/js/bootstrap.js';
-import { NavDropdown } from 'react-bootstrap';
-import { deleteObject, getDownloadURL, ref, uploadBytes, listAll, list, uploadBytesResumable } from "firebase/storage"
+import { ref, uploadBytes, listAll } from "firebase/storage"
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'firebase/storage';
 import LoadingScreen from 'react-loading-screen';
+import ProfileNav from "./ProfileNav";
 
 export function Profile() {
 
@@ -24,7 +24,7 @@ export function Profile() {
   const [formsData, setFormsData] = useState([])
   const [loading , setLoading] = useState(false);
   const homelessinfo = doc(firestore, "homelesses", profileSlug)
-  const homelessReports = doc(firestore, "Reports", profileSlug)
+  const homelessReports = doc(firestore, "reports", profileSlug)
   const homelessHistory = doc(firestore, "history", profileSlug)
  const [homelessId,setHomelessId]=useState(0);
   let docRef = null
@@ -32,6 +32,7 @@ export function Profile() {
   const forms = []
 
 
+   
  //------------------------------------------------------------------------------------------------- 
  
    useEffect(() => {
@@ -82,61 +83,7 @@ export function Profile() {
     setHistory(doc.data());
   })
  
-  //-----------------------------functions for display the informations-------------------------------
- 
 
-  const container = document.getElementById('demo');
-
-  const handleClickRe = (e) => { };
-
-  const handleClickHis = (e) => { container.innerText = history[e.target.id] };
-
-  const handleClickDoc = (e) => {
-    // setLoading(true);
-    console.log(e.target.title);
-    const docRef1 = ref(storage, `/homelessDocuments/${profileSlug}/${e.target.title}`)
-    getDownloadURL(docRef1).then(function (url) {
-      setLoading(false);
-      window.open(url)
-    })
-  };
-
-  const handleClickSign = (e) => {
-    console.log(e.target.id)
-    const signedFormRef = ref(storage, `/homelessSignedForms/${profileSlug}/${e.target.id}`)
-    getDownloadURL(signedFormRef).then(function (url) {
-      window.open(url)
-    })
-  };
-
-  //-----------------------------functions for delete documents from firebase storage-------------------
-
-  const handleClickDel = (e) => { //dalete documents
-    setLoading(true);
-    const delDocRef = ref(storage, `/homelessDocuments/${profileSlug}/${e.target.id}`)
-    deleteObject(delDocRef).then(() => {
-      const text =  "' קובץ" +e.target.id+ " נמחק בהצלחה ' "
-      alert(text)
-      window.location.reload()
-    }).catch((error) => {
-      alert("בבקשה נסה שוב")
-      console.error(error)
-    });
-  }
-  const handleClickDelForm = (e) => { //delete Signed forms
-    setLoading(true);
-    const delSignedFormRef = ref(storage, `/homelessSignedForms/${profileSlug}/${e.target.id}`)
-    deleteObject(delSignedFormRef).then(() => {
-      setLoading(false);
-      const text =  "' קובץ" +e.target.id+ " נמחק בהצלחה ' "
-      alert(text)
-      window.location.reload()
-    }).catch((error) => {
-      alert("בבקשה נסה שוב")
-      console.error(error)
-    });
-  }
-  
  //------------------------------functions to upload the documents to firebase storage----------------------------------------
 
  const handleClickUpload = (e) => {
@@ -193,7 +140,7 @@ const uploudDocument = (file, identifier) => {
      <div className="clicks">
 
       <div className="vl">
-Z
+
         <div className="info">
 
             {/* name */}
@@ -204,24 +151,22 @@ Z
           <div className="infoDetails">
 
             {/* age */}
-            {homeless.age && <tr>  {homeless.age}  <i className="bi1 bi-person fa-fw" data-toggle="tooltip" data-placement="bottom" title="גיל"></i></tr>}
+            {homeless.age && <div>{homeless.age}<i className="bi1 bi-person fa-fw" data-toggle="tooltip" data-placement="bottom" title="גיל"></i></div>}
            
             {/* address */}
-            {homeless.parentsAddress && <tr> {homeless.parentsAddress}  <i className="bi2 bi-house-door fa-fw" data-toggle="tooltip" data-placement="bottom" title="כתובת"></i>  </tr>}
+            {homeless.parentsAddress && <div>{homeless.parentsAddress}<i className="bi2 bi-house-door fa-fw" data-toggle="tooltip" data-placement="bottom" title="כתובת"></i></div>}
            
             {/* phone */}
-            {homeless.personalPhone && <tr>{homeless.personalPhone} <i className="bi3 bi-telephone fa-fw" data-toggle="tooltip" data-placement="bottom" title="טלפון"></i></tr>}
+            {homeless.personalPhone && <div>{homeless.personalPhone}<i className="bi3 bi-telephone fa-fw" data-toggle="tooltip" data-placement="bottom" title="טלפון"></i></div>}
            
             {/* mentor */}
-            {homeless.formFiller && <tr>{homeless.formFiller} <i className="bi4 bi-journal-check fa-fw" data-toggle="tooltip" data-placement="bottom" title ="עובד סוציאלי"></i></tr>}
+            {homeless.formFiller && <div>{homeless.formFiller}<i className="bi4 bi-journal-check fa-fw" data-toggle="tooltip" data-placement="bottom" title ="עובד סוציאלי"></i></div>}
 
-            {/* status */}
-            {/* {homeless.date && <tr>{homeless.formFiller} <i className="bi4 bi-journal-check fa-fw" data-toggle="tooltip" data-placement="bottom" title ="עובד סוציאלי"></i></tr>} */}
           </div>
          
         </div>
         <div className = "cli">
-        <Link to="/report">
+        <Link to={"/updateDetailsHomeless"} state={{id:homelessId}}>
           <button className="me-0 "  style={{right: "53%"}} > עדכון פרטים<i className ="bi5 bi-pencil fa-fw"></i> </button>
         </Link>
      
@@ -234,173 +179,35 @@ Z
 
         </div>
         <div className="cli1" >
-          <label for="formFile" className="btn"   data-toggle="tooltip" data-placement="bottom" title="נא לבחור קובץ">העלאת מסמכים <i className="bi5 bi-cloud-upload fa-lg"></i></label>
+          <label htmlFor="formFile" className="btn"   data-toggle="tooltip" data-placement="bottom" title="נא לבחור קובץ">העלאת מסמכים <i className="bi5 bi-cloud-upload fa-lg"></i></label>
              <input type="file" id="formFile" title = "doc" style={{buttom : '50%'}} onChange={handleClickUpload}/>
         </div>
     
         <div className="cli2">
-        <label for="formFile" className="btn" style={{buttom : '2%'}}  data-toggle="tooltip" data-placement="bottom" title="נא לבחור קובץ">העלאת טפסים חתומים <i className="bi5 bi-cloud-upload fa-lg"></i></label>
+        <label htmlFor="formFile" className="btn" style={{buttom : '2%'}}  data-toggle="tooltip" data-placement="bottom" title="נא לבחור קובץ">העלאת טפסים חתומים <i className="bi5 bi-cloud-upload fa-lg"></i></label>
              <input type="file" id="formFile" title = "sign" onChange={handleClickUpload}/>
        
         </div>
-       
-           
-       
-       
-      
+
         
 
-</div>
       </div>
-      <div className="ff"> 
-      {/* <ColoredLine color="rgb(247, 116, 9)" /> */}
-      <hr className="new4" />
-      </div>
-     
-      <div className="tab_4 ">
-
-        <div className="navigation-ls">
-          <nav className="navbar navbar-expand  ">
-            <div className="container-fluid">
-
-              <div className='ml-auto'>
-                <ul className="navbar-nav">
-                  <li className="nav-item1">
-                    
-                    <NavDropdown title="טפסים חתומים" id="collasible-nav-dropdown1" style ={{right : '50%'}}>
-                     
-                      {
-                        ((formsData.length === 0) && ( <NavDropdown.Item className="text-end">
-                       
-                         <a> אין טפסים חתומים </a>
-                    
-                        </NavDropdown.Item>) ) ||(formsData && formsData.map((val) => (
-                          <NavDropdown.Item className="text-end">
-                              <button id={val}  style={{ width : '20%' }}  className = "deleteBtn" onClick={handleClickDelForm}> מחק</button>
-                             <button id={val.id} title = {val} onClick={handleClickSign} className = "btn2" >{val}</button>
-                          </NavDropdown.Item>
-                        )))
-                        
-                      }
-                    </NavDropdown>
-                  </li>
-                  <li className="nav-item1">
-                    <NavDropdown title="מסמכים" id="collasible-nav-dropdown1" style ={{right : '30%'}}>
-                      {
-                          ((data.length === 0) && ( <NavDropdown.Item className="text-end" >
-                       
-                          <a > אין מסמכים </a>
-                     
-                           </NavDropdown.Item>) ) ||(
-                           data && data.map((val) => (
-                          <NavDropdown.Item className="text-end">
-                            <button id={val} style={{ width : '20%' }} onClick={handleClickDel} className = "deleteBtn"> מחק</button>
-                            <button id={val.id} title = {val} onClick={handleClickDoc} className = "btn2">{val}</button>
-                          </NavDropdown.Item>
-                        ))
-                        )   
-                      }
-                    </NavDropdown>
-                  </li>
-
-
-                  <li className="nav-item1">
-                    <NavDropdown title=" דוחות" id="collasible-nav-dropdown1" style ={{left : '10%'}}>
-                       
-                      {reports && Object.keys(reports).map((re, i) => (
-
-                        <NavDropdown.Item className="text-end">
-                          <button id={"re" + (i + 1)} onClick={handleClickRe}> דוח {i + 1} </button>
-                        </NavDropdown.Item>
-                      ))
-                      }
-
-                    </NavDropdown>
-
-                  </li>
-
-                  <li className="nav-item1">
-
-
-                    <NavDropdown title="רקעים" id="collasible-nav-dropdown1" style ={{left : '50%'}}>
-
-                      {
-
-                        !homeless.background &&
-
-                        <NavDropdown.Item className="text-end">
-
-                          <button id='background' className ="btn2"  onClick={handleClickHis}>רקע כללי</button>
-
-                        </NavDropdown.Item>
-                      }
-                      {
-
-                        !homeless.therapeutic_history &&
-
-                        <NavDropdown.Item className="text-end">
-
-                          <button id='therapeutic_history' className ="btn2" style={{ float: 'right' }}onClick={handleClickHis}>רקע טיפולי</button>
-
-                        </NavDropdown.Item>
-                      }{
-                        !homeless.addiction_History &&
-
-                        <NavDropdown.Item className="text-end">
-
-                          <button id='addiction_History' className ="btn2" style={{ float: 'right' }} onClick={handleClickHis}>רקע התמכרותי</button>
-
-                        </NavDropdown.Item>
-
-                      }{
-                        !homeless.criminalRecord &&
-
-                        <NavDropdown.Item className="text-end">
-
-                          <button id='criminalRecord' className ="btn2" style={{ float: 'right' }}onClick={handleClickHis}>רקע פלילי</button>
-
-                        </NavDropdown.Item>
-
-                      }{
-                        !homeless.psycoticPast &&
-
-                        <NavDropdown.Item className="text-end">
-
-                          <button id='psycoticPast' className ="btn2"style={{ float: 'right' }} onClick={handleClickHis}>רקע פסיכיאטרי</button>
-
-                        </NavDropdown.Item>
-                      }{
-                        !homeless.prominent_institutions &&
-
-                        <NavDropdown.Item className="text-end">
-
-                          <button id='prominent_institutions' className ="btn2" style={{ float: 'right' }} onClick={handleClickHis}>מסדות</button>
-
-                        </NavDropdown.Item>
-
-
-
-                      }
-                    </NavDropdown>
-                  </li>
-
-                </ul>
-              </div>
-              <div className='ms-auto'>
-
-
-              </div>
-
             </div>
-          </nav>
-        </div>
-        <div id="demo">
+            <div className="ff"> 
+            {/* <ColoredLine color="rgb(247, 116, 9)" /> */}
+            <hr className="new4" />
+            </div>
+      <div className="tab_4 ">
+       
+        <ProfileNav />
+
+        <div  id="demo">
         {history.background}
-      
-      </div>
+
+        </div>
+
       </div>
 
-      
     </div> 
 
 

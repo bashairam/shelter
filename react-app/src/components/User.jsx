@@ -75,7 +75,6 @@ class User extends React.Component {
         this.userId = user.uid;
         const userJson = await getDetailsUserById(user.uid);
         this.setState({key:this.userId, fname: userJson.fname, email: userJson.email, phoneNumber: userJson.phoneNumber ,type:userJson.type});
-        console.log(this.state)
         // ...
       } else {
         // User is signed out
@@ -93,7 +92,7 @@ class User extends React.Component {
         <form   onSubmit={this.handleSubmit} >
        
             {/* <input type="text"  placeholder={email} onChange={this.handleEmail} /> */}
-            <div class="col-6 col-md-4" > {email}</div>
+            <div className="col-6 col-md-4" > {email}</div>
 
             <span> </span>
         
@@ -111,7 +110,7 @@ class User extends React.Component {
           <input
             style={{ width: '100%' }}
             type="number"
-            maxlength="10"
+            maxLength="10"
             value={phoneNumber}
             onChange={this.handlePhoneNumber}
           />

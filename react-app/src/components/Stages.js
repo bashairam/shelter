@@ -20,7 +20,7 @@ const Stages = () => {
 
     return (
 
-        <div> {(isPending || isPendingg) && <div>Loading...</div>}
+        <div> {(isPending || isPendingg) && <div>... טוען</div>}
             {inHmlsLists &&
                 <div className='my-5'>
                     {Object.keys(stages).map((stage) => (

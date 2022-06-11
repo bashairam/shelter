@@ -1,23 +1,26 @@
 import React, {useState} from "react";
 import useFetch from "./useFetch";
 import { Link } from "react-router-dom";
+import LoadingScreen from 'react-loading-screen';
+
+
 const Staff = ()=> {
 
     const {isPending, data: staffList } = useFetch('users');
     const [search, setSearch] = useState("");
 
 
-   return(   
+   return(
+    
   <div className="row height d-flex justify-content-center align-items-center my-5">
     <div className="col-md-10">
       <div className="search">
         <i className="fa fa-search"></i>
             <div className="col-md-6 me-auto ms-auto  d-flex " style={{minWidth : '500px' }} >
-          <button style={{backgroundColor : '#343741', color : 'white'}} className="btn btn-primary">חיפוש</button>
           <input 
             type="text"
             className="form-control"
-            placeholder="חיפוש"
+            placeholder=" חיפוש לפי : שם / מספר טלפון / מייל"
             onChange = {(event) => {
             setSearch(event.target.value)
           }}/>
@@ -34,7 +37,7 @@ const Staff = ()=> {
                 htmlFor="description">
             </label>
           </div>
-    
+            
             <div style={{textAlign:'center'}}>
               <table className="table ">
                 <thead>
@@ -45,15 +48,27 @@ const Staff = ()=> {
                     <th>שם</th>          
                   </tr>
                 </thead>
+                {
+                    isPending && <LoadingScreen loading={true}
+                    bgColor='#f1f1f1'
+                    spinnerColor='rgb(247, 116, 9)'
+                    textColor='#rgba(0, 0, 0, 0.877)'
+                    text='...טוען'> </LoadingScreen>
+                  
+                  }   
               <tbody>
                 { 
+                
                   staffList.filter((item) => {
-                    const staffName = item.fname.includes(search)
+                    const staffName = item.parentsAddress && item.fname.includes(search)
+                    const phoneNumber = item.phoneNumber && String(item.phoneNumber).includes(search)
+                    const mail = item.email && item.email.includes(search)
+                
                 
                     if(search === ""){
                       return item
                     }
-                    else if( staffName )
+                    else if( staffName || phoneNumber|| mail)
                     {
                       return item
                     }

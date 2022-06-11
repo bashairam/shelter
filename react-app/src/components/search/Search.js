@@ -7,6 +7,9 @@ import { firestore } from "../../firebase"
 import "./Search.css"
 import 'react-toastify'
 import { toast } from "react-toastify";
+import useAuth from "../../hooks/useAuth";
+import useFetch from "../useFetch";
+import Role from "../Role";
 
 export function Search() {
 
@@ -16,7 +19,9 @@ export function Search() {
   const [search, setSearch] = useState("");
   const col = collection(firestore, "homelesses");
   const [checked, setChecked] = useState("");
-
+  
+  const {currentUser} = useAuth();
+  const { isPending, data: users } = useFetch('users');
 
   useEffect(() => {
     
@@ -107,7 +112,7 @@ export function Search() {
             <input
               type="text"
               className="form-control"
-              placeholder="חיפוש"
+              placeholder="חפש לפי : שם / כתובת / גיל / ת.ז / מוסדות קודמות"
               onChange={(event) => {
                 setSearch(event.target.value)
               }} />
@@ -126,14 +131,18 @@ export function Search() {
               <table className="table ">
                 <thead>
                   <tr >
-                    <th>מחיקת צעיר</th>
+                  { currentUser &&
+                          Role({currentUser},{users},{isPending},['מנהל','רכז','עובד סוציאלי'])==true
+                          &&
+                          <th>מחיקת צעיר</th>
+ 
+                        }
                     <th>צפה בפרופיל</th>
-                    <th></th>
                     <th>מסודות שהיה בהן בעבר</th>
                     <th>עיר מגורים</th>
                     <th>גיל</th>
                     <th>ת.ז</th>
-                    <th>שם</th>
+                    <th className="namee">שם</th>
 
                   </tr>
                 </thead>
@@ -164,9 +173,16 @@ export function Search() {
                       }
                     }).map(item =>
                       <tr key={item.id} >
-                        <td>
+                        
+                        { currentUser &&
+                          Role({currentUser},{users},{isPending},['מנהל','רכז','עובד סוציאלי'])==true
+                          &&
+                          <td>
                           <button className="delete"  onClick={() => handleDelete(item.id)}>
                             מחק</button></td>
+                        }
+                        
+
                         <td><button className="view" onClick={() => {
                           navigate(`/search/${item.id}`)
                         }}>

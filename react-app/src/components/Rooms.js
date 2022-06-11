@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom';
 import './Tabs.css'
 import useFetch from './useFetch';
+import LoadingScreen from 'react-loading-screen';
 
 
 
@@ -22,7 +23,17 @@ const Rooms = () => {
 
     return (
 
-        <div> {(isPending || isPendingg) && <div>Loading...</div>}
+        <div> 
+
+            {
+                isPending || isPendingg && <LoadingScreen loading={true}
+                bgColor='#f1f1f1'
+                spinnerColor='rgb(247, 116, 9)'
+                textColor='#rgba(0, 0, 0, 0.877)'
+                text='...טוען'> </LoadingScreen>
+                
+            }   
+
             {inHmlsLists &&
                 <div className='my-5'>
                     {Object.keys(rooms).map((room) => (

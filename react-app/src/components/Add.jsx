@@ -5,6 +5,7 @@ import { firestore } from '../firebase';
 import "./Add.css";
 import { useNavigate } from 'react-router-dom';
 import { toBeRequired } from '@testing-library/jest-dom/dist/matchers';
+import {createUser} from 'firebase/firestore';
 
 function Add() {
   const [selectStatus, setselectStatus] = useState(true);// for last checkbox

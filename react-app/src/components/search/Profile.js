@@ -259,17 +259,19 @@ const handleClickUploadSigned = (e) => {
      <div className="clicks">
 
       <div className="vl">
-
+    
         <div className="info">
-            
-      
-
             {/* name */}
+           
             <div className="subInfo" data-toggle="tooltip" data-placement="bottom" title="שם הצעיר">
-            <button className="btn5" data-toggle="tooltip" data-placement="bottom" title="עדכון פרטים"><i className="fa-1 bi-pencil-fill fa-fw"></i></button>
-             {homeless.name}
+                 
+              <button className="btn5" data-toggle="tooltip" data-placement="bottom" title="עדכון פרטים"><i className="fa-1 bi-pencil-fill fa-fw"></i></button>
+               {homeless.name}
+             
              </div>
-            
+             {/* <div className="arrow-right"> </div>
+             <div className="arrow-down"></div>
+              */}
             <div className="infoDetails">
 
             {/* age */}
@@ -290,8 +292,8 @@ const handleClickUploadSigned = (e) => {
             }
           
           </div>
-       
         </div>
+        
         <div className = "cli">
         <Link to="/report">
           <button className="me-1 "  > הוספת דוח  <i className="bi5 bi-file-earmark-plus fa-fw"></i> </button>
@@ -304,7 +306,7 @@ const handleClickUploadSigned = (e) => {
         
         </div>
         
-        <div className="arrow-right">
+       
        
         <div className="cli1" >
           <label for="formFile" className="btn"  data-toggle="tooltip" data-placement="bottom" title="נא לבחור קובץ">העלאת מסמכים <i className="bi6 bi-cloud-upload fa-lg" style={{left : '10%'}}></i></label>
@@ -315,8 +317,8 @@ const handleClickUploadSigned = (e) => {
         <label for="formFile" className="btn"  data-toggle="tooltip" data-placement="bottom" title="נא לבחור קובץ">העלאת טפסים חתומים <i className="bi5 bi-cloud-upload fa-lg"></i></label>
              <input type="file" id="formFile" title = "sign" onChange={handleClickUploadSigned}/>
         </div>
-        </div>
-       
+        
+      
       
         
 

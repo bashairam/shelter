@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { firestore, storage } from "../../firebase"
-import { onSnapshot, doc } from "firebase/firestore";
+import { collection, getDocs, getDoc,deleteDoc, onSnapshot, doc } from "firebase/firestore";
 import "./Profile.css";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap';
@@ -12,6 +12,8 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'firebase/storage';
 import LoadingScreen from 'react-loading-screen';
 import ProfileNav from "./ProfileNav";
+import { async } from "@firebase/util";
+
 
 export function Profile() {
 
@@ -119,10 +121,16 @@ const uploudDocument = (file, identifier) => {
     window.location.reload()
   })
 
-}
+  }
+  const handleDelete = async (id) => {
+    window.confirm("? האם אתה בטוח שאתה רוצה למחוק את הצעיר ממערכת");
+   const docRe = doc(firestore,"inHomelesses",id)
 
- 
+   await deleteDoc(docRe)
 
+   navigate('./search'); 
+   
+ }
 
   //------------------------------------------------Display all the page------------------------------------------
 

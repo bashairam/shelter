@@ -15,6 +15,7 @@ import useFetch from "../useFetch";
 import Role from "../Role";
 import useAuth from "../../hooks/useAuth";
 import AllReport from "../AllReport";
+import { async } from "@firebase/util";
 
 function ProfileNav() {
   
@@ -117,6 +118,15 @@ const handleClickSign = (e) => {
     window.open(url)
   })
 };
+const handleDelete = async (id) => {
+    window.confirm("? האם אתה בטוח שאתה רוצה למחוק את הצעיר ממערכת");
+   const docRe = doc(firestore,"inHomelesses",id)
+
+   await deleteDoc(docRe)
+
+   navigate('./search'); 
+   
+ }
 
 //-----------------------------functions for delete documents from firebase storage-------------------
 

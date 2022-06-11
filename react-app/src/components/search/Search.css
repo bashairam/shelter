@@ -9,12 +9,10 @@
    
 }
 
-.namee{
-    min-width:200px;
 
-}
 table td {
     width: 20%;
+    min-width: max-content;
   
 }
 
@@ -77,10 +75,12 @@ margin: auto;
   }
 
 
-   
+.namee{
+    min-width: 200px;
+}
 
   .delete{
-    width: 60px;
+    min-width: 60px;
     border-radius: 12px;
     transition-duration: 0.4s;
     background-color: white;
@@ -100,4 +100,9 @@ margin: auto;
   .btn{
       min-width: 90px;
 
+  }
+  th{
+      min-width: 100px;
+      margin-top: auto;
+      margin-bottom: auto;
   }

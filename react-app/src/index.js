@@ -28,13 +28,13 @@ import AllReport from './components/AllReport';
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const AllReportsWithProps = () => {
   const {state} = useLocation();
-  const { id } = state
+  const { id} = state
 
   return <AllReport id = {id} /> 
 };
 const DetailsHomelessWithProps = () => {
   const {state} = useLocation();
-  const { id } = state
+  const { id} = state
 
   return <DetailsHomeless id = {id} /> 
 };

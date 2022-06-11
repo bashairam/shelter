@@ -1,5 +1,5 @@
 import React from "react";
-import "./User.css"
+// import "./User.css"
 import { getDetailsHomelessesById, getDetailsHistoryById, updateDetailsUserById, auth,updateHomeless, } from "../firebase"
 import "./DetailsHomeless.css";
 
@@ -17,7 +17,9 @@ class DetailsHomeless extends React.Component {
       psycoticPast: "", addiction_History: "", prominent_institutions: "", formFiller: "",stage:"בחר שלב",room:"בחר חדר",sleepingPlace:""
       ,nameOf_prominent_institutions:"" };
 
-  
+    
+
+
 
   }
   handleName=(event) =>{
@@ -82,7 +84,7 @@ class DetailsHomeless extends React.Component {
   }
   handleroom =(event)=> {
     this.isClicked = false;
-    this.setState({ room: event.target.value });
+    this.setState({ room: event.target.value.toString() });
   }
   handledate =(event)=> {
     this.isClicked = false;
@@ -101,7 +103,8 @@ class DetailsHomeless extends React.Component {
   
     handleSubmit =(event)=> {
       this.isClicked = true;
-      
+      console.log("update")
+      console.log(this.state)
        updateHomeless(this.state).then(() => {
         alert('הפרטים עודכנו בהצלחה');
   

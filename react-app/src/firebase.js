@@ -47,9 +47,11 @@ async function getReportById(id_homeless) {
   const reportsSnapshot = await getDocs(reports);
 
   reportsSnapshot.docs.map((doc) => {
-    const currDoc = doc.data()['doc']
+    let currDoc = doc.data()
+    currDoc = {...currDoc,idDoc:doc.id}
     if (currDoc['createdFor'] === id_homeless) {
       reportsLst.push(currDoc);
+      
  
     }
   });
@@ -109,9 +111,12 @@ async function updateDetailsUserById(userId,userJson) {
 
 }
 async function createNewReportByIdDoc( reportJson) {
-  await addDoc(collection(firestore, 'reports'), {
-    doc:reportJson
-  })
+  await addDoc(collection(firestore, 'reports'), reportJson)
+  
+}
+async function updateReportByIdDoc( reportId,reportJson) {
+  await setDoc(doc(firestore, "reports", reportId), reportJson);
+
   
 }
 async function updateHomeless (homelessesJson) {
@@ -131,7 +136,7 @@ async function updateHomeless (homelessesJson) {
   criminalRecord:homelessesJson.criminalRecord,
   prominent_institutions: homelessesJson.prominent_institutions,
   sleepingPlace:homelessesJson.sleepingPlace,
-  nameOf_prominent_instituti:homelessesJson.nameOf_prominent_instituti
+  nameOf_prominent_institutions:homelessesJson.nameOf_prominent_institutions
  });
 
  await setDoc(doc(firestore, "history",homelessesJson.id ), { 
@@ -144,7 +149,7 @@ async function updateHomeless (homelessesJson) {
    });
   return await setDoc(doc(firestore, "inHomelesses",homelessesJson.id ), { 
     stage: homelessesJson.stage,
-    room: (homelessesJson.room),
+    room: (homelessesJson.room).toString(),
     date: homelessesJson.date,
 
     });
@@ -153,4 +158,4 @@ async function updateHomeless (homelessesJson) {
 
 
 export { getDetailsUserById, updateDetailsUserById ,createNewReportByIdDoc,getDetailsHomelessesById
-  ,updateHomeless,getReportById}
+  ,updateHomeless,getReportById,updateReportByIdDoc}

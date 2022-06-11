@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useParams } from "react-router";c
+import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { firestore, storage } from "../../firebase"
 import { getDocs, getDoc, onSnapshot, doc } from "firebase/firestore";
@@ -221,19 +221,25 @@ Z
          
         </div>
         <div className = "cli">
-        <Link to="/report">
+        <Link to={"/updateDetailsHomeless"} state={{id:homelessId}}>
           <button className="me-0 "  style={{right: "53%"}} > עדכון פרטים<i className ="bi5 bi-pencil fa-fw"></i> </button>
         </Link>
      
         <Link to={"/report"} state={{id:homelessId, method:"create"}}>
           <button className="me-0 " > הוספת דוח<i className="bi5 bi-file-earmark-plus fa-fw"></i> </button>
         </Link>
+       
+        <Link to={"/allreports"} state={{id:homelessId}}>
+          <button className="me-0 " >  כל הדוחות<i className="bi5 bi-file-earmark-plus fa-fw"></i> </button>
+
+        </Link>
+        
         
         </div>
-        <div>
+       
+        
 
-        </div>
-        <div className="cli1" >
+        <div className="cli1"  >
           <label for="formFile" className="btn"   data-toggle="tooltip" data-placement="bottom" title="נא לבחור קובץ">העלאת מסמכים <i className="bi5 bi-cloud-upload fa-lg"></i></label>
              <input type="file" id="formFile" title = "doc" style={{buttom : '50%'}} onChange={handleClickUpload}/>
         </div>
@@ -304,7 +310,7 @@ Z
                   </li>
 
 
-                  <li className="nav-item1">
+                  {/* <li className="nav-item1">
                     <NavDropdown title=" דוחות" id="collasible-nav-dropdown1" style ={{left : '10%'}}>
                        
                       {reports && Object.keys(reports).map((re, i) => (
@@ -317,7 +323,7 @@ Z
 
                     </NavDropdown>
 
-                  </li>
+                  </li> */}
 
                   <li className="nav-item1">
 

@@ -7,9 +7,11 @@ import "./Profile.css";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap';
 import 'bootstrap/dist/js/bootstrap.js';
-import { ref, uploadBytes, listAll } from "firebase/storage"
+import { NavDropdown ,Tab } from 'react-bootstrap';
+import { deleteObject, getDownloadURL, ref, uploadBytes, listAll, list, uploadBytesResumable } from "firebase/storage"
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'firebase/storage';
+import ReactDOM from 'react-dom/client';
 import LoadingScreen from 'react-loading-screen';
 import ProfileNav from "./ProfileNav";
 import AllReport from "../AllReport";
@@ -20,7 +22,7 @@ export function Profile() {
   //-------------------------variables-----------------------------------------------
   let { profileSlug } = useParams();
   const [homeless, setHomeless] = useState([]);
-  const [reports, setReports] = useState([]);
+  const [inHomeless, setInHomeless] = useState([]);
   const [history, setHistory] = useState([]);
   const [data, setData] = useState([]);
   const [formsData, setFormsData] = useState([])
@@ -28,10 +30,15 @@ export function Profile() {
   const homelessinfo = doc(firestore, "homelesses", profileSlug)
   const homelessReports = doc(firestore, "reports", profileSlug)
   const homelessHistory = doc(firestore, "history", profileSlug)
+  const InHomelessInfo = doc(firestore, "inHomelesses", profileSlug)
+ 
   let docRef = null
   const dataa = []
   const forms = []
-
+  let enterDate = ""
+  let enterTime=""
+  let exitDate = ""
+  let exitTime=""
 
 
   //------------------------------------------------------------------------------------------------- 
@@ -71,17 +78,93 @@ export function Profile() {
   //--------------------------------function to get spacific data--------------------------------------
 
   onSnapshot(homelessinfo, (doc) => {
+
     setHomeless(doc.data());
 
 
   })
 
-  onSnapshot(homelessReports, (doc) => {
-    setReports(doc.data());
+  onSnapshot(InHomelessInfo, (doc) => {
+    setInHomeless(doc.data());
   })
   onSnapshot(homelessHistory, (doc) => {
     setHistory(doc.data());
   })
+ 
+  //-----------------------------functions for display the informations-------------------------------
+ 
+
+  const container = document.getElementById('demo');
+  
+  const handleClickGen = (e) => {  //-------Split the date and the time-----------------
+    if(homeless.date){ //enter date 
+      const enter1 = homeless.date;
+      let enter = enter1.split('T');
+      enterDate = enter[0];
+      enterTime = enter[1];
+    }
+
+    if(homeless.exitDate){//exit date
+      const enter2 =homeless.exitDate;
+      let enter21 = enter2.split('T');
+      exitDate = enter21[0];
+      exitTime = enter21[1]; 
+    }
+  
+   const myElement = (
+
+  <div className="infoDeta text-right"  > 
+
+  {/*Enter Date*/}
+ 
+  {homeless.date && <tr > תאריך כניסה :  {enterDate}   </tr>}
+
+  {/*Enter Time*/}
+  {homeless.date && <tr  > זמן כניסה :  {enterTime}    </tr>}
+
+  {/* Room */}
+  { (!homeless.exitDate && inHomeless.room && <tr> מספר חדר בשלטר :  {inHomeless.room} </tr>)}
+   
+  {/* Stage */}
+  {(!homeless.exitDate && inHomeless.stage && <tr>שלב בשלטר :  {inHomeless.stage} </tr>) }
+ 
+  {/*referrer*/}
+  {homeless.referrer && <tr>גורם פנייה : {homeless.referrer}  </tr>}
+ 
+  {/*Contact */}
+  {homeless.contact && <tr>טלפון איש קשר :  {homeless.contact}</tr>}
+ 
+  {/*Sleeping place */}
+  {homeless.sleepingPlace && <tr>מקום שינה אחרון :  {homeless.sleepingPlace} </tr>}
+
+  {/*name Of prominent institutions*/}
+  {homeless.nameOf_prominent_institutions && <tr style={{ color: 'rgb(247, 116, 9)' , fontWeight :'600'}}> המסדות שהיה בהן בעבר :  {homeless.nameOf_prominent_institutions}</tr>  }
+  
+  {/*Exit Date*/}
+  {homeless.exitDate && <tr> תאריך יצאה :  {exitDate}   </tr>}
+
+   {/*Enter Time*/}
+  {homeless.exitDate && <tr> זמן יצאה :  {exitTime}   </tr>}
+
+  </div>
+  )
+  let root = ReactDOM.createRoot(document.getElementById('demo'));
+  root.render(myElement);
+
+   }
+  
+  
+  const handleClickHis = (e) => { container.innerText = history[e.target.id]  };
+
+  const handleClickDoc = (e) => {
+    // setLoading(true);
+    console.log(e.target.title);
+    const docRef1 = ref(storage, `/homelessDocuments/${profileSlug}/${e.target.title}`)
+    getDownloadURL(docRef1).then(function (url) {
+      setLoading(false);
+      window.open(url)
+    })
+  };
 
 
   //------------------------------functions to upload the documents to firebase storage----------------------------------------
@@ -117,31 +200,74 @@ export function Profile() {
       const text = "' קובץ" + e.target.id + " נשמר בהצלחה ' "
       alert(text)
       window.location.reload()
-    })
-
+    }).catch((error) => {
+      alert("בבקשה נסה שוב")
+      console.error(error)
+    });
   }
-  const handleDelete = async (id) => {
-    window.confirm("? האם אתה בטוח שאתה רוצה למחוק את הצעיר ממערכת");
-    const docRe = doc(firestore, "inHomelesses", id)
+  
+ //------------------------------functions to upload the documents to firebase storage----------------------------------------
 
-    await deleteDoc(docRe)
+ const handleClickUploadDoc = (e) => {
+  e.preventDefault()
+  setLoading(true);
+  const file = e.target.files[0];
+  if (!file){
+    setLoading(false);
+    alert("נא לבחור קובץ קודם")
+    return
+  } 
+  docRef = ref(storage, `/homelessDocuments/${profileSlug}/${file.name}`) //choose a differents name for the docs
+  uploadBytes(docRef, file).then(() => {
+    setLoading(false);
+    const text =  "  קובץ  '  "  + file.name + "  ' נשמר בהצלחה "
+    alert(text)
+    window.location.reload()
+      
+  })
+ }
+
+  const handleClickUploadSigned = (e) => {
+    e.preventDefault()
+    setLoading(true);
+    const file = e.target.files[0];
+    if (!file){
+      setLoading(false);
+      alert("נא לבחור קובץ קודם")
+      return
+    } 
+  docRef = ref(storage, `/homelessSignedForms/${profileSlug}/${file.name}`) //choose a differents name for the docs
+  uploadBytes(docRef, file).then(() => {
+    setLoading(false);
+    const text =  "  קובץ  '  "  + file.name + "  ' נשמר בהצלחה "
+    alert(text)
+    window.location.reload()
+      
+  })
+
 
     navigate('./search');
-
+ 
   }
+ 
+
 
   //------------------------------------------------Display all the page------------------------------------------
 
   return (
 
+   
+ 
     <div className="home">
-      {
+      <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+         {
         loading && <LoadingScreen loading={true}
-          bgColor='#f1f1f1'
-          spinnerColor='rgb(247, 116, 9)'
-          textColor='#rgba(0, 0, 0, 0.877)'
-          text='...טוען'> </LoadingScreen>
-
+        bgColor='#f1f1f1'
+        spinnerColor='rgb(247, 116, 9)'
+        textColor='#rgba(0, 0, 0, 0.877)'
+        text='...טוען'> </LoadingScreen>
+        
+      
       }
       <div className="clicks">
 
@@ -219,9 +345,9 @@ export function Profile() {
 
     </div>
 
-
+    
 
   );
-}
-
+    }
+    
 export default Profile;

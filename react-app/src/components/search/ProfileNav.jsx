@@ -185,13 +185,6 @@ const handleClickDelForm = (e) => { //delete Signed forms
                   }
                 </NavDropdown>
               </li>
-<li>
-  <NavItem>
-  <button onClick={handleClickRe}>reports</button>
-  </NavItem>
-</li>
-
-
 
               {
                 Role({currentUser},{users},{isPending},['מנהל','רכז','עובד סוציאלי'])==true

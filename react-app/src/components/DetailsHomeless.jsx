@@ -133,7 +133,7 @@ componentDidMount(){
 
   render() {
     const { name, age,date ,id, personalPhone, parentsAddress, background, referrer, contact, therapeutic_history
-      , criminalRecord, psycoticPast, addiction_History, prominent_institutions, formFiller,room,stage,sleepingPlace,nameOf_prominent_institutions } = this.state;
+      , criminalRecord, psycoticPast, addiction_History, prominent_institutions, formFiller,room,stage,sleepingPlace,nameOf_prominent_institutions, } = this.state;
 
     return (
       <div className="Add">

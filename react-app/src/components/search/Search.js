@@ -105,11 +105,10 @@ export function Search() {
             <DropdownButton
               id="dropdown1"
               variant="secondary"
-              menuVariant="dark"
               title="סנן לפי"
               className="dropdown dropleft"
               size="sm"
-              border='#f30bcc'
+              
 
             >
               <Dropdown.Item  >

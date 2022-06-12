@@ -136,7 +136,9 @@ async function updateHomeless (homelessesJson) {
   criminalRecord:homelessesJson.criminalRecord,
   prominent_institutions: homelessesJson.prominent_institutions,
   sleepingPlace:homelessesJson.sleepingPlace,
-  nameOf_prominent_institutions:homelessesJson.nameOf_prominent_institutions
+  nameOf_prominent_institutions:homelessesJson.nameOf_prominent_institutions,
+  therapeutic_history:homelessesJson.therapeutic_history ,
+
  });
 
  await setDoc(doc(firestore, "history",homelessesJson.id ), { 

@@ -10,6 +10,8 @@ import { toast } from "react-toastify";
 import useAuth from "../../hooks/useAuth";
 import useFetch from "../useFetch";
 import Role from "../Role";
+import { Link } from "react-router-dom";
+
 
 
 export function Search() {
@@ -66,7 +68,7 @@ export function Search() {
 
   
   const handleDe = async (id,name,age,parentsAddress,nameOf_prominent_institutions,psycoticPast,criminalRecord,
-    addiction_History,background,contact,personalPhone,formFiller,referrer,sleepingPlace
+    addiction_History,background,contact,personalPhone,formFiller,referrer,sleepingPlace,therapeutic_history,prominent_institutions
     ) => {
     if (window.confirm("? האם אתה בטוח שאתה רוצה להוציא את הצעיר מהשלטר")) {
       const docRe = doc(firestore, "inHomelesses", id)
@@ -85,7 +87,9 @@ export function Search() {
         personalPhone: personalPhone,
         formFiller: formFiller,
         referrer: referrer,
-        sleepingPlace: sleepingPlace
+        prominent_institutions:prominent_institutions,
+        sleepingPlace: sleepingPlace,
+        therapeutic_history: therapeutic_history
       });
     }
     window.location.reload(false);
@@ -135,6 +139,11 @@ export function Search() {
               }} />
 
           </div>
+
+          <Link to="/add">
+            <button className="me-0" style={{ display: 'block' }}>הוספת צעיר</button>
+          </Link>
+
           <div className="form-group">
             <br />
             <div className="table-t" >
@@ -152,11 +161,11 @@ export function Search() {
                     {currentUser &&
                       Role({ currentUser }, { users }, { isPending }, ['מנהל', 'רכז', 'עובד סוציאלי']) == true
                       &&
-                      <div>
+                      <>
 
 
-                        <th>הוצאה מהשלטר</th>
-                        <th> מחיקה מהמערכת</th></div>}
+                        <th style = {{width:'5%'}} className="del">להוציא מהשלטר</th>
+                        <th className="del">למחוק</th></>}
                     <th>צפה בפרופיל</th>
                     <th>מסודות שהיה בהן בעבר</th>
                     <th>עיר מגורים</th>
@@ -197,27 +206,25 @@ export function Search() {
                         {currentUser &&
                           Role({ currentUser }, { users }, { isPending }, ['מנהל', 'רכז', 'עובד סוציאלי']) == true
                           &&
-                          <div>
-                            <td>
+                          <>
+                            <td className="del">
                               {!inhmlsIsPending &&
                                 inHmlsLists.find((inhml) => inhml.id === item.id)
                                 &&
-                                <button className="delete" onClick={() => handleDe(item.id,item.name,item.age,item.parentsAddress,item.nameOf_prominent_institutions,item.psycoticPast
+                                <button className="bi bi-door-open"onClick={() => handleDe(item.id,item.name,item.age,item.parentsAddress,item.nameOf_prominent_institutions,item.psycoticPast
                                 ,item.criminalRecord,item.addiction_History,item.background,item.contact,item.personalPhone,item.formFiller,item.referrer,item.sleepingPlace
-                                )}>
-                                  להוציא</button>}
+                                )}></button>}
                             </td>
 
-                            <td>
-                              <button className="delete" onClick={() => handleDelete(item.id)}>
-                                מחק</button></td>
-                          </div>}
+                            <td className="del">
+                              <button className="bi bi-person-x" onClick={() => handleDelete(item.id)}></button></td>
+                          </>}
 
 
-                        <td><button className="view" onClick={() => {
+                        <td><button className="view bi bi-person-square" onClick={() => {
                           navigate(`/search/${item.id}`)
                         }}>
-                          פרטים</button></td>
+                          </button></td>
                         <td>{item.nameOf_prominent_institutions}</td>
                         <td>{item.parentsAddress}</td>
                         <td>{item.age}</td>

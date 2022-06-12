@@ -10,13 +10,14 @@
     background-color: white;
     color: black;
     border :2px solid  #dddddd;
-    box-shadow: 0 0 15px 4px rgba(0,0,0,0.06);
+    box-shadow: 0 0 15px 4px rgb(240, 192, 153);
+
 
 }
 .nav-pills .nav-item:not(:nth-last-child(1)).nav-link{
     border-right:1px solid white;
 }
 .tab-content{
-    background-color: #f9fafb;
+    background-color: rgb(249, 245, 241);
     height: 1000px;
 }

@@ -7,6 +7,7 @@ import { firestore } from "../firebase";
 import LoadingScreen from 'react-loading-screen';
 import { getAuth, deleteUser } from "firebase/auth";
 
+
 const Staff = () => {
 
   const { isPending, data: staffList } = useFetch('users');
@@ -95,8 +96,8 @@ const Staff = () => {
                 
                 }).map(result=>
                   <tr key = {result.id}>
-                    <td><button className="delete" onClick={() => { handleDelete(result.id) }} >
-                          להוציא</button></td>
+                    <td><button  className="delete bi bi-person-x" onClick={() => { handleDelete(result.id) }} >
+                          </button></td>
                     <td>{result.type}</td>
                     <td>{result.phoneNumber}</td>
                     <td>{result.email}</td>

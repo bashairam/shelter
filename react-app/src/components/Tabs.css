@@ -6,6 +6,7 @@
      margin: 10px;
      width: 30%;
      text-align: center;
+     box-shadow: 0 0 15px 4px white;
 
 }
 .room{
@@ -15,8 +16,9 @@
 
 }
 .cardHead{
-  border-bottom: 2px #343741 solid;
+  border-bottom: 2px white solid;   
   padding-top: 10px;
+  background-color: rgb(244, 183, 134);
 
 }
 .homeles {

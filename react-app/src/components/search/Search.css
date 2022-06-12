@@ -1,26 +1,24 @@
+.table-t td,
+.table-t th {
+  background-color: #343741;
+  color: white;
+  margin-right: 510px;
+  border: none;
 
-
-
-.table-t td , .table-t th{
-    background-color: #343741;
-    color: white;
-    margin-right: 510px;
-    border: none;
-   
 }
 
 
 table td {
-    width: 20%;
-    min-width: max-content;
-  
+  width: 20%;
+  min-width: max-content;
+
 }
 
-.ser-design{
-    background-color: #343741;  
-color: white;  
-font-size: 20px;  
-margin: auto;  
+.ser-design {
+  background-color: #343741;
+  color: white;
+  font-size: 20px;
+  margin: auto;
 }
 
 
@@ -28,81 +26,88 @@ margin: auto;
 
 
 /* ----------------- */
-.table-t td , .table-t th{
-    background-color: #ddf7f3;
-    margin-right: 510px;
-    text-align: center;
-    vertical-align: middle;
-   
+.table-t td,
+.table-t th {
+  background-color: #ddf7f3;
+  margin-right: 510px;
+  text-align: center;
+  vertical-align: middle;
+
 }
 
 
-.table-t td ,.table-t tbody{
-    background-color:#414855 ;
-    color: #ffff;
-    text-align: center;
-    vertical-align: middle;
-      
+.table-t td,
+.table-t tbody {
+  background-color: #414855;
+  color: #ffff;
+  text-align: center;
+  vertical-align: middle;
+
 }
 
-.fa-fa-search{
-    width: 80%;
+.fa-fa-search {
+  width: 80%;
 }
-  
-   .search input:focus{
 
-    box-shadow: none;
-    border: 2px solid black;
-    
+.search input:focus {
 
-
-   }
+  box-shadow: none;
+  border: 2px solid rgb(247, 116, 9);
 
 
-   
 
-   .view{
-    width: 60px;
-    border-radius: 12px;
-    transition-duration: 0.4s;
-    background-color: white;
+}
+
+
+
+
+.view {
+  width: 60px;
+  border-radius: 12px;
+  transition-duration: 0.4s;
+  background-color: white;
   color: black;
-  border: 2px solid #555555;
-   }
-   .view:hover {
-    background-color: #555555;
-    color: white;
-  }
-
-
-.namee{
-    min-width: 200px;
+  border: 2px solid rgb(247, 116, 9);
 }
 
-  .delete{
-    min-width: 60px;
-    border-radius: 12px;
-    transition-duration: 0.4s;
-    background-color: white;
+.view:hover {
+  background-color: rgb(247, 116, 9);
+  color: white;
+}
+
+
+
+.namee {
+  min-width: 200px;
+}
+
+.delete {
+  min-width: 60px;
+  border-radius: 12px;
+  transition-duration: 0.4s;
+  background-color: white;
   color: black;
-  border: 2px solid #555555;
-   }
-   .delete:hover {
-    background-color: #555555;
-    color: white;
-  }
+  border: 2px solid rgb(247, 116, 9);
 
-  .form-control{
-    margin-left: 5px;
+}
 
-  }
-  
-  .btn{
-      min-width: 90px;
+.delete:hover {
+  background-color: rgb(247, 116, 9);
+  color: white;
+}
 
-  }
-  th{
-      min-width: 100px;
-      margin-top: auto;
-      margin-bottom: auto;
-  }
+.form-control {
+  margin-left: 5px;
+
+}
+
+.btn {
+  min-width: 90px;
+
+}
+
+th {
+  min-width: 100px;
+  margin-top: auto;
+  margin-bottom: auto;
+}

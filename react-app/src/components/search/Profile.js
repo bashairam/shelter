@@ -257,23 +257,23 @@ const handleClickUploadSigned = (e) => {
       
       }
      <div className="clicks">
-
+     
       <div className="vl">
-    
+      
+         
         <div className="info">
+        <span class="dot" style={{marginBottom: '40px'}}></span>
             {/* name */}
-           
-            <div className="subInfo" data-toggle="tooltip" data-placement="bottom" title="שם הצעיר">
+            
+             <div className="subInfo" data-toggle="tooltip" data-placement="bottom" title="שם הצעיר">
                  
               <button className="btn5" data-toggle="tooltip" data-placement="bottom" title="עדכון פרטים"><i className="fa-1 bi-pencil-fill fa-fw"></i></button>
                {homeless.name}
              
              </div>
-             {/* <div className="arrow-right"> </div>
-             <div className="arrow-down"></div>
-              */}
+           
             <div className="infoDetails">
-
+           
             {/* age */}
             {homeless.age && <tr>  {homeless.age}  <i className="bi1 bi-person fa-fw" data-toggle="tooltip" data-placement="bottom" title="גיל"></i></tr>}
            
@@ -292,9 +292,11 @@ const handleClickUploadSigned = (e) => {
             }
           
           </div>
+          
         </div>
         
         <div className = "cli">
+        <span class="dot1" ></span>
         <Link to="/report">
           <button className="me-1 "  > הוספת דוח  <i className="bi5 bi-file-earmark-plus fa-fw"></i> </button>
        
@@ -306,19 +308,24 @@ const handleClickUploadSigned = (e) => {
         
         </div>
         
-       
-       
+      
         <div className="cli1" >
+        
           <label for="formFile" className="btn"  data-toggle="tooltip" data-placement="bottom" title="נא לבחור קובץ">העלאת מסמכים <i className="bi6 bi-cloud-upload fa-lg" style={{left : '10%'}}></i></label>
              <input type="file" id="formFile" title = "doc"  onChange={handleClickUploadDoc}/>
+             <span class="arrow-up"></span>
         </div>
-    
+
+       
+        
         <div className="cli2">
+      
         <label for="formFile" className="btn"  data-toggle="tooltip" data-placement="bottom" title="נא לבחור קובץ">העלאת טפסים חתומים <i className="bi5 bi-cloud-upload fa-lg"></i></label>
              <input type="file" id="formFile" title = "sign" onChange={handleClickUploadSigned}/>
         </div>
         
-      
+        
+       
       
         
 

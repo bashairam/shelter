@@ -22,6 +22,16 @@ class DetailsHomeless extends React.Component {
 
 
   }
+  
+  handleChange=(event)=>{
+    const elements = document.getElementsByName("checkbox");
+
+    elements.forEach((element) => {
+      if (element.checked) {
+        checkedCount++;
+      }
+    });
+  }
   handleName=(event) =>{
     this.isClicked = false;
     
@@ -267,7 +277,8 @@ componentDidMount(){
             onChange={this.handleprominent_institutions}
 
           />
-          <br /><br />       
+          <br /><br />    
+             
 
         
         

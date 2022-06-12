@@ -216,6 +216,7 @@ export function Profile() {
     
         <div className="info">
             {/* name */}
+            <span class="dot" style={{marginBottom: '40px'}}></span>
            
             <div className="subInfo" data-toggle="tooltip" data-placement="bottom" title="שם הצעיר">
                  
@@ -248,7 +249,9 @@ export function Profile() {
           </div>
         </div>
         
+
         <div className = "cli">
+        <span class="dot1" style={{marginBottom: '40px'}}></span>
         <Link to="/report" state={{id:profileSlug,method:'create'}}>
           <button className="me-1 "  > הוספת דוח  <i className="bi5 bi-file-earmark-plus fa-fw"></i> </button>
        

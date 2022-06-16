@@ -14,6 +14,8 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'firebase/storage';
 import ReactDOM from 'react-dom/client';
 import LoadingScreen from 'react-loading-screen';
+import * as FileSaver from "file-saver";
+import {v4} from "uuid"
 
 export function Profile() {
 
@@ -111,34 +113,37 @@ export function Profile() {
 
   {/*Enter Date*/}
  
-  {homeless.date && <tr > תאריך כניסה :  {enterDate}   </tr>}
+  {homeless.date && <tr key = {homeless.id+v4()}> תאריך כניסה :  {enterDate}   </tr>}
 
   {/*Enter Time*/}
-  {homeless.date && <tr  > זמן כניסה :  {enterTime}    </tr>}
+  {homeless.date && <tr key = {homeless.id+v4()}> זמן כניסה :  {enterTime}    </tr>}
 
   {/* Room */}
-  { (!homeless.exitDate && inHomeless.room && <tr> מספר חדר בשלטר :  {inHomeless.room} </tr>)}
+  { (!homeless.exitDate && inHomeless.room && <tr key = {homeless.id+v4()}> מספר חדר בשלטר :  {inHomeless.room} </tr>)}
    
   {/* Stage */}
-  {(!homeless.exitDate && inHomeless.stage && <tr>שלב בשלטר :  {inHomeless.stage} </tr>) }
+  {(!homeless.exitDate && inHomeless.stage && <tr key = {homeless.id+v4()}> שלב בשלטר :  {inHomeless.stage} </tr>) }
  
   {/*referrer*/}
-  {homeless.referrer && <tr>גורם פנייה : {homeless.referrer}  </tr>}
- 
+  {homeless.referrer && <tr key = {homeless.id+v4()}>גורם פנייה : {homeless.referrer}  </tr>}
+  
+  {/* mentor */}
+  {homeless.exitDate&& homeless.formFiller && <tr key = {homeless.id+v4()}>עובד סוציאלי הקודם :  {homeless.formFiller} </tr>}
+
   {/*Contact */}
-  {homeless.contact && <tr>טלפון איש קשר :  {homeless.contact}</tr>}
+  {homeless.contact && <tr key = {homeless.id+v4()}>טלפון איש קשר :  {homeless.contact}</tr>}
  
   {/*Sleeping place */}
-  {homeless.sleepingPlace && <tr>מקום שינה אחרון :  {homeless.sleepingPlace} </tr>}
+  {homeless.sleepingPlace && <tr key = {homeless.id+v4()}>מקום שינה אחרון :  {homeless.sleepingPlace} </tr>}
 
   {/*name Of prominent institutions*/}
-  {homeless.nameOf_prominent_institutions && <tr style={{ color: 'rgb(247, 116, 9)' , fontWeight :'600'}}> המסדות שהיה בהן בעבר :  {homeless.nameOf_prominent_institutions}</tr>  }
+  {homeless.nameOf_prominent_institutions && <tr key = {homeless.id+v4()} style={{ color: 'rgb(247, 116, 9)' , fontWeight :'600'}}> המסדות שהיה בהן בעבר :  {homeless.nameOf_prominent_institutions}</tr>  }
   
   {/*Exit Date*/}
-  {homeless.exitDate && <tr> תאריך יצאה :  {exitDate}   </tr>}
+  {homeless.exitDate && <tr key = {homeless.id+v4()}> תאריך יצאה :  {exitDate}   </tr>}
 
    {/*Enter Time*/}
-  {homeless.exitDate && <tr> זמן יצאה :  {exitTime}   </tr>}
+  {homeless.exitDate && <tr key = {homeless.id+v4()}> זמן יצאה :  {exitTime}   </tr>}
 
 </div>
   )
@@ -174,7 +179,7 @@ export function Profile() {
     setLoading(true);
     const delDocRef = ref(storage, `/homelessDocuments/${profileSlug}/${e.target.id}`)
     deleteObject(delDocRef).then(() => {
-      const text =  "' קובץ" +e.target.id+ " נמחק בהצלחה ' "
+      const text =  "  קובץ  '  "  + e.target.id + "  ' נמחק בהצלחה "
       alert(text)
       window.location.reload()
     }).catch((error) => {
@@ -187,7 +192,7 @@ export function Profile() {
     const delSignedFormRef = ref(storage, `/homelessSignedForms/${profileSlug}/${e.target.id}`)
     deleteObject(delSignedFormRef).then(() => {
       setLoading(false);
-      const text =  "' קובץ" +e.target.id+ " נמחק בהצלחה ' "
+      const text =  "  קובץ  '  "  + e.target.id + "  ' נמחק בהצלחה "
       alert(text)
       window.location.reload()
     }).catch((error) => {
@@ -198,8 +203,32 @@ export function Profile() {
   
  //------------------------------functions to upload the documents to firebase storage----------------------------------------
 
- const handleClickUploadDoc = (e) => {
-  e.preventDefault()
+ 
+
+const handleClickUploadSigned = (e) => {
+ 
+
+  const file = e.target.files[0];
+  if (!file){
+    setLoading(false);
+    alert("נא לבחור קובץ קודם")
+    return
+  } 
+  docRef = ref(storage, `/homelessSignedForms/${profileSlug}/${file.name}`) //choose a differents name for the docs
+  uploadBytes(docRef, file).then(() => {
+    setLoading(false);
+    const text =  "  קובץ  '  "  + file.name + "  ' נשמר בהצלחה "
+    alert(text)
+    window.location.reload()
+      
+  })
+}
+const handleClickUploadDoc = (e) => {
+  console.log(e.target.title)
+   if(e.target.title === "sign"){
+    console.log("turn")
+    handleClickUploadSigned()
+   }
   setLoading(true);
   const file = e.target.files[0];
   if (!file){
@@ -217,28 +246,7 @@ export function Profile() {
   })
 }
 
-const handleClickUploadSigned = (e) => {
-  e.preventDefault()
-  setLoading(true);
-  const file = e.target.files[0];
-  if (!file){
-    setLoading(false);
-    alert("נא לבחור קובץ קודם")
-    return
-  } 
-  docRef = ref(storage, `/homelessSignedForms/${profileSlug}/${file.name}`) //choose a differents name for the docs
-  uploadBytes(docRef, file).then(() => {
-    setLoading(false);
-    const text =  "  קובץ  '  "  + file.name + "  ' נשמר בהצלחה "
-    alert(text)
-    window.location.reload()
-      
-  })
-}
-
  
-
-
   //------------------------------------------------Display all the page------------------------------------------
 
   return (
@@ -246,7 +254,7 @@ const handleClickUploadSigned = (e) => {
    
  
     <div className="home">
-      <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+      <script src="https://kit.fontawesome.com/yourcode.js" crossOrigin="anonymous"></script>
          {
         loading && <LoadingScreen loading={true}
         bgColor='#f1f1f1'
@@ -262,7 +270,7 @@ const handleClickUploadSigned = (e) => {
       
          
         <div className="info">
-        <span class="dot" style={{marginBottom: '40px'}}></span>
+        <span className="dot" style={{marginBottom: '40px'}}></span>
             {/* name */}
             
              <div className="subInfo" data-toggle="tooltip" data-placement="bottom" title="שם הצעיר">
@@ -273,22 +281,25 @@ const handleClickUploadSigned = (e) => {
              </div>
            
             <div className="infoDetails">
+            
+            {/* id */}
+            {profileSlug && <tr key = {homeless.id+v4()}>  {profileSlug}  <i className="bi1 bi-card-text fa-fw" data-toggle="tooltip" data-placement="bottom" title="תעודת זהות"></i></tr>}  
            
             {/* age */}
-            {homeless.age && <tr>  {homeless.age}  <i className="bi1 bi-person fa-fw" data-toggle="tooltip" data-placement="bottom" title="גיל"></i></tr>}
+            {homeless.age && <tr key = {homeless.id+v4()}>  {homeless.age}  <i className="bi1 bi-person fa-fw" data-toggle="tooltip" data-placement="bottom" title="גיל"></i></tr>}
            
             {/* address */}
-            {homeless.parentsAddress && <tr> {homeless.parentsAddress}  <i className="bi2 bi-house-door fa-fw" data-toggle="tooltip" data-placement="bottom" title="כתובת"></i>  </tr>}
+            {homeless.parentsAddress && <tr key = {homeless.id+v4()}> {homeless.parentsAddress}  <i className="bi2 bi-house-door fa-fw" data-toggle="tooltip" data-placement="bottom" title="כתובת"></i>  </tr>}
            
             {/* phone */}
-            {homeless.personalPhone && <tr>{homeless.personalPhone} <i className="bi3 bi-telephone fa-fw" data-toggle="tooltip" data-placement="bottom" title="טלפון"></i></tr>}
+            {homeless.personalPhone && <tr key = {homeless.id+v4()}>{homeless.personalPhone} <i className="bi3 bi-telephone fa-fw" data-toggle="tooltip" data-placement="bottom" title="טלפון"></i></tr>}
            
             {/* mentor */}
-            {homeless.formFiller && <tr>{homeless.formFiller} <i className="bi4 bi-journal-text" data-toggle="tooltip" data-placement="bottom" title ="עובד סוציאלי"></i></tr>}
+            {!homeless.exitDate && homeless.formFiller && <tr key = {homeless.id+v4()}>{homeless.formFiller} <i className="bi4 bi-journal-text" data-toggle="tooltip" data-placement="bottom" title ="עובד סוציאלי"></i></tr>}
 
             {/* status */}
-            { (homeless.exitDate && <tr> יצא משלטר<i className="bi4 bi-door-open" data-toggle="tooltip" data-placement="bottom" title ="סטטוס"></i></tr>)
-               || (homeless.date && <tr>נמצא בשלטר<i className="bi4 bi-person-check" data-toggle="tooltip" data-placement="bottom" title ="סטטוס"></i></tr>) 
+            { (homeless.exitDate &&<tr key = {homeless.id+v4()}> יצא משלטר<i className="bi4 bi-door-open" data-toggle="tooltip" data-placement="bottom" title ="סטטוס"></i></tr>)
+               || (homeless.date && <tr key = {homeless.id+v4()}>נמצא בשלטר<i className="bi4 bi-person-check" data-toggle="tooltip" data-placement="bottom" title ="סטטוס"></i></tr>) 
             }
           
           </div>
@@ -296,14 +307,14 @@ const handleClickUploadSigned = (e) => {
         </div>
         
         <div className = "cli">
-        <span class="dot1" ></span>
+        <span className="dot1" ></span>
         <Link to="/report">
-          <button className="me-1 "  > הוספת דוח  <i className="bi5 bi-file-earmark-plus fa-fw"></i> </button>
+          <button className="me-1 "  > הוספת דוח  <i className="bi5 bi-file-earmark-plus fa-fw" key = "2"></i> </button>
        
         </Link>
      
         <Link to="/report">
-          <button className="me-0 " >כל הדוחות <i className="bi5 bi-folder"></i></button>
+          <button className="me-0 " >כל הדוחות <i className="bi5 bi-folder" key = "1"></i></button>
         </Link>
         
         </div>
@@ -311,31 +322,38 @@ const handleClickUploadSigned = (e) => {
       
         <div className="cli1" >
         
-          <label for="formFile" className="btn"  data-toggle="tooltip" data-placement="bottom" title="נא לבחור קובץ">העלאת מסמכים <i className="bi6 bi-cloud-upload fa-lg" style={{left : '10%'}}></i></label>
-             <input type="file" id="formFile" title = "doc"  onChange={handleClickUploadDoc}/>
-             <span class="arrow-up"></span>
+          <label htmlFor="formFile" className="btn"  data-toggle="tooltip" data-placement="bottom" title="נא לבחור קובץ">העלאת מסמכים <i className="bi6 bi-cloud-upload fa-lg" style={{left : '10%'}}></i></label>
+             <input type="file" id="formFile"  onChange={handleClickUploadDoc}/>
         </div>
 
        
         
-        <div className="cli2">
+        {homeless.exitDate && <div className="cli2"> 
       
-        <label for="formFile" className="btn"  data-toggle="tooltip" data-placement="bottom" title="נא לבחור קובץ">העלאת טפסים חתומים <i className="bi5 bi-cloud-upload fa-lg"></i></label>
+        <label htmlFor="formFile" className="btn"  data-toggle="tooltip" data-placement="bottom" title="נא לבחור קובץ">העלאת טפסים חתומים <i className="bi5 bi-cloud-upload fa-lg"></i></label>
              <input type="file" id="formFile" title = "sign" onChange={handleClickUploadSigned}/>
         </div>
+        }
+
+       {!homeless.exitDate && <div className="cli2" style={{paddingBottom : '35px'}}> 
+      
+         <label htmlFor="formFile" className="btn"  data-toggle="tooltip" data-placement="bottom" title="נא לבחור קובץ">העלאת טפסים חתומים <i className="bi5 bi-cloud-upload fa-lg"></i></label>
+           <input type="file" id="formFile" title = "sign" onChange={handleClickUploadSigned}/>
+          </div>
+      }
         
         
        
       
         
 
-</div>
+
       </div>
-      <div className="ff"> 
+    
      
       <hr className="new4" />
+      
       </div>
-     
       <div className="tab_4 ">
 
         <div className="navigation-ls">

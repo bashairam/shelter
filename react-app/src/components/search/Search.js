@@ -79,17 +79,17 @@ export function Search() {
         age :age,
         parentsAddress:parentsAddress,   
         nameOf_prominent_institutions: nameOf_prominent_institutions,  
-        psycoticPast: psycoticPast,
-        criminalRecord: criminalRecord,
-        addiction_History: addiction_History,
-        background: background,
+        psycoticPast: Boolean(psycoticPast),
+        criminalRecord: Boolean(criminalRecord),
+        addiction_History: Boolean(addiction_History),
+        background: Boolean(background),
         contact: contact,
         personalPhone: personalPhone,
         formFiller: formFiller,
         referrer: referrer,
-        prominent_institutions:prominent_institutions,
+        prominent_institutions:Boolean(prominent_institutions),
         sleepingPlace: sleepingPlace,
-        therapeutic_history: therapeutic_history
+        therapeutic_history: Boolean(therapeutic_history)
       });
     }
     window.location.reload(false);

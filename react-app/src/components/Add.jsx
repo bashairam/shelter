@@ -198,7 +198,7 @@ function handleChange(e) {
       window.confirm("משהו השתבש ודא שהכנסת את השם ואת תעודת הזהות!")
     } else {
       await setDoc(doc(firestore, "homelesses", NewID), {
-        exitDate: null ,
+        exitDate: "" ,
         name: newName,
         age: Number(newAge),
         date: newDate,

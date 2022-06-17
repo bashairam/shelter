@@ -69,6 +69,7 @@ async function getDetailsHomelessesById(id) {
       homelessesJson = doc.data();
     }
   });
+  
   const {room,stage,date} = await getRoomNoAndStageForHomelessById(id);
   const {addiction_History,background,criminalRecord,psycoticPast,therapeutic_history}= await getHistoryById (id);
   return {...homelessesJson,room,stage,date,addiction_History,background,criminalRecord,psycoticPast
@@ -100,6 +101,7 @@ async function getRoomNoAndStageForHomelessById(id_homeless) {
     if (doc.id === id_homeless) {
       resJson = doc.data();
     }
+    return null;
   });
 
   return resJson;
@@ -160,4 +162,4 @@ async function updateHomeless (homelessesJson) {
 
 
 export { getDetailsUserById, updateDetailsUserById ,createNewReportByIdDoc,getDetailsHomelessesById
-  ,updateHomeless,getReportById,updateReportByIdDoc}
+  ,updateHomeless,getReportById,updateReportByIdDoc,getRoomNoAndStageForHomelessById}

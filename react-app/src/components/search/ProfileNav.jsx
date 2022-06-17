@@ -166,7 +166,7 @@ function ProfileNav() {
         {(!homeless.exitDate && inHomeless.stage && <tr>שלב בשלטר :  {inHomeless.stage} </tr>)}
 
         {/*referrer*/}
-        {homeless.referrer && <tr>גורם פנייה : {homeless.referrer}  </tr>}
+        {homeless.referrer && <tr>גורם מפנה : {homeless.referrer}  </tr>}
 
         {/*Contact */}
         {homeless.contact && <tr>טלפון איש קשר :  {homeless.contact}</tr>}

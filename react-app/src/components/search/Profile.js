@@ -252,10 +252,11 @@ export function Profile() {
 
         <div className = "cli">
         <span class="dot1" style={{marginBottom: '40px'}}></span>
-        <Link to="/report" state={{id:profileSlug,method:'create'}}>
+
+        {inHomeless!=null && <Link to="/report" state={{id:profileSlug,method:'create'}}>
           <button className="me-1 "  > הוספת דוח  <i className="bi5 bi-file-earmark-plus fa-fw"></i> </button>
        
-        </Link>
+        </Link>}
      
         <Link to="/allreports" state={{id:profileSlug}}>
           <button className="me-0 " >כל הדוחות <i className="bi5 bi-folder"></i></button>

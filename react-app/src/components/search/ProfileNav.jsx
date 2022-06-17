@@ -12,7 +12,7 @@ import 'firebase/storage';
 import useFetch from "../useFetch";
 import Role from "../Role";
 import useAuth from "../../hooks/useAuth";
-import * as ReactDOM from 'react-dom';
+import * as ReactDOMClient from 'react-dom/client';
 import AllReport from "../AllReport";
 
 
@@ -185,7 +185,7 @@ function ProfileNav() {
 
       </div>
     )
-    let root = ReactDOM.createRoot(document.getElementById('demo'));
+    let root =ReactDOMClient.createRoot(document.getElementById('demo'));
     root.render(myElement);
 
   }

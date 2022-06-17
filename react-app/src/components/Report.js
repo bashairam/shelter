@@ -1,24 +1,27 @@
 import React from "react";
 
-import { createNewReportByIdDoc, auth, getDetailsUserById, updateReportByIdDoc } from "../firebase"
+import { createNewReportByIdDoc, auth, getDetailsUserById, updateReportByIdDoc,getReportByIdDoc } from "../firebase"
 import { onAuthStateChanged } from "firebase/auth";
+import { useParams } from "react-router-dom";
+
+function withParams(Component) {
+  return props => <Component {...props} params={useParams()} />;
+}
 
 
 
 class Report extends React.Component {
     constructor(props) {
         super(props);
-        console.log("Report page: id of homeless that we selected is " + this.props.report)
-        console.log(this.props.method);
+    
         this.nameBtn = "עדכון";
-        if (this.props.method == "create")
+        if (this.props.params.method == "create")
             this.nameBtn = "הוספה"
-        this.state = { createdBy: this.userId, content: "", created: "", sheft: "משמרת", createdFor: this.props.id };
+        this.state = { createdBy: this.userId, content: "", created: "", sheft: "משמרת", createdFor: this.props.params.idHomeless };
 
-        if (this.props.report != null)
-            this.state = { createdBy: this.userId, content: this.props.report.content, created: this.props.report.created, sheft: this.props.report.sheft, createdFor: this.props.id };
+        // if (this.props.report != null)
+        //     this.state = { createdBy: this.userId, content: this.props.report.content, created: this.props.report.created, sheft: this.props.report.sheft, createdFor: this.props.id };
 
-        console.log(this.props.report);
         this.isClicked = false;
         this.handleContent = this.handleContent.bind(this);
         this.handleSheft = this.handleSheft.bind(this);
@@ -28,7 +31,7 @@ class Report extends React.Component {
     handleSubmit = (event) => {
         this.isClicked = true;
         event.preventDefault();
-        if (this.props.method == "create") {
+        if (this.props.params.method == "create") {
 
 
             createNewReportByIdDoc(this.state).then(() => {
@@ -39,7 +42,9 @@ class Report extends React.Component {
 
             });
         } else {
-            updateReportByIdDoc(this.props.report.idDoc, this.state).then(() => {
+            //  this.props.params.idHomeless == idDoc
+            console.log(this.state)
+            updateReportByIdDoc( this.props.params.idHomeless, this.state).then(() => {
                 alert('הפרטים עודכנו בהצלחה');
 
             }).catch(() => {
@@ -62,9 +67,7 @@ class Report extends React.Component {
     }
 
     async componentDidMount() {
-        if (this.props.method == "create") {
-
-
+        if (this.props.params.method == "create") {
             var dateNow = new Date().toDateString();
             await onAuthStateChanged(auth, (user) => {
                 if (user) {
@@ -73,7 +76,7 @@ class Report extends React.Component {
                     this.userId = user.uid;
 
                     console.log("current user is: (Report.jsx file)")
-                    this.state = { createdBy: this.userId, content: "", created: "", sheft: "", createdFor: this.props.id, fname: "" };
+                    this.state = { createdBy: this.userId, content: "", created: "", sheft: "משמרת", createdFor: this.props.params.idHomeless, fname: "" };
 
                     console.log(this.state)
 
@@ -91,24 +94,29 @@ class Report extends React.Component {
 
             this.setState({ ...this.state, created: dateNow });
         } else {
-            await onAuthStateChanged(auth, (user) => {
+
+            await onAuthStateChanged(auth, async(user) => {
                 if (user) {
                     // User is signed in, see docs for a list of available properties
                     // https://firebase.google.com/docs/reference/js/firebase.User
                     this.userId = user.uid;
+                   
+                    await getReportByIdDoc(this.props.params.idHomeless).then((reportJson)=>{
+                 
+                        // // this.state = {  fname: reportJson.fname,createdBy: this.userId, createdFor: this.props.params.idHomeles,content:reportJson.content, created: reportJson.created, sheft: reportJson.sheft };
+                        this.setState({  ...this.state,createdFor:reportJson.createdFor,fname: reportJson.fname,createdBy: this.userId,content:reportJson.content, created: reportJson.created, sheft: reportJson.sheft });
+    
+                        console.log(this.state)
+    
+                    });//idDoc == idHomeless
 
-                    console.log("current user is: (Report.jsx file)")
-                    this.state = { createdBy: this.userId, createdFor: this.props.id };
-
-                    console.log(this.state)
-
+                 
                     // ...
                 } else {
                     // User is signed out
                     // ...
                 }
             });
-            this.setState({ ...this.state, fname: this.props.report.fname });
         }
     }
 
@@ -129,7 +137,7 @@ class Report extends React.Component {
 
                         <div class="col-6 col-md-4">
                             <select  required class="form-select form-select-sm text-right" aria-label=".form-select-sm example" onChange={this.handleSheft} >
-                               <option value=''>משמרת</option>
+                               <option value={`${sheft}`}>{sheft}</option>
                                 <option value="בוקר">בוקר</option>
                                 <option value="ערב">ערב</option>
                                 <option value="לילה">לילה</option>
@@ -157,4 +165,4 @@ class Report extends React.Component {
     }
 
 }
-export default Report;
+export default withParams(Report);

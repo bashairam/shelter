@@ -6,7 +6,11 @@ import { onAuthStateChanged } from "firebase/auth";
 import { Link } from "react-router-dom";
 import { async } from "@firebase/util";
 import { doc, deleteDoc, Timestamp } from "firebase/firestore";
-// import {useRef} from 'react';
+import { useParams } from "react-router-dom";
+
+function withParams(Component) {
+  return props => <Component {...props} params={useParams()} />;
+}
 
 
 
@@ -14,10 +18,11 @@ class AllReport extends React.Component {
 
   constructor(props) {
     super(props);
-    // this.ref = useRef(null);
+    
+    
     this.items = [];
     this.isClicked = true;
-    this.state = { createdBy: this.userId, content: "", created: "", sheft: "", createdFor: this.props.id, idDoc: "" };
+    this.state = { createdBy: this.userId, content: "", created: "", sheft: "", createdFor:this.props.params.idHomeless, idDoc: "" };
   }
   handlecreatedBy = (event) => {
     this.isClicked = false;
@@ -44,21 +49,30 @@ class AllReport extends React.Component {
   deleteReport = async (event, idDoc) => {
 
     event.preventDefault()
-   
-    await deleteDoc(doc(firestore, "reports", idDoc)).then((data) => {
+    if (window.confirm("? האם אתה בטוח שאתה רוצה למחוק ")) {
+   await deleteDoc(doc(firestore, "reports", idDoc)).then((data) => {
       alert("הדו''ח נמחק בהצלחה")
-      history.back();
-      // window.location.reload(false);
-      // navigate('./allreports'); 
-    }).catch(() => {
-      alert("מחיקת הדו''ח נכשלה")
+     
+    }).catch(()=>{
+      alert("הדו''ח לא נמחק, תנסה שוב ")
     });
+    
+    }
+    window.location.reload(false);
+    navigate(`./allreports/${this.props.params.idHomeless}`); 
 
+    // await deleteDoc(doc(firestore, "reports", idDoc)).then((data) => {
+    //   alert("הדו''ח נמחק בהצלחה")
+    //   // history.back();
+    //   window.location.reload(false);
+    //   navigate(`./allreports/${this.props.params.idHomeless}`); 
+    // });
 
   }
 
   refreshData = async () => {
-    await getReportById(this.state.createdFor).then((data) => {
+
+    await getReportById(this.props.params.idHomeless).then((data) => {
 
       this.items = data.reverse();
       console.log(this.items)
@@ -116,7 +130,7 @@ class AllReport extends React.Component {
                   </td>
                   <td style={{ width: '5%' }} >
 
-                    <Link to={"/report"} state={{ id: this.props.id, method: "update", report: item }} >
+                    <Link to={`/report/update/${item.idDoc}`}  >
                       <button  > <i class="bi bi-pencil-square"></i>
                       </button>
                     </Link></td>
@@ -145,5 +159,5 @@ class AllReport extends React.Component {
   }
 }
 
-export default AllReport;
+export default withParams(AllReport);
 

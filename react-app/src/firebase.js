@@ -58,6 +58,25 @@ async function getReportById(id_homeless) {
 
   return reportsLst;
 }
+
+async function getReportByIdDoc(idDoc) {
+
+  const reports = collection(firestore, 'reports');
+
+  const reportsSnapshot = await getDocs(reports);
+
+  let res ;
+  reportsSnapshot.docs.map((doc) => {
+    if(doc.id == idDoc){
+
+     res = doc.data();
+    }
+  
+  
+  });
+
+  return res;
+}
 async function getDetailsHomelessesById(id) {
  
   let homelessesJson = {};
@@ -162,4 +181,4 @@ async function updateHomeless (homelessesJson) {
 
 
 export { getDetailsUserById, updateDetailsUserById ,createNewReportByIdDoc,getDetailsHomelessesById
-  ,updateHomeless,getReportById,updateReportByIdDoc,getRoomNoAndStageForHomelessById}
+  ,updateHomeless,getReportById,updateReportByIdDoc,getRoomNoAndStageForHomelessById,getReportByIdDoc}

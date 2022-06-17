@@ -2,17 +2,22 @@ import React from "react";
 // import "./User.css"
 import { getDetailsHomelessesById, getDetailsHistoryById, updateDetailsUserById, auth,updateHomeless, } from "../firebase"
 import "./DetailsHomeless.css";
+import { useParams } from "react-router-dom";
+
+function withParams(Component) {
+  return props => <Component {...props} params={useParams()} />;
+}
+
 
 class DetailsHomeless extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log("DetailsHomeLess File: "+ this.props.id)
+   
     this.isClicked = true;
     
-    
     this.state = {
-      name: "", age: "",date:"", id: this.props.id, personalPhone: "",parentsAddress: "", background: "",
+      name: "", age: "",date:"", id:this.props.params.idHomeless, personalPhone: "",parentsAddress: "", background: "",
       referrer: "", contact: "", therapeutic_history: "", criminalRecord: "",
       psycoticPast: "", addiction_History: "", prominent_institutions: "", formFiller: "",stage:"בחר שלב",room:"בחר חדר",sleepingPlace:""
       ,nameOf_prominent_institutions:"" };
@@ -129,7 +134,7 @@ class DetailsHomeless extends React.Component {
 
 componentDidMount(){
     
-  getDetailsHomelessesById( this.state.id).then((data) => {
+  getDetailsHomelessesById( this.props.params.idHomeless).then((data) => {
     this.setState(data);
     console.log(data);
   }).catch(() => {
@@ -326,4 +331,4 @@ componentDidMount(){
   }
 }
 
-export default DetailsHomeless;
+export default withParams(DetailsHomeless);

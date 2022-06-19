@@ -1,0 +1,82 @@
+[debug] [2022-06-15T15:45:15.667Z] ----------------------------------------------------------------------
+[debug] [2022-06-15T15:45:15.669Z] Command:       /opt/homebrew/Cellar/node/18.0.0/bin/node /opt/homebrew/bin/firebase init
+[debug] [2022-06-15T15:45:15.669Z] CLI Version:   11.1.0
+[debug] [2022-06-15T15:45:15.669Z] Platform:      darwin
+[debug] [2022-06-15T15:45:15.670Z] Node Version:  v18.0.0
+[debug] [2022-06-15T15:45:15.670Z] Time:          Wed Jun 15 2022 18:45:15 GMT+0300 (Eastern European Summer Time)
+[debug] [2022-06-15T15:45:15.671Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-06-15T15:45:15.675Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-06-15T15:45:15.675Z] > authorizing via signed-in user (anamnelqds@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/bashairamro/projects/Shelter/react-app
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2022-06-15T15:55:36.282Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2022-06-15T15:55:37.152Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2022-06-15T15:55:37.152Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] i  Using project hamakum-40448 (Hamakum) 
+[info] 
+=== Firestore Setup
+[debug] [2022-06-15T15:55:46.189Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hamakum-40448/services/firestore.googleapis.com [none]
+[debug] [2022-06-15T15:55:47.343Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hamakum-40448/services/firestore.googleapis.com 200
+[debug] [2022-06-15T15:55:47.343Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hamakum-40448/services/firestore.googleapis.com [omitted]
+[debug] [2022-06-15T15:55:47.344Z] >>> [apiv2][query] GET https://appengine.googleapis.com/v1/apps/hamakum-40448 [none]
+[debug] [2022-06-15T15:55:47.997Z] <<< [apiv2][status] GET https://appengine.googleapis.com/v1/apps/hamakum-40448 200
+[debug] [2022-06-15T15:55:47.997Z] <<< [apiv2][body] GET https://appengine.googleapis.com/v1/apps/hamakum-40448 {"name":"apps/hamakum-40448","id":"hamakum-40448","authDomain":"gmail.com","locationId":"us-central","codeBucket":"staging.hamakum-40448.appspot.com","servingStatus":"SERVING","defaultHostname":"hamakum-40448.uc.r.appspot.com","defaultBucket":"hamakum-40448.appspot.com","serviceAccount":"hamakum-40448@appspot.gserviceaccount.com","gcrDomain":"us.gcr.io","databaseType":"CLOUD_FIRESTORE","featureSettings":{"splitHealthChecks":true,"useContainerOptimizedOs":true}}
+[debug] [2022-06-15T15:55:47.997Z] database_type: CLOUD_FIRESTORE
+[debug] [2022-06-15T15:55:47.998Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-06-15T15:55:47.999Z] > authorizing via signed-in user (anamnelqds@gmail.com)
+[debug] [2022-06-15T15:55:47.999Z] [iam] checking project hamakum-40448 for permissions ["firebase.projects.get"]
+[debug] [2022-06-15T15:55:48.000Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/hamakum-40448:testIamPermissions [none]
+[debug] [2022-06-15T15:55:48.000Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/hamakum-40448:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2022-06-15T15:55:48.473Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/hamakum-40448:testIamPermissions 200
+[debug] [2022-06-15T15:55:48.473Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/hamakum-40448:testIamPermissions {"permissions":["firebase.projects.get"]}
+[info] 
+[info] Firestore Security Rules allow you to define how and when to allow
+[info] requests. You can keep these rules in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[debug] [2022-06-15T15:56:51.672Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/hamakum-40448/releases pageSize=10&pageToken=
+[debug] [2022-06-15T15:56:52.813Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/hamakum-40448/releases 200
+[debug] [2022-06-15T15:56:52.813Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/hamakum-40448/releases {"releases":[{"name":"projects/hamakum-40448/releases/cloud.firestore","rulesetName":"projects/hamakum-40448/rulesets/6b2b8e70-d7ab-4d92-944b-3baca9b0bac3","createTime":"2022-05-12T17:49:05.773606Z","updateTime":"2022-06-10T12:34:18.106259Z"},{"name":"projects/hamakum-40448/releases/firebase.storage/hamakum-40448.appspot.com","rulesetName":"projects/hamakum-40448/rulesets/68fe4bdb-b428-4e81-8117-d41dfba42199","createTime":"2022-05-31T13:05:43.415019Z","updateTime":"2022-05-31T13:07:05.312423Z"}]}
+[debug] [2022-06-15T15:56:52.813Z] Found ruleset: projects/hamakum-40448/rulesets/6b2b8e70-d7ab-4d92-944b-3baca9b0bac3
+[debug] [2022-06-15T15:56:52.814Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/hamakum-40448/rulesets/6b2b8e70-d7ab-4d92-944b-3baca9b0bac3 [none]
+[debug] [2022-06-15T15:56:53.283Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/hamakum-40448/rulesets/6b2b8e70-d7ab-4d92-944b-3baca9b0bac3 200
+[debug] [2022-06-15T15:56:53.284Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/hamakum-40448/rulesets/6b2b8e70-d7ab-4d92-944b-3baca9b0bac3 [omitted]
+[info] 
+[info] Firestore indexes allow you to perform complex queries while
+[info] maintaining performance that scales with the size of the result
+[info] set. You can keep index definitions in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[debug] [2022-06-15T15:56:59.110Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/hamakum-40448/databases/(default)/collectionGroups/-/indexes [none]
+[debug] [2022-06-15T15:56:59.111Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/hamakum-40448/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false [none]
+[debug] [2022-06-15T15:57:00.291Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/hamakum-40448/databases/(default)/collectionGroups/-/indexes 200
+[debug] [2022-06-15T15:57:00.292Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/hamakum-40448/databases/(default)/collectionGroups/-/indexes {}
+[debug] [2022-06-15T15:57:00.292Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/hamakum-40448/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false 200
+[debug] [2022-06-15T15:57:00.293Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/hamakum-40448/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false {"fields":[{"name":"projects/hamakum-40448/databases/(default)/collectionGroups/__default__/fields/*","indexConfig":{"indexes":[{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"ASCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"DESCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","arrayConfig":"CONTAINS"}],"state":"READY"}]}}]}
+[info] 
+=== Hosting Setup
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 
+[debug] [2022-06-15T20:46:57.490Z] >>> [apiv2][query] GET https://www.gstatic.com/firebasejs/releases.json [none]
+[debug] [2022-06-15T20:46:57.944Z] <<< [apiv2][status] GET https://www.gstatic.com/firebasejs/releases.json 200
+[debug] [2022-06-15T20:46:57.944Z] <<< [apiv2][body] GET https://www.gstatic.com/firebasejs/releases.json {"current":{"version":"9.8.3","browserURL":"https://www.gstatic.com/firebasejs/9.8.3/firebase.js","packageURL":"https://www.gstatic.com/firebasejs/9.8.3/firebase.tgz"},"live":{"version":"9.8","browserURL":"https://www.gstatic.com/firebasejs/live/9.8/firebase.js","packageURL":"https://www.gstatic.com/firebasejs/live/9.8/firebase.tgz"},"components":{"analytics":"https://www.gstatic.com/firebasejs/9.8.3/firebase-analytics.js","app":"https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js","app-check":"https://www.gstatic.com/firebasejs/9.8.3/firebase-app-check.js","auth":"https://www.gstatic.com/firebasejs/9.8.3/firebase-auth.js","auth/cordova":"https://www.gstatic.com/firebasejs/9.8.3/firebase-auth/cordova.js","auth/react-native":"https://www.gstatic.com/firebasejs/9.8.3/firebase-auth/react-native.js","functions":"https://www.gstatic.com/firebasejs/9.8.3/firebase-functions.js","firestore":"https://www.gstatic.com/firebasejs/9.8.3/firebase-firestore.js","firestore/lite":"https://www.gstatic.com/firebasejs/9.8.3/firebase-firestore/lite.js","storage":"https://www.gstatic.com/firebasejs/9.8.3/firebase-storage.js","performance":"https://www.gstatic.com/firebasejs/9.8.3/firebase-performance.js","remote-config":"https://www.gstatic.com/firebasejs/9.8.3/firebase-remote-config.js","messaging":"https://www.gstatic.com/firebasejs/9.8.3/firebase-messaging.js","messaging/sw":"https://www.gstatic.com/firebasejs/9.8.3/firebase-messaging/sw.js","database":"https://www.gstatic.com/firebasejs/9.8.3/firebase-database.js","firestore.memory":"https://www.gstatic.com/firebasejs/9.8.3/firebase-firestore.memory.js"}}

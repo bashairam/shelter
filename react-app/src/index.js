@@ -58,13 +58,13 @@ root.render(
           <Route path="/add" element={<Add />} />
 
           {/* protected routes */}
-          <Route element={<RequireAuth allowedRoles={['מנהל', 'רכז', 'עובד סוציאלי', 'מדריך']} />}>
+          <Route element={<RequireAuth allowedRoles={['מנהל', 'רכז', 'עובד סוציאלי', 'מדריך','אם בית']} />}>
             <Route path="/" element={<Home />} />
             <Route path="/report" element={<ReportHomelessWithProps />} />
             <Route path="/allreports" element={<AllReportsWithProps />} />
             <Route path="/search/:profileSlug" element={<Profile />} />
           </Route>
-          <Route element={<RequireAuth allowedRoles={['מנהל', 'רכז', 'עובד סוציאלי']} />}>
+          <Route element={<RequireAuth allowedRoles={['מנהל', 'רכז', 'עובד סוציאלי', 'מדריך','אם בית']} />}>
             <Route path="/updateDetailsHomeless" element={<DetailsHomelessWithProps />} />
           </Route>
 

@@ -102,14 +102,14 @@ export function Search() {
         <div className="search">
           <i className="fa-fa-search"></i>
           <div className="ms-auto me-auto d-flex col-md-6">
+          
+          {currentUser &&
             <DropdownButton
               id="dropdown1"
               variant="secondary"
               title="סנן לפי"
               className="dropdown dropleft"
               size="sm"
-              
-
             >
               <Dropdown.Item  >
                 <a onClick={handleClickPsycotic}>רקע פסיכיאטרי </a>
@@ -128,7 +128,7 @@ export function Search() {
               </Dropdown.Item>
 
             </DropdownButton>
-
+          }
             <input
               type="text"
               className="form-control"
@@ -138,6 +138,7 @@ export function Search() {
               }} />
 
           </div>
+          
 
           <Link to="/add">
             <button className="me-0" style={{ display: 'block' }}>הוספת צעיר</button>
@@ -158,15 +159,13 @@ export function Search() {
                 <thead>
                   <tr >
                     {currentUser &&
-                      Role({ currentUser }, { users }, { isPending }, ['מנהל', 'רכז', 'עובד סוציאלי']) == true
-                      &&
                       <>
-
-
                         <th style = {{width:'5%'}} className="del">להוציא מהשלטר</th>
-                        <th className="del">למחוק</th></>}
-                    <th>צפה בפרופיל</th>
-                    <th>מסודות שהיה בהן בעבר</th>
+                        <th className="del">למחוק</th>
+                        <th>צפה בפרופיל</th>
+                          <th>מסודות שהיה בהן בעבר</th>
+                      </>
+                    }
                     <th>עיר מגורים</th>
                     <th>גיל</th>
                     <th>ת.ז</th>
@@ -203,8 +202,6 @@ export function Search() {
                       <tr key={item.id} >
 
                         {currentUser &&
-                          Role({ currentUser }, { users }, { isPending }, ['מנהל', 'רכז', 'עובד סוציאלי']) == true
-                          &&
                           <>
                             <td className="del">
                               {!inhmlsIsPending &&
@@ -216,15 +213,18 @@ export function Search() {
                             </td>
 
                             <td className="del">
-                              <button className="bi bi-person-x" onClick={() => handleDelete(item.id)}></button></td>
-                          </>}
+                              <button className="bi bi-person-x" onClick={() => handleDelete(item.id)}></button>
+                            </td>
 
+                            <td>
+                              <button className="view bi bi-person-square" onClick={() => {
+                                  navigate(`/search/${item.id}`)
+                                }}>
+                              </button>
+                            </td>  
 
-                        <td><button className="view bi bi-person-square" onClick={() => {
-                          navigate(`/search/${item.id}`)
-                        }}>
-                          </button></td>
-                        <td>{item.nameOf_prominent_institutions}</td>
+                            <td>{item.nameOf_prominent_institutions}</td>
+                        </>}
                         <td>{item.parentsAddress}</td>
                         <td>{item.age}</td>
                         <td>{item.id}</td>

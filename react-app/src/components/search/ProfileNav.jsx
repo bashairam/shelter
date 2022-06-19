@@ -100,10 +100,6 @@ function ProfileNav() {
 
   const container = document.getElementById('demo');
 
-  const handleClickRe = (e) => {
-    container.innerHTML = <AllReport id={profileSlug} />
-  };
-
   const handleClickHis = (e) => { container.innerText = history[e.target.id] };
 
   const handleClickDoc = (e) => {
@@ -150,7 +146,7 @@ function ProfileNav() {
 
     const myElement = (
 
-      <div className="infoDeta text-right"  >
+      <div className="infoDeta " style={{marginLeft:'auto',marginRight:'auto'}}  >
 
         {/*Enter Date*/}
 
@@ -245,11 +241,6 @@ function ProfileNav() {
                   }
                 </NavDropdown>
               </li>
-
-              {
-                Role({ currentUser }, { users }, { isPending }, ['מנהל', 'רכז', 'עובד סוציאלי']) == true
-
-                &&
                 <li className="nav-item">
                   <NavDropdown title="מסמכים" id="collasible-nav-dropdown1" style={{ right: '30%' }}>
                     {
@@ -268,13 +259,7 @@ function ProfileNav() {
                     }
                   </NavDropdown>
                 </li>
-              }
 
-
-
-
-              {Role({ currentUser }, { users }, { isPending }, ['מנהל', 'רכז', 'עובד סוציאלי']) == true
-                &&
                 <li className="nav-item">
 
 
@@ -328,7 +313,7 @@ function ProfileNav() {
                     }
                   </NavDropdown>
                 </li>
-              }
+              
 
               <li className="nav-item">
                 {/* <NavItem> */}
@@ -336,7 +321,7 @@ function ProfileNav() {
                 {/* </NavItem> */}
 
               </li>
-
+             
 
             </ul>
           </div>

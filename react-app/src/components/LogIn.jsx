@@ -14,14 +14,18 @@ const LogIn = () => {
   const { currentUser } = useAuth();
 
   const forgotPassword = () => {
+    if(email){
     sendPasswordResetEmail(auth, email)
       .then(function () {
         alert("נשלחה הודעה לכתובת המייל שלך");
       })
       .catch(function (error) {
         console.log(error.message)
-        alert("הייתה בעיה בשליחת מייל לאיפוס הסיסמה");
-      })
+        alert("לא נמצא משתמש");
+      })}
+      else{
+        alert("הכנס את כתובת הדוא״ל לשחזור סיסמא");
+      }
   }
 
 
@@ -43,7 +47,7 @@ const LogIn = () => {
 
   return (
 
-    !currentUser ? <div className="text-end">
+    !currentUser ? <div className="text-end"  >
       <div className="mx-auto">
         <div className=" login my-5" >
           <h1 className="font-weight-light">כניסה לאיזור האישי</h1>

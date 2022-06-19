@@ -120,7 +120,7 @@ class Report extends React.Component {
         const { created, fname, content, sheft } = this.state;
 
         return (
-            <div className="d-flex justify-content-center" dir="rtl" >
+            <div className="d-flex justify-content-center my-5" dir="rtl" >
                 <form onSubmit={this.handleSubmit} class="col-md-6" dir="rtl" >
                     <div class="d-flex justify-content-center"><h1>{this.nameBtn} דו"ח  לצעיר</h1></div>
                     <br></br>

@@ -1,23 +1,28 @@
 .nav-pills .nav-link{
-      border-radius: 0;
+
+
+      border-radius: 3;
       color: black;
       background-color: white;
       border-bottom :1px solid  #eeeaea;
-
+      width: 30px;
 
 }
 .nav.nav-pills .nav-link.active {
     background-color: white;
     color: black;
     border :2px solid  #dddddd;
-    box-shadow: 0 0 15px 4px rgb(240, 192, 153);
+    box-shadow: 0 0 15px 4px #b9bfd1;
 
 
 }
 .nav-pills .nav-item:not(:nth-last-child(1)).nav-link{
     border-right:1px solid white;
 }
-.tab-content{
+/* .tab-content{
     background-color: rgb(249, 245, 241);
     height: 1000px;
+} */
+.board{
+    opacity: 100%;
 }

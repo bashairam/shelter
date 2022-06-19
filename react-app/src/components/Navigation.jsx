@@ -15,14 +15,12 @@ function Navigation() {
   const { isPending, data: users } = useFetch('users');
 
   const clickLogin = () => {
-    if (currentUser) {
+ 
       signOut(auth);
       navigate("/login");
 
-    } else {
-      navigate("/login");
-    }
   };
+
   const editDetails=()=>{
     navigate("/user");
   };
@@ -33,18 +31,24 @@ function Navigation() {
         <div className="container" >
         <div className='ml-auto'>
             <ul className="navbar-nav" >
-              <li className="nav-item"> 
-                  <NavDropdown title="איזור אישי" id="collasible-nav-dropdown">
-                 { currentUser!=null && <NavDropdown.Item  className="text-end">
+            {currentUser ? <li className="nav-item"> 
+                  <NavDropdown   title="איזור אישי" id="collasible-nav-dropdown">
+                 <NavDropdown.Item  className="text-end">
                    <button onClick={editDetails} style={{float:'right'}} >עדכון פרטים אישיים</button> 
-                  </NavDropdown.Item>}
-                  <NavDropdown.Item >
+                  </NavDropdown.Item>
+                  <NavDropdown.Item className="text-end" >
                     <button onClick={clickLogin}>
-                      {currentUser ? "Log Out" : "Login"}
+                     התנתק
                     </button>
                   </NavDropdown.Item>
                   </NavDropdown>
-                </li>
+                  </li>
+
+                  :<li className="nav-item">
+                    <NavLink className="nav-link" to="/login">
+                      כניסה
+                    </NavLink>
+                    </li>}
               <li className="nav-item">
                 <NavLink className="nav-link" to="/search">
                   כל הצעירים

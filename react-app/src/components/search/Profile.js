@@ -13,7 +13,6 @@ import 'firebase/storage';
 import LoadingScreen from 'react-loading-screen';
 import ProfileNav from "./ProfileNav";
 
-
 export function Profile() {
 
   //-------------------------variables-----------------------------------------------
@@ -199,7 +198,7 @@ export function Profile() {
 
    
  
-    <div className="home">
+    <div className="home"  >
       <script src="https://kit.fontawesome.com/yourcode.js" crossOrigin="anonymous"></script>
          {
         loading && <LoadingScreen loading={true}
@@ -216,7 +215,6 @@ export function Profile() {
     
         <div className="info">
             {/* name */}
-            <span class="dot" style={{marginBottom: '40px'}}></span>
            
             <div className="subInfo" data-toggle="tooltip" data-placement="bottom" title="שם הצעיר">
                  
@@ -251,7 +249,6 @@ export function Profile() {
         
 
         <div className = "cli">
-        <span class="dot1" style={{marginBottom: '40px'}}></span>
 
         {inHomeless!=null && <Link to="/report" state={{id:profileSlug,method:'create'}}>
           <button className="me-1 "  > הוספת דוח  <i className="bi5 bi-file-earmark-plus fa-fw"></i> </button>
@@ -295,8 +292,10 @@ export function Profile() {
 
         <ProfileNav />
 
-        <div id="demo">
+        <div style = {{alignContent:'center'}} id="demo">
           {history.background}
+
+
         </div>
 
       </div>

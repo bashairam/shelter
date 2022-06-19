@@ -25,26 +25,9 @@ import AllReport from './components/AllReport';
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-const AllReportsWithProps = () => {
-  const { state } = useLocation();
-  const { id } = state
 
-  return <AllReport id={id} />
-};
-const DetailsHomelessWithProps = () => {
-  const { state } = useLocation();
-  const { id } = state
 
-  return <DetailsHomeless id={id} />
-};
 
-const ReportHomelessWithProps = () => {
-  const { state } = useLocation();
-  const { id, method, report } = state
-
-  return <Report id={id} method={method} report={report} />
-};
-// element={<DetailsHomeless id = "asdadasdasdasdasd"/>}
 root.render(
   <React.StrictMode>
     <AuthProvider>
@@ -60,12 +43,12 @@ root.render(
           {/* protected routes */}
           <Route element={<RequireAuth allowedRoles={['מנהל', 'רכז', 'עובד סוציאלי', 'מדריך','אם בית']} />}>
             <Route path="/" element={<Home />} />
-            <Route path="/report" element={<ReportHomelessWithProps />} />
-            <Route path="/allreports" element={<AllReportsWithProps />} />
+            <Route path="/report/:method/:idHomeless" element={<Report />} />
+            <Route path="/allreports/:idHomeless" element={<AllReport/>} />
             <Route path="/search/:profileSlug" element={<Profile />} />
           </Route>
           <Route element={<RequireAuth allowedRoles={['מנהל', 'רכז', 'עובד סוציאלי', 'מדריך','אם בית']} />}>
-            <Route path="/updateDetailsHomeless" element={<DetailsHomelessWithProps />} />
+            <Route path="/updateDetailsHomeless/:idHomeless" element={<DetailsHomeless />} />
           </Route>
 
           <Route element={<RequireAuth allowedRoles={['מנהל']} />}>

@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import { firestore } from "../firebase";
 import LoadingScreen from 'react-loading-screen';
 import { getAuth, deleteUser } from "firebase/auth";
-
+import { toast } from "react-toastify";
+import userEvent from "@testing-library/user-event";
 
 const Staff = () => {
 
@@ -14,18 +15,17 @@ const Staff = () => {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
-  // const auth = getAuth();
-  // const user = auth.name
-  
+  //const auth = getAuth();
+ // const user = auth.currentUser;
+ //const admin = require('./firebase_admin');
+
   const handleDelete = async (id) => {
     if (window.confirm("? האם אתה בטוח שאתה רוצה למחוק את העודב ממערכת")) {
 
        const docRe = doc(firestore, "users",id) 
        await deleteDoc(docRe)
-       
-          
-      // deleteUser(user)
-
+        
+      await deleteUser(userEvent)
     }
     window.location.reload(false);
     navigate("/staff");
@@ -114,4 +114,3 @@ const Staff = () => {
   )
 }
 export default Staff;
-

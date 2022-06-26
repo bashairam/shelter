@@ -125,17 +125,40 @@ export function Search() {
     }      
      return( 
      
-      <tr key={item.id} >             
-      <td><button className="view" onClick={() => { 
-       navigate(`/search/${item.id}`)
-       }}>
-        פרטים</button></td>
-       <td>{item.nameOf_prominent_institutions}</td>  
-       <td>{item.parentsAddress}</td>
-       <td>{item.age}</td>
-       <td>{item.id}</td>
-       <td>{item.name}</td>
-     </tr>
+      <tr key={item.id} >
+
+                        {currentUser &&
+                          <>
+                            <td className="del">
+                              {!inhmlsIsPending &&
+                                inHmlsLists.find((inhml) => inhml.id === item.id)
+                                &&
+                                <button className="bi bi-door-open"onClick={() => handleDe(item.id,item.name,item.age,item.parentsAddress,item.nameOf_prominent_institutions,item.psycoticPast
+                                ,item.criminalRecord,item.addiction_History,item.background,item.contact,item.personalPhone,item.formFiller,item.referrer,item.sleepingPlace
+                                )}></button>}
+                            </td>
+
+                            <td className="del">
+                              <button className="bi bi-person-x" onClick={() => handleDelete(item.id)}></button>
+                            </td>
+
+                            <td>
+                              <button className="view bi bi-person-square" onClick={() => {
+                                  navigate(`/search/${item.id}`)
+                                }}>
+                              </button>
+                            </td>  
+
+                            <td>{item.nameOf_prominent_institutions}</td>
+                          </> 
+                        }
+                        <td>{item.parentsAddress}</td>
+                        <td>{item.age}</td>
+                        <td>{item.id}</td>
+                        <td>{item.name}</td>
+                  
+                    
+                        </tr>
    )
   }
   
@@ -245,41 +268,9 @@ export function Search() {
                       if (search === "") {
                         return item
                       }
-                    }).map(item =>
-                      <tr key={item.id} >
+                    }).map(item => tableFil(item)
 
-                        {currentUser &&
-                          <>
-                            <td className="del">
-                              {!inhmlsIsPending &&
-                                inHmlsLists.find((inhml) => inhml.id === item.id)
-                                &&
-                                <button className="bi bi-door-open"onClick={() => handleDe(item.id,item.name,item.age,item.parentsAddress,item.nameOf_prominent_institutions,item.psycoticPast
-                                ,item.criminalRecord,item.addiction_History,item.background,item.contact,item.personalPhone,item.formFiller,item.referrer,item.sleepingPlace
-                                )}></button>}
-                            </td>
-
-                            <td className="del">
-                              <button className="bi bi-person-x" onClick={() => handleDelete(item.id)}></button>
-                            </td>
-
-                            <td>
-                              <button className="view bi bi-person-square" onClick={() => {
-                                  navigate(`/search/${item.id}`)
-                                }}>
-                              </button>
-                            </td>  
-
-                            <td>{item.nameOf_prominent_institutions}</td>
-                          </> 
-                        }
-                        <td>{item.parentsAddress}</td>
-                        <td>{item.age}</td>
-                        <td>{item.id}</td>
-                        <td>{item.name}</td>
-                  
-                    
-                        </tr>
+                      
                     )}
 
                 </tbody>

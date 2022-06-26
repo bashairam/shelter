@@ -140,8 +140,6 @@ class Report extends React.Component {
                                <option value={`${sheft}`}>{sheft}</option>
                                 <option value="בוקר">בוקר</option>
                                 <option value="ערב">ערב</option>
-                                <option value="לילה">לילה</option>
-
 
                             </select>
                         </div>

@@ -20,7 +20,6 @@ input[type="file"] {
     float: left;
     padding-top: 2px;
   }
-
   .arrow-down {
    
     border-left: 60px solid transparent;
@@ -96,11 +95,11 @@ input[type="file"] {
 }
 
 .vl {
-    position: sticky;
+    position: relative;
     border-right: 6px solid rgb(247, 116, 9);
     border-radius: 5px;
     margin-right: 1.5cm;
-    height: 25%;
+    height: 100%;
 }
 
 i.bi2,
@@ -189,6 +188,7 @@ i.b6{
     padding-top: 5px;
     padding-right: 1px;
 }
+
 .me-0 {
     width: 13%;
   
@@ -215,6 +215,7 @@ i.b6{
 }
 
 hr.new4 {
+    position: relative;
     border-top: 1px solid black;
     height: 7px;
     border: 0 none;
@@ -223,6 +224,7 @@ hr.new4 {
     margin-right: 5%;
     background-color: rgb(247, 116, 9);
     color: rgb(247, 116, 9);
+   bottom: 30%;
 
 }
 
@@ -262,6 +264,22 @@ div.infoDeta {
     float: right;
     margin-top: 2cm;
 }
+.dot {
+    height: 70px;
+    width: 70px;
+    background-color: rgb(247, 116, 9);
+    border-radius: 50%;
+    display: inline;
+    float: left;
+  }
+  .dot1{
+    height: 100px;
+    width: 100px;
+    background-color: rgb(247, 116, 9);
+    border-radius: 50%;
+    display: inline;
+    float: left;
+  }
 
 #demo {
     margin-top: 3%;
